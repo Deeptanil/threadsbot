@@ -1,11 +1,12 @@
 import requests
 import asyncio
+import os
+from dotenv import load_dotenv
 
-# 🔑 PASTE YOUR TOKEN HERE
-ACCESS_TOKEN = "THAAXrZAB6EYbxBYmFTSUVlRWYwdEc0ZA0N4VnF6MmFnckY3OVMxbEtsblZASdzRybWdsWDNwbzV2Umo1TFN6MDQwdVM2dmZAGSEVYQ3p3VzBWdjV2YnM5ekRwNFRSanFPRGp1ZAWtkTzgxcF84S2hDaFFvaGhlRDlJRnRkUnpSdVVUNmFWZAwZDZD"
+load_dotenv()
 
-# Your Threads User ID (you’ll need this)
-USER_ID = "1666190124802492"
+ACCESS_TOKEN = os.getenv("THREADS_ACCESS_TOKEN")
+USER_ID = os.getenv("THREADS_USER_ID")
 
 
 async def post_to_threads(text: str, creds_file=None):
