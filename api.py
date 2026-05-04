@@ -148,8 +148,11 @@ async def handle_auto_replies(role_desc=None):
                 reply_text = evaluation["reply_text"]
                 LOG.info(f"Decided to reply with: '{reply_text}'")
                 success = await reply_to_thread(reply_text, reply_id)
-                if success:
-                    newly_replied.append(reply_id)
+                
+                # We always add it to newly_replied, even if it failed.
+                # If Meta API returns "Media Not Found" for a glitched/deleted comment,
+                # we don't want to get stuck trying to reply to it every 30 minutes!
+                newly_replied.append(reply_id)
             else:
                 LOG.info("Decided to ignore this comment.")
                 # Mark as processed to ignore later
