@@ -2,8 +2,8 @@ name: Auto Threads Bot
 
 on:
   schedule:
-    # Runs every 2 hours (e.g., 00:00, 02:00, 04:00...)
-    - cron: '0 */2 * * *'
+    # Runs every 30 minutes, but script will only post if random interval has passed
+    - cron: '*/30 * * * *'
   workflow_dispatch: # Allows manual trigger from the Actions tab
 
 jobs:
