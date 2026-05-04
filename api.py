@@ -61,7 +61,7 @@ async def get_recent_threads():
 async def get_thread_replies(media_id):
     url = f"https://graph.threads.net/v1.0/{media_id}/replies"
     params = {
-        "fields": "id,text,username",
+        "fields": "id,text,username,has_replies",
         "access_token": ACCESS_TOKEN
     }
     res = await asyncio.to_thread(requests.get, url, params=params)
@@ -120,10 +120,25 @@ async def handle_auto_replies(role_desc=None):
             reply_id = reply.get("id")
             text = reply.get("text", "")
             username = reply.get("username", "")
+            has_replies = reply.get("has_replies", False)
 
             if reply_id in replied_comments or reply_id in newly_replied:
                 continue
             if username == bot_username:
+                continue
+
+            # Check if we (or you manually) already replied to this specific comment
+            already_replied_by_us = False
+            if has_replies:
+                sub_replies = await get_thread_replies(reply_id)
+                for sub in sub_replies:
+                    if sub.get("username") == bot_username:
+                        already_replied_by_us = True
+                        break
+            
+            if already_replied_by_us:
+                LOG.info(f"Skipping comment from @{username} because we already replied to it.")
+                newly_replied.append(reply_id)
                 continue
 
             LOG.info(f"Evaluating new comment from @{username}: '{text}'")
