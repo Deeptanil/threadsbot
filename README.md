@@ -1,160 +1,66 @@
-# Threads Bot
+# Threads Bot (Gemini & GitHub Actions Fork)
 
-This repository contains a bot designed to automatically post content to Threads. The bot operates using a modular structure with asynchronous
-capabilities, making it efficient and extensible.
+> **Note:** This project is a fork of the original [jiri-otoupal/threadsBot](https://github.com/jiri-otoupal/threadsBot). Huge thanks to the original author for the foundational architecture!
+
+This repository contains a bot designed to automatically post highly engaging, viral content to Threads. It has been heavily modified from the original repository to run entirely for free in the cloud using GitHub Actions and the Google Gemini API.
 
 ---
 
-## Features
-
-- **Automatic Post Scheduling:** Ensures minimum intervals between posts to avoid spam.
-- **Dynamic Post Generation:** Generates batches of posts based on a role description.
-- **Customizable Post Frequency:** Specify the frequency of posts in seconds via command-line options.
-- **Progress Tracking:** Displays progress until the next post using a CLI progress bar.
-- **Error Handling:** Handles file and configuration errors gracefully.
-- **Asynchronous Architecture:** Utilizes asyncio for efficient and scalable operations.
+## Changes in this Fork
+- **Gemini AI Integration:** Switched from OpenAI's ChatGPT to Google's GenAI SDK (`gemini-3.1-flash-lite-preview`) for cost-effective, high-quality post generation.
+- **GitHub Actions Deployment:** Removed the 24/7 local loop. The script now executes once and gracefully exits, making it 100% compatible with free GitHub Actions cron schedules.
+- **Simplified Authentication:** Removed the complex OAuth callback server. The bot now directly uses a long-lived Threads User Access Token loaded securely from environment variables, eliminating the need for SSL certificates.
+- **Viral Prompt Engineering:** Completely rewrote `text_constants.py` to instruct the AI to write in an authentic, "un-corporate," and highly conversational tone optimized specifically for the Threads algorithm.
 
 ---
 
 ## Requirements
 
-- Python 3.7 or higher
+- Python 3.11 or higher
 - Dependencies specified in `requirements.txt`
-- `.env` file for environment-specific configuration
+- Long-lived Threads User Access Token
+- Google Gemini API Key
 
 ---
 
-## Installation
+## Installation & Deployment (GitHub Actions)
+
+This bot is designed to run automatically via GitHub Actions every 2 hours.
+
+1. Create a Threads app in the Meta Developer Dashboard and generate a long-lived User Access Token.
+2. Fork or upload this repository to your own GitHub account.
+3. Go to your repository's **Settings > Secrets and variables > Actions**.
+4. Add the following repository secrets:
+   - `THREADS_ACCESS_TOKEN`: Your long-lived Threads token.
+   - `THREADS_USER_ID`: Your Threads Account ID.
+   - `THREADS_APP_ID`: Your Meta App ID.
+   - `THREADS_API_SECRET`: Your Meta App Secret.
+   - `GOOGLE_API_KEY`: Your Gemini API Key.
+5. Go to **Settings > Actions > General > Workflow permissions** and ensure "Read and write permissions" is selected so the bot can save its state.
+6. The bot will now run automatically! You can also trigger it manually from the "Actions" tab.
+
+---
+
+## Local Usage
+
+If you prefer to test the bot locally:
 
 1. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-2. Create openssl certs for https
-
-```
-# Generate a private key
-openssl genpkey -algorithm RSA -out threads.key -pkeyopt rsa_keygen_bits:2048
-
-# Generate a certificate signing request (CSR)
-openssl req -new -key threads.key -out threads.csr
-
-# Generate a self-signed certificate valid for 1 year
-openssl x509 -req -days 365 -in threads.csr -signkey threads.key -out threads.crt
-```
-
-3. Create a Threads app in Meta
-4. Create a `.env` file for storing sensitive or environment-specific data.
-
-```
-Example:
-
-THREADS_APP_ID=123123123
-THREADS_API_SECRET=SomethingSecret
-THREADS_SSL_CERT_FILEPATH="threads.crt"
-THREADS_SSL_KEY_FILEPATH="threads.key"
-# You need this page to only capture the threads post callback and copy paste this into the script if asked for it
-THREADS_REDIRECT_URI="https://your-callback-url/callback"
-OPENAI_API_KEY="sk-supersecretopenai-key-which-will-be-used-for-requests"
-```
-
----
-
-## Usage
-
-Run the bot using the following command:
-
-```bash
-python bot.py <bot_name> [OPTIONS]
-```
-
-### Arguments:
-
-- `<bot_name>`: The unique name of the bot (required).
-
-### Options:
-
-- `-r, --role-txt-path`: Path to a file containing a role description for generating posts (optional).
-- `-c, --creds-file-path`: Path to a credentials file for authentication (optional).
-- `-f, --post-frequency`: Post frequency in seconds (optional, defaults to 7200 seconds).
-
-### Example:
-
-```bash
-python bot.py "MyThreadsBot" -r "role_description.txt" -c "creds.json" -f 3600
-```
-
----
-
-## Key Components
-
-### 1. `main_func`
-
-The entry point of the bot. Handles command-line arguments, reads optional files, and initializes the main asynchronous function.
-
-### 2. `main`
-
-The core loop of the bot:
-
-- Checks for existing posts.
-- Generates new posts if none are available.
-- Schedules and publishes posts while ensuring proper intervals.
-
-### 3. `api.py`
-
-Handles the API communication for posting content to Threads.
-
-### 4. `fetcher.py`
-
-Manages post generation, saving, and retrieval.
-
-### 5. `data_log.py`
-
-Handles loading and saving the last posted time for ensuring intervals between posts.
-
-### 6. `logging_setup.py`
-
-Sets up structured logging for monitoring and debugging.
-
-### 7. `text_constants.py`
-
-Sets up model behaviour and role
-
----
-
-## Configuration
-
-### Logging
-
-Logging is configured in `logging_setup.py` to ensure all activities are recorded. Modify the logging level and output format as needed.
-
-### Minimum Timespan
-
-The default interval between posts is set in the script:
-
-```python
-MINIMUM_TIMESPAN_BETWEEN_POSTS = 60 * 60 * 2  # 2 hours in seconds
-```
-
-You can override this using the `-f` or `--post-frequency` command-line option.
-
----
-
-## Development
-
-To contribute or modify the bot:
-
-1. Create a new branch:
-   ```bash
-   git checkout -b feature/new-feature
+2. Create a `.env` file in the root directory:
+   ```env
+   THREADS_APP_ID=your_app_id
+   THREADS_API_SECRET=your_app_secret
+   THREADS_ACCESS_TOKEN=your_long_lived_token
+   THREADS_USER_ID=your_user_id
+   GOOGLE_API_KEY=your_gemini_key
    ```
-
-2. Make changes and test locally:
+3. Run the bot:
    ```bash
-   python bot.py <bot_name> [OPTIONS]
+   python main.py <bot_name>
    ```
-
-3. Submit a pull request to the `main` branch.
 
 ---
 
@@ -164,9 +70,9 @@ This project is licensed under the specific License. See the `LICENSE` file for 
 
 ---
 
-Did you find it useful?
+Did you find the original project useful?
 <br>
 <br>
-Please support my work here
+Please support the original creator's work here:
 <br>
 <a href="https://www.buymeacoffee.com/jiriotoupal" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy me a Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>

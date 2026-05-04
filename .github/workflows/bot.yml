@@ -1,0 +1,43 @@
+name: Auto Threads Bot
+
+on:
+  schedule:
+    # Runs every 2 hours (e.g., 00:00, 02:00, 04:00...)
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # Allows manual trigger from the Actions tab
+
+jobs:
+  post_to_threads:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to commit the state files back to the repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Threads Bot
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          THREADS_APP_ID: ${{ secrets.THREADS_APP_ID }}
+          THREADS_API_SECRET: ${{ secrets.THREADS_API_SECRET }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: python main.py mybot
+
+      - name: Commit and Push State
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add posts-mybot.json data.json || true
+          git commit -m "chore: update bot state [skip ci]" || echo "No changes to commit"
+          git push
