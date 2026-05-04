@@ -63,6 +63,55 @@ async def generate_posts_batch(text, override_role=None) -> List[Dict]:
     return []
 
 
+# ✅ Evaluate comment for auto-reply
+async def evaluate_comment_for_reply(comment_text: str, override_role=None) -> Dict:
+    for attempt in range(3):
+        try:
+            prompt = f"""
+            {role_desc if override_role is None else override_role}
+
+            You are evaluating a comment left on your Threads post.
+            The comment is: "{comment_text}"
+
+            Evaluate if this comment is positive, interactive, and good for your account.
+            Do NOT reply if it's negative, hateful, spam, or a generic bot-like comment.
+            If it is good, generate a short, human-like, authentic response.
+            If an interactable question can be asked organically, include it. Otherwise, keep it a simple, short reply (sometimes just a thank youuuu).
+
+            Return ONLY valid JSON in this format:
+            {{
+                "should_reply": true or false,
+                "reply_text": "your response here, or empty string if false"
+            }}
+            """
+
+            response = client.models.generate_content(
+                model="gemini-3.1-flash-lite-preview",
+                contents=prompt,
+            )
+
+            raw = response.text.strip()
+            if raw.startswith("```"):
+                lines = raw.split("\n")
+                if lines[0].startswith("```"):
+                    lines = lines[1:]
+                if lines[-1].startswith("```"):
+                    lines = lines[:-1]
+                raw = "\n".join(lines)
+            
+            # Clean up potential "json" prefix inside block
+            if raw.startswith("json\n"):
+                raw = raw[5:]
+
+            data = json.loads(raw)
+            return data
+        except Exception as e:
+            LOG.error(f"Reply eval retry {attempt+1} due to error: {e}")
+            await asyncio.sleep(5)
+            
+    return {"should_reply": False, "reply_text": ""}
+
+
 # ✅ Save posts to file
 async def save_batch(name: str, batch: List[Dict]):
     if not batch:

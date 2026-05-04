@@ -49,6 +49,13 @@ def main_func(bot_name: str, role_txt_path: str, creds_file_path: str = None, po
 async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
                post_frequency=None) -> None:
     
+    # 1. ALWAYS run the auto-reply engine every time the script wakes up
+    from api import handle_auto_replies
+    try:
+        await handle_auto_replies(role_desc)
+    except Exception as e:
+        LOG.error(f"Error during auto-reply check: {e}")
+        
     current_time = time.time()
     last_posted_time = await load_last_posted_time()
     next_post_time = last_posted_time.get("next_post_time", 0)
