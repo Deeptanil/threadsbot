@@ -1,6 +1,6 @@
 rich
 aiofiles
-tqdm
 click
-pythreads
-openai
+python-dotenv
+requests
+google-genai
