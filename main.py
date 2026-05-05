@@ -97,5 +97,5 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
 
 if __name__ == "__main__":
     setup_logging()
-    print("Starting bot...")
+    LOG.info("Starting bot run...")
     main_func()
