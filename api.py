@@ -151,8 +151,23 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
                         newly_replied.append(reply_id)
                         
                         if success:
-                            from discord_notifier import send_discord_notification
-                            send_discord_notification(f"💬 **New Auto-Reply!**\n**Context:** {thread_text}\n**User (@{username}):** {text}\n**Bot:** {reply_text}")
+                            from discord_notifier import send_discord_embed
+                            
+                            original_thread = thread_text.split('\n[Reply by')[0]
+                            if len(original_thread) > 1000:
+                                original_thread = original_thread[:1000] + "..."
+                                
+                            fields = [
+                                {"name": "Original Thread", "value": original_thread, "inline": False},
+                                {"name": f"User Comment (@{username})", "value": text, "inline": False},
+                                {"name": "Bot Reply", "value": reply_text, "inline": False}
+                            ]
+                            
+                            send_discord_embed(
+                                title="💬 Auto-Reply Triggered",
+                                fields=fields,
+                                color=0x2ecc71
+                            )
                     else:
                         LOG.info("Decided to ignore this comment.")
                         newly_replied.append(reply_id)

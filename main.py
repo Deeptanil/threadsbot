@@ -86,7 +86,7 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     random_delay = random.randint(2 * 3600, int(3.5 * 3600))
     new_next_post_time = current_time + random_delay
     
-    from discord_notifier import send_discord_notification
+    from discord_notifier import send_discord_embed
     
     await save_last_posted_time(current_time, {
         "post_count": posts_made, 
@@ -96,7 +96,12 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     LOG.info(f"Post made successfully. Total posts: {posts_made}.")
     LOG.info(f"Next post will be around {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(new_next_post_time))}. Exiting.")
     
-    send_discord_notification(f"🤖 **New Thread Posted!**\n> {post[0]}\n\nNext post scheduled for approximately {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(new_next_post_time))} UTC.")
+    send_discord_embed(
+        title="🤖 New Thread Posted!",
+        description=f"> {post[0]}",
+        fields=[{"name": "Next Scheduled Post", "value": f"<t:{int(new_next_post_time)}:R> (approx)", "inline": False}],
+        color=0x9b59b6
+    )
 
 
 if __name__ == "__main__":
