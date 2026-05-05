@@ -64,14 +64,15 @@ async def generate_posts_batch(text, override_role=None) -> List[Dict]:
 
 
 # ✅ Evaluate comment for auto-reply
-async def evaluate_comment_for_reply(comment_text: str, override_role=None) -> Dict:
+async def evaluate_comment_for_reply(comment_text: str, override_role=None, parent_post_text="") -> Dict:
     for attempt in range(3):
         try:
             prompt = f"""
             {role_desc if override_role is None else override_role}
 
             You are evaluating a comment left on your Threads post.
-            The comment is: "{comment_text}"
+            Your original post was: "{parent_post_text}"
+            The user commented: "{comment_text}"
 
             Evaluate if this comment is positive, interactive, and good for your account.
             Do NOT reply if it's negative, hateful, spam, or a generic bot-like comment.
@@ -112,7 +113,7 @@ async def evaluate_comment_for_reply(comment_text: str, override_role=None) -> D
             LOG.error(f"Reply eval retry {attempt+1} due to error: {e}")
             await asyncio.sleep(5)
             
-    return {"should_reply": False, "reply_text": ""}
+    return None
 
 
 # ✅ Save posts to file

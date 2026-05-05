@@ -32,6 +32,7 @@ jobs:
           THREADS_APP_ID: ${{ secrets.THREADS_APP_ID }}
           THREADS_API_SECRET: ${{ secrets.THREADS_API_SECRET }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python main.py mybot
 
       - name: Commit and Push State

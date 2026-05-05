@@ -49,13 +49,13 @@ LOG = logging.getLogger(__name__)
 async def get_recent_threads():
     url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
     params = {
-        "fields": "id",
+        "fields": "id,text",
         "access_token": ACCESS_TOKEN
     }
     res = await asyncio.to_thread(requests.get, url, params=params)
     data = res.json()
     if "data" in data:
-        return [item["id"] for item in data["data"]]
+        return data["data"]
     return []
 
 async def get_thread_replies(media_id):
@@ -95,7 +95,7 @@ async def reply_to_thread(text: str, reply_to_id: str):
     LOG.info(f"Reply published: {res2.json()}")
     return True
 
-async def process_replies_recursive(media_id, bot_username, replied_comments, newly_replied, role_desc):
+async def process_replies_recursive(media_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts):
     replies = await get_thread_replies(media_id)
     for reply in replies:
         reply_id = reply.get("id")
@@ -123,22 +123,38 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
                 newly_replied.append(reply_id)
             else:
                 LOG.info(f"Evaluating new comment from @{username}: '{text}'")
-                evaluation = await evaluate_comment_for_reply(text, role_desc)
+                evaluation = await evaluate_comment_for_reply(text, role_desc, parent_post_text=thread_text)
 
-                if evaluation.get("should_reply") and evaluation.get("reply_text"):
-                    reply_text = evaluation["reply_text"]
-                    LOG.info(f"Decided to reply with: '{reply_text}'")
-                    success = await reply_to_thread(reply_text, reply_id)
-                    newly_replied.append(reply_id)
+                if evaluation is None:
+                    # Strike system for failures
+                    strikes = failed_attempts.get(reply_id, 0) + 1
+                    failed_attempts[reply_id] = strikes
+                    if strikes >= 3:
+                        LOG.warning(f"Comment {reply_id} failed evaluation 3 times. Adding to ignore pile.")
+                        newly_replied.append(reply_id)
+                        failed_attempts.pop(reply_id, None)
+                    else:
+                        LOG.warning(f"Comment {reply_id} failed evaluation. Strike {strikes}/3. Will retry next time.")
                 else:
-                    LOG.info("Decided to ignore this comment.")
-                    newly_replied.append(reply_id)
+                    if evaluation.get("should_reply") and evaluation.get("reply_text"):
+                        reply_text = evaluation["reply_text"]
+                        LOG.info(f"Decided to reply with: '{reply_text}'")
+                        success = await reply_to_thread(reply_text, reply_id)
+                        newly_replied.append(reply_id)
+                        
+                        from discord_notifier import send_discord_notification
+                        send_discord_notification(f"💬 **New Auto-Reply!**\n**Context:** {thread_text}\n**User (@{username}):** {text}\n**Bot:** {reply_text}")
+                    else:
+                        LOG.info("Decided to ignore this comment.")
+                        newly_replied.append(reply_id)
+                    
+                    failed_attempts.pop(reply_id, None)
                 
                 await asyncio.sleep(2)
 
         # 2. Recursively process its children to catch fans replying back to us!
         if has_replies:
-            await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc)
+            await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
 
 async def handle_auto_replies(role_desc=None):
     LOG.info("Checking for new comments to auto-reply...")
@@ -155,17 +171,27 @@ async def handle_auto_replies(role_desc=None):
 
     data_log = await load_last_posted_time()
     replied_comments = data_log.get("replied_comments", [])
+    failed_attempts = data_log.get("failed_attempts", {})
     newly_replied = []
 
     # Check the 10 most recent threads
-    for thread_id in threads[:10]:
-        await process_replies_recursive(thread_id, bot_username, replied_comments, newly_replied, role_desc)
+    for thread in threads[:10]:
+        thread_id = thread.get("id")
+        thread_text = thread.get("text", "")
+        await process_replies_recursive(thread_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
 
-    if newly_replied:
+    if newly_replied or failed_attempts != data_log.get("failed_attempts", {}):
         replied_comments.extend(newly_replied)
         if len(replied_comments) > 2000:
             replied_comments = replied_comments[-2000:]
         
-        await save_last_posted_time(data_log.get("last_posted_time", 0), {"replied_comments": replied_comments})
+        # Clean up failed_attempts for extremely old ones to save memory
+        if len(failed_attempts) > 1000:
+            failed_attempts = {}
+            
+        await save_last_posted_time(data_log.get("last_posted_time", 0), {
+            "replied_comments": replied_comments,
+            "failed_attempts": failed_attempts
+        })
         
     LOG.info("Finished auto-reply check.")
