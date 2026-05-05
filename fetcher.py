@@ -75,8 +75,11 @@ async def evaluate_comment_for_reply(comment_text: str, override_role=None) -> D
 
             Evaluate if this comment is positive, interactive, and good for your account.
             Do NOT reply if it's negative, hateful, spam, or a generic bot-like comment.
-            If it is good, generate a short, human-like, authentic response.
-            If an interactable question can be asked organically, include it. Otherwise, keep it a simple, short reply (sometimes just a thank youuuu).
+            
+            CRITICAL: If the comment is a "conversation ender" (such as "you too", "thanks!", "have a great day", "haha", or just an emoji), do NOT reply. Return "should_reply": false. We do not want to force a reply when the conversation has naturally concluded!
+
+            If it is a good comment that warrants a response, generate a short, human-like, authentic response.
+            If an interactable question can be asked organically, include it. Otherwise, keep it a simple, short reply.
 
             Return ONLY valid JSON in this format:
             {{
