@@ -92,10 +92,18 @@ async def reply_to_thread(text: str, reply_to_id: str):
         "access_token": ACCESS_TOKEN,
     }
     res2 = await asyncio.to_thread(requests.post, publish_url, data=publish_payload)
-    LOG.info(f"Reply published: {res2.json()}")
+    res2_json = res2.json()
+    if "error" in res2_json:
+        LOG.error(f"Reply publish failed: {res2_json}")
+        return False
+        
+    LOG.info(f"Reply published: {res2_json}")
     return True
 
-async def process_replies_recursive(media_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts):
+async def process_replies_recursive(media_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts, depth=1):
+    if depth > 6:
+        return
+        
     replies = await get_thread_replies(media_id)
     for reply in replies:
         reply_id = reply.get("id")
@@ -142,8 +150,9 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
                         success = await reply_to_thread(reply_text, reply_id)
                         newly_replied.append(reply_id)
                         
-                        from discord_notifier import send_discord_notification
-                        send_discord_notification(f"💬 **New Auto-Reply!**\n**Context:** {thread_text}\n**User (@{username}):** {text}\n**Bot:** {reply_text}")
+                        if success:
+                            from discord_notifier import send_discord_notification
+                            send_discord_notification(f"💬 **New Auto-Reply!**\n**Context:** {thread_text}\n**User (@{username}):** {text}\n**Bot:** {reply_text}")
                     else:
                         LOG.info("Decided to ignore this comment.")
                         newly_replied.append(reply_id)
@@ -154,7 +163,8 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
 
         # 2. Recursively process its children to catch fans replying back to us!
         if has_replies:
-            await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
+            new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
+            await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
 
 async def handle_auto_replies(role_desc=None):
     LOG.info("Checking for new comments to auto-reply...")

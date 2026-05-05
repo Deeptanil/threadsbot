@@ -70,14 +70,18 @@ async def evaluate_comment_for_reply(comment_text: str, override_role=None, pare
             prompt = f"""
             {role_desc if override_role is None else override_role}
 
-            You are evaluating a comment left on your Threads post.
-            Your original post was: "{parent_post_text}"
-            The user commented: "{comment_text}"
+            You are evaluating a comment left on your Threads account.
+            Here is the full conversation history leading up to this point:
+            "{parent_post_text}"
+            
+            The user just commented: "{comment_text}"
 
             Evaluate if this comment is positive, interactive, and good for your account.
             Do NOT reply if it's negative, hateful, spam, or a generic bot-like comment.
             
-            CRITICAL: If the comment is a "conversation ender" (such as "you too", "thanks!", "have a great day", "haha", or just an emoji), do NOT reply. Return "should_reply": false. We do not want to force a reply when the conversation has naturally concluded!
+            CRITICAL RULE 1: If the comment is a "conversation ender" (such as "you too", "thanks!", "have a great day", "haha", or just an emoji), do NOT reply. Return "should_reply": false. We do not want to force a reply when the conversation has naturally concluded!
+            
+            CRITICAL RULE 2: You MUST NEVER say "I followed you", "I followed you back", or promise to follow someone. You are a bot and cannot actually press the follow button. Do not lie to the users.
 
             If it is a good comment that warrants a response, generate a short, human-like, authentic response.
             If an interactable question can be asked organically, include it. Otherwise, keep it a simple, short reply.
