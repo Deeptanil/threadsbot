@@ -22,6 +22,32 @@ LOG = logging.getLogger(__name__)
 # Initialize Gemini client
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
+async def evaluate_post_safety(post_text: str, override_role=None) -> bool:
+    try:
+        prompt = f"""
+        You are a content safety filter for a brand account.
+        Evaluate the following proposed post:
+        "{post_text}"
+        
+        Is this post safe to publish? It must meet ALL three criteria:
+        1. It makes logical sense.
+        2. It is NOT aggressive or hostile.
+        3. It is NOT harmful, offensive, or controversial.
+        
+        Return ONLY valid JSON:
+        {{"is_safe": true or false}}
+        """
+        response = client.models.generate_content(
+            model="gemini-3.1-flash-lite-preview",
+            contents=prompt,
+        )
+        raw = response.text.strip()
+        if raw.startswith("```"): raw = raw.split("```")[1]
+        data = json.loads(raw)
+        return data.get("is_safe", False)
+    except Exception as e:
+        LOG.error(f"Safety check failed: {e}")
+        return False
 
 # ✅ Generate posts using Gemini
 async def generate_posts_batch(text, override_role=None) -> List[Dict]:
@@ -52,9 +78,17 @@ async def generate_posts_batch(text, override_role=None) -> List[Dict]:
                 raw = raw.split("```")[1]
 
             data = json.loads(raw)
+            
+            safe_posts = []
+            for item in data:
+                is_safe = await evaluate_post_safety(item.get("post", ""), override_role)
+                if is_safe:
+                    safe_posts.append(item)
+                else:
+                    LOG.warning(f"Post failed safety filter: {item.get('post')}")
 
-            LOG.info(f"Generated {len(data)} posts")
-            return data
+            LOG.info(f"Generated {len(safe_posts)} safe posts (out of {len(data)})")
+            return safe_posts
 
         except Exception as e:
             LOG.error(f"Retry {attempt+1} due to error: {e}")
@@ -85,11 +119,15 @@ async def evaluate_comment_for_reply(comment_text: str, override_role=None, pare
 
             If it is a good comment that warrants a response, generate a short, human-like, authentic response.
             If an interactable question can be asked organically, include it. Otherwise, keep it a simple, short reply.
+            
+            CRITICAL RULE 3: If the comment is highly complex, a business inquiry, requires customer support, or clearly needs human judgment, do NOT reply. Set "needs_review" to true and provide a "suggested_reply" for the human to edit.
 
             Return ONLY valid JSON in this format:
             {{
                 "should_reply": true or false,
-                "reply_text": "your response here, or empty string if false"
+                "needs_review": true or false,
+                "suggested_reply": "your draft response here, or empty string",
+                "reply_text": "your auto-response here, or empty string if false or needs_review"
             }}
             """
 

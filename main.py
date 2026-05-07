@@ -3,12 +3,13 @@ import logging
 import random
 import sys
 import time
+import os
 from pathlib import Path
 
 import click
 from dotenv import load_dotenv
 
-from api import post_to_threads
+from api import post_to_threads, get_settings
 from data_log import load_last_posted_time, save_last_posted_time
 from fetcher import posts_exist, generate_posts_batch, save_batch, get_next_post
 from logging_setup import setup_logging
@@ -78,36 +79,73 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
         await save_batch(bot_name, batch)
         post = await get_next_post(bot_name)
     
-    LOG.info(f"Posting to Threads: {post[0]}")
-    await post_to_threads(post[0], creds_file)
+    settings = get_settings().get(bot_name, {})
+    approval_mode = settings.get("approval_mode", False)
+    sync_x = settings.get("sync_x", False)
+    min_gap = float(settings.get("min_gap_hours", 2))
+    max_gap = float(settings.get("max_gap_hours", 3.5))
+
+    posts_made = last_posted_time.get("post_count", 0)
     
-    posts_made = last_posted_time.get("post_count", 0) + 1
-    
-    # Calculate a random delay between 2 hours and 3.5 hours
-    random_delay = random.randint(2 * 3600, int(3.5 * 3600))
+    # Calculate a random delay based on settings
+    random_delay = random.randint(int(min_gap * 3600), int(max_gap * 3600))
     new_next_post_time = current_time + random_delay
     
     from discord_notifier import send_discord_embed
-    
-    await save_last_posted_time(bot_name, current_time, {
-        "post_count": posts_made, 
-        "next_post_time": new_next_post_time
-    })
-    
-    LOG.info(f"Post made successfully. Total posts: {posts_made}.")
-    LOG.info(f"Next post will be around {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(new_next_post_time))}. Exiting.")
-    
-    send_discord_embed(
-        title="🤖 New Thread Posted!",
-        description=f"> {post[0]}",
-        fields=[
-            {"name": "Next Scheduled Post", "value": f"<t:{int(new_next_post_time)}:R> (approx)", "inline": True},
-            {"name": "Bot Status", "value": f"Checked for replies <t:{int(last_check_time)}:R>", "inline": True}
-        ],
-        color=0x9b59b6,
-        username=me_data.get("username"),
-        avatar_url=me_data.get("threads_profile_picture_url")
-    )
+
+    if approval_mode:
+        LOG.info(f"Approval Mode is ON. Saving to pending for {bot_name}.")
+        import json
+        pending = []
+        if os.path.exists(f"pending-{bot_name}.json"):
+            with open(f"pending-{bot_name}.json", "r") as f:
+                pending = json.load(f)
+        pending.append(post[0])
+        with open(f"pending-{bot_name}.json", "w") as f:
+            json.dump(pending, f)
+        
+        await save_last_posted_time(bot_name, current_time, {
+            "post_count": posts_made, 
+            "next_post_time": new_next_post_time
+        })
+        
+        send_discord_embed(
+            title="⏳ Post Pending Approval",
+            description=f"> {post[0]}\n\nApprove this post from the Command Center Dashboard.",
+            color=0xf39c12,
+            username=me_data.get("username"),
+            avatar_url=me_data.get("threads_profile_picture_url")
+        )
+    else:
+        LOG.info(f"Posting to Threads: {post[0]}")
+        await post_to_threads(post[0], bot_name)
+        
+        if sync_x:
+            from twitter import post_to_x
+            post_to_x(post[0])
+            
+        posts_made += 1
+        
+        await save_last_posted_time(bot_name, current_time, {
+            "post_count": posts_made, 
+            "next_post_time": new_next_post_time
+        })
+        
+        LOG.info(f"Post made successfully. Total posts: {posts_made}.")
+        LOG.info(f"Next post will be around {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(new_next_post_time))}. Exiting.")
+        
+        send_discord_embed(
+            title="🤖 New Thread Posted!",
+            description=f"> {post[0]}",
+            fields=[
+                {"name": "Next Scheduled Post", "value": f"<t:{int(new_next_post_time)}:R> (approx)", "inline": True},
+                {"name": "Bot Status", "value": f"Checked for replies <t:{int(last_check_time)}:R>", "inline": True}
+            ],
+            color=0x9b59b6,
+            username=me_data.get("username"),
+            avatar_url=me_data.get("threads_profile_picture_url")
+        )
+
 
 
 if __name__ == "__main__":

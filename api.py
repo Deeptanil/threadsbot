@@ -4,13 +4,26 @@ import asyncio
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+import json
 
-ACCESS_TOKEN = os.getenv("THREADS_ACCESS_TOKEN")
-USER_ID = os.getenv("THREADS_USER_ID")
+def get_settings():
+    if not os.path.exists("settings.json"):
+        return {}
+    try:
+        with open("settings.json", "r") as f:
+            return json.load(f)
+    except:
+        return {}
+
+def get_creds(bot_name: str = "account1"):
+    if not bot_name or bot_name == "account1":
+        return os.getenv("THREADS_ACCESS_TOKEN"), os.getenv("THREADS_USER_ID")
+    prefix = bot_name.upper()
+    return os.getenv(f"{prefix}_ACCESS_TOKEN"), os.getenv(f"{prefix}_USER_ID")
 
 
-async def post_to_threads(text: str, creds_file=None):
+async def post_to_threads(text: str, bot_name: str = "account1"):
+    ACCESS_TOKEN, USER_ID = get_creds(bot_name)
     # Step 1: Create container
     create_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
 
@@ -47,7 +60,8 @@ from data_log import load_last_posted_time, save_last_posted_time
 
 LOG = logging.getLogger(__name__)
 
-async def get_recent_threads():
+async def get_recent_threads(bot_name="account1"):
+    ACCESS_TOKEN, USER_ID = get_creds(bot_name)
     url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
     params = {
         "fields": "id,text",
@@ -59,7 +73,8 @@ async def get_recent_threads():
         return data["data"]
     return []
 
-async def get_thread_replies(media_id):
+async def get_thread_replies(media_id, bot_name="account1"):
+    ACCESS_TOKEN, USER_ID = get_creds(bot_name)
     url = f"https://graph.threads.net/v1.0/{media_id}/replies"
     params = {
         "fields": "id,text,username,has_replies",
@@ -71,7 +86,8 @@ async def get_thread_replies(media_id):
         return data["data"]
     return []
 
-async def reply_to_thread(text: str, reply_to_id: str):
+async def reply_to_thread(text: str, reply_to_id: str, bot_name="account1"):
+    ACCESS_TOKEN, USER_ID = get_creds(bot_name)
     LOG.info(f"Attempting to reply to ID: {reply_to_id}")
     create_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
     create_payload = {
@@ -102,18 +118,26 @@ async def reply_to_thread(text: str, reply_to_id: str):
     LOG.info(f"Reply published successfully: {res2_json}")
     return True, res2_json
 
-async def process_replies_recursive(media_id, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, thread_text, failed_attempts, depth=1):
+async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, thread_text, failed_attempts, depth=1):
     if depth > 6:
         return
         
-    replies = await get_thread_replies(media_id)
+    replies = await get_thread_replies(media_id, bot_name)
     for reply in replies:
         reply_id = reply.get("id")
         text = reply.get("text", "")
         username = reply.get("username", "")
         has_replies = reply.get("has_replies", False)
 
-        # 1. Skip if already processed or if it's us
+        # 1. Skip if already processed, if it's us, or if user is blocklisted
+        settings = get_settings()
+        blocklist = settings.get("global", {}).get("blocklist", [])
+        
+        if username in blocklist:
+            LOG.info(f"Skipping comment from @{username} because they are on the blocklist.")
+            newly_replied.append(reply_id)
+            continue
+            
         if reply_id in replied_comments or reply_id in newly_replied:
             pass
         elif username == bot_username:
@@ -128,7 +152,7 @@ async def process_replies_recursive(media_id, bot_username, bot_avatar_url, repl
             already_replied_by_us = False
             sub_replies = []
             if has_replies:
-                sub_replies = await get_thread_replies(reply_id)
+                sub_replies = await get_thread_replies(reply_id, bot_name)
                 for sub in sub_replies:
                     if sub.get("username") == bot_username:
                         already_replied_by_us = True
@@ -153,10 +177,43 @@ async def process_replies_recursive(media_id, bot_username, bot_avatar_url, repl
                         newly_replied.append(reply_id)
                         failed_attempts.pop(reply_id, None)
                 else:
-                    if evaluation.get("should_reply") and evaluation.get("reply_text"):
+                    if evaluation.get("needs_review"):
+                        LOG.warning(f"Comment from @{username} flagged for human review.")
+                        from fetcher import save_json, load_json
+                        review_queue = []
+                        if os.path.exists(f"review-{bot_name}.json"):
+                            with open(f"review-{bot_name}.json", "r") as f:
+                                review_queue = json.load(f)
+                        
+                        review_queue.append({
+                            "reply_id": reply_id,
+                            "username": username,
+                            "text": text,
+                            "suggested_reply": evaluation.get("suggested_reply", ""),
+                            "parent_thread": thread_text
+                        })
+                        with open(f"review-{bot_name}.json", "w") as f:
+                            json.dump(review_queue, f)
+                            
+                        newly_replied.append(reply_id)
+                        failed_attempts.pop(reply_id, None)
+                        
+                        from discord_notifier import send_discord_embed
+                        send_discord_embed(
+                            title="🚨 Human Review Needed!",
+                            description=f"A comment from @{username} was flagged for your review.",
+                            fields=[
+                                {"name": "User Comment", "value": text, "inline": False},
+                                {"name": "Suggested Reply", "value": evaluation.get("suggested_reply", "None"), "inline": False}
+                            ],
+                            color=0xe74c3c,
+                            username=bot_username,
+                            avatar_url=bot_avatar_url
+                        )
+                    elif evaluation.get("should_reply") and evaluation.get("reply_text"):
                         reply_text = evaluation["reply_text"]
                         LOG.info(f"Decided to reply with: '{reply_text}'")
-                        success, error_data = await reply_to_thread(reply_text, reply_id)
+                        success, error_data = await reply_to_thread(reply_text, reply_id, bot_name)
                         
                         if success:
                             newly_replied.append(reply_id)
@@ -203,9 +260,10 @@ async def process_replies_recursive(media_id, bot_username, bot_avatar_url, repl
             # 4. Recurse into this comment (if it has replies that aren't from us yet)
             if has_replies and not already_replied_by_us:
                 new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
-                await process_replies_recursive(reply_id, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
+                await process_replies_recursive(reply_id, bot_name, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
 
 async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
+    ACCESS_TOKEN, USER_ID = get_creds(bot_name)
     LOG.info(f"Checking for new comments to auto-reply for {bot_name}...")
     
     me_url = f"https://graph.threads.net/v1.0/me?fields=username,threads_profile_picture_url&access_token={ACCESS_TOKEN}"
@@ -214,7 +272,7 @@ async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
     bot_username = me_data.get("username", "")
 
     data_log = await load_last_posted_time(bot_name)
-    threads = await get_recent_threads()
+    threads = await get_recent_threads(bot_name)
     if not threads:
         LOG.info("No recent threads found.")
         return me_data, data_log.get("last_reply_check", time.time())
@@ -226,7 +284,7 @@ async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
     for thread in threads[:10]:
         thread_id = thread.get("id")
         thread_text = thread.get("text", "")
-        await process_replies_recursive(thread_id, bot_username, me_data.get("threads_profile_picture_url"), replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
+        await process_replies_recursive(thread_id, bot_name, bot_username, me_data.get("threads_profile_picture_url"), replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
 
     if newly_replied or failed_attempts != data_log.get("failed_attempts", {}):
         replied_comments.extend(newly_replied)
