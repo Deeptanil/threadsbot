@@ -4,7 +4,7 @@ import logging
 
 LOG = logging.getLogger(__name__)
 
-def send_discord_embed(title: str, description: str = "", fields: list = None, color: int = 0x3498db):
+def send_discord_embed(title: str, description: str = "", fields: list = None, color: int = 0x3498db, username: str = None, avatar_url: str = None):
     webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
     if not webhook_url:
         LOG.debug("No DISCORD_WEBHOOK_URL provided. Skipping notification.")
@@ -14,8 +14,19 @@ def send_discord_embed(title: str, description: str = "", fields: list = None, c
         embed = {
             "title": title,
             "description": description,
-            "color": color
+            "color": color,
+            "footer": {
+                "text": "Threads AI Bot Heartbeat"
+            },
+            "timestamp": None # Will be auto-filled if we wanted, but we use footer for relative time in fields
         }
+        
+        if username:
+            embed["author"] = {
+                "name": f"Threads Bot: @{username}",
+                "icon_url": avatar_url if avatar_url else "https://i.imgur.com/8f8vT8R.png"
+            }
+            
         if fields:
             embed["fields"] = fields
             

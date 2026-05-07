@@ -52,9 +52,10 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     # 1. ALWAYS run the auto-reply engine every time the script wakes up
     from api import handle_auto_replies
     try:
-        await handle_auto_replies(role_desc, bot_name)
+        me_data, last_check_time = await handle_auto_replies(role_desc, bot_name)
     except Exception as e:
         LOG.error(f"Error during auto-reply check: {e}")
+        me_data, last_check_time = {}, time.time()
         
     current_time = time.time()
     last_posted_time = await load_last_posted_time(bot_name)
@@ -99,8 +100,13 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     send_discord_embed(
         title="🤖 New Thread Posted!",
         description=f"> {post[0]}",
-        fields=[{"name": "Next Scheduled Post", "value": f"<t:{int(new_next_post_time)}:R> (approx)", "inline": False}],
-        color=0x9b59b6
+        fields=[
+            {"name": "Next Scheduled Post", "value": f"<t:{int(new_next_post_time)}:R> (approx)", "inline": True},
+            {"name": "Bot Status", "value": f"Checked for replies <t:{int(last_check_time)}:R>", "inline": True}
+        ],
+        color=0x9b59b6,
+        username=me_data.get("username"),
+        avatar_url=me_data.get("threads_profile_picture_url")
     )
 
 

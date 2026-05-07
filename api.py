@@ -172,7 +172,13 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
                                 {"name": f"User Comment (@{username})", "value": text, "inline": False},
                                 {"name": "Bot Reply", "value": reply_text, "inline": False}
                             ]
-                            send_discord_embed(title="💬 Auto-Reply Triggered", fields=fields, color=0x2ecc71)
+                            send_discord_embed(
+                                title="💬 Auto-Reply Triggered",
+                                fields=fields,
+                                color=0x2ecc71,
+                                username=bot_username,
+                                avatar_url=me_data.get("threads_profile_picture_url")
+                            )
                         else:
                             # Handle specific errors
                             error_code = error_data.get("error", {}).get("code")
@@ -199,20 +205,19 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
                 new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
                 await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
 
-async def handle_auto_replies(role_desc=None, bot_name: str = "mybot"):
+async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
     LOG.info(f"Checking for new comments to auto-reply for {bot_name}...")
     
-    me_url = f"https://graph.threads.net/v1.0/me?fields=username&access_token={ACCESS_TOKEN}"
+    me_url = f"https://graph.threads.net/v1.0/me?fields=username,threads_profile_picture_url&access_token={ACCESS_TOKEN}"
     me_res = await asyncio.to_thread(requests.get, me_url)
     me_data = me_res.json()
     bot_username = me_data.get("username", "")
 
+    data_log = await load_last_posted_time(bot_name)
     threads = await get_recent_threads()
     if not threads:
         LOG.info("No recent threads found.")
-        return
-
-    data_log = await load_last_posted_time(bot_name)
+        return me_data, data_log.get("last_reply_check", time.time())
     replied_comments = data_log.get("replied_comments", [])
     failed_attempts = data_log.get("failed_attempts", {})
     newly_replied = []
@@ -239,3 +244,4 @@ async def handle_auto_replies(role_desc=None, bot_name: str = "mybot"):
     })
         
     LOG.info(f"Finished auto-reply check for {bot_name}.")
+    return me_data, data_log.get("last_reply_check", time.time())
