@@ -102,7 +102,7 @@ async def reply_to_thread(text: str, reply_to_id: str):
     LOG.info(f"Reply published successfully: {res2_json}")
     return True, res2_json
 
-async def process_replies_recursive(media_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts, depth=1):
+async def process_replies_recursive(media_id, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, thread_text, failed_attempts, depth=1):
     if depth > 6:
         return
         
@@ -177,7 +177,7 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
                                 fields=fields,
                                 color=0x2ecc71,
                                 username=bot_username,
-                                avatar_url=me_data.get("threads_profile_picture_url")
+                                avatar_url=bot_avatar_url
                             )
                         else:
                             # Handle specific errors
@@ -203,7 +203,7 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
             # 4. Recurse into this comment (if it has replies that aren't from us yet)
             if has_replies and not already_replied_by_us:
                 new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
-                await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
+                await process_replies_recursive(reply_id, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
 
 async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
     LOG.info(f"Checking for new comments to auto-reply for {bot_name}...")
@@ -226,7 +226,7 @@ async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
     for thread in threads[:10]:
         thread_id = thread.get("id")
         thread_text = thread.get("text", "")
-        await process_replies_recursive(thread_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
+        await process_replies_recursive(thread_id, bot_username, me_data.get("threads_profile_picture_url"), replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
 
     if newly_replied or failed_attempts != data_log.get("failed_attempts", {}):
         replied_comments.extend(newly_replied)

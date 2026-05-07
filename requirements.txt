@@ -4,3 +4,4 @@ click
 python-dotenv
 requests
 google-genai
+flask

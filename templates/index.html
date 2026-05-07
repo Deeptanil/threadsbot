@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threads Bot Command Center</title>
+    <!-- Use standard Inter font for modern UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons (No emojis) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="logo">
+            <i class="ph ph-robot"></i>
+            <h1>Bot Command Center</h1>
+        </div>
+        <div class="actions">
+            <button onclick="fetchStatus()" class="btn-secondary" title="Refresh Data">
+                <i class="ph ph-arrows-clockwise"></i> Refresh
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard" id="dashboard-grid">
+        <!-- Cards will be dynamically injected here via JS -->
+    </main>
+
+    <!-- Modal for Editing Roles/Posts -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Edit Configuration</h2>
+                <button onclick="closeModal()" class="close-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <textarea id="modal-editor"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" class="btn-secondary">Cancel</button>
+                <button onclick="saveModalData()" class="btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
