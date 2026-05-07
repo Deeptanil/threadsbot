@@ -37,8 +37,8 @@ async def post_to_threads(text: str, bot_name: str = "account1"):
     data = res.json()
 
     if "id" not in data:
-        print("Error creating post:", data)
-        return
+        LOG.error(f"Error creating post container: {data}")
+        return False, data
 
     creation_id = data["id"]
 
@@ -51,7 +51,14 @@ async def post_to_threads(text: str, bot_name: str = "account1"):
     }
 
     res2 = await asyncio.to_thread(requests.post, publish_url, data=publish_payload)
-    print("Response:", res2.json())
+    res2_json = res2.json()
+    
+    if "id" in res2_json:
+        LOG.info(f"Post published successfully: {res2_json}")
+        return True, res2_json
+    else:
+        LOG.error(f"Error publishing post: {res2_json}")
+        return False, res2_json
 
 
 import logging

@@ -118,33 +118,55 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
         )
     else:
         LOG.info(f"Posting to Threads: {post[0]}")
-        await post_to_threads(post[0], bot_name)
+        success, error_data = await post_to_threads(post[0], bot_name)
         
-        if sync_x:
-            from twitter import post_to_x
-            post_to_x(post[0])
+        if success:
+            if sync_x:
+                from twitter import post_to_x
+                post_to_x(post[0])
+                
+            posts_made += 1
             
-        posts_made += 1
+            await save_last_posted_time(bot_name, current_time, {
+                "post_count": posts_made, 
+                "next_post_time": new_next_post_time
+            })
+            
+            LOG.info(f"Post made successfully. Total posts: {posts_made}.")
+            LOG.info(f"Next post will be around {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(new_next_post_time))}. Exiting.")
+        else:
+            LOG.error(f"Post failed for {bot_name}: {error_data}")
+            # Ensure next_post_time is NOT updated so it tries again soon? 
+            # Or keep it updated to avoid spamming the API?
+            # For now, let's just log it. The user wants Discord alert.
         
-        await save_last_posted_time(bot_name, current_time, {
-            "post_count": posts_made, 
-            "next_post_time": new_next_post_time
-        })
-        
-        LOG.info(f"Post made successfully. Total posts: {posts_made}.")
-        LOG.info(f"Next post will be around {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(new_next_post_time))}. Exiting.")
-        
-        send_discord_embed(
-            title="🤖 New Thread Posted!",
-            description=f"> {post[0]}",
-            fields=[
-                {"name": "Next Scheduled Post", "value": f"<t:{int(new_next_post_time)}:R> (approx)", "inline": True},
-                {"name": "Bot Status", "value": f"Checked for replies <t:{int(last_check_time)}:R>", "inline": True}
-            ],
-            color=0x9b59b6,
-            username=me_data.get("username"),
-            avatar_url=me_data.get("threads_profile_picture_url")
-        )
+        if success:
+            send_discord_embed(
+                title="🤖 New Thread Posted!",
+                description=f"> {post[0]}",
+                fields=[
+                    {"name": "Status", "value": "✅ Published Successfully", "inline": True},
+                    {"name": "Total Posts", "value": str(posts_made), "inline": True},
+                    {"name": "Synced to X", "value": "✅ Yes" if sync_x else "❌ No", "inline": True}
+                ],
+                color=0x2ecc71,
+                username=me_data.get("username"),
+                avatar_url=me_data.get("threads_profile_picture_url")
+            )
+        else:
+            # Send Error to Discord
+            error_msg = error_data.get("error", {}).get("message", "Unknown error")
+            send_discord_embed(
+                title="⚠️ Threads Posting Failed",
+                description=f"Bot attempted to post but encountered an error.\n\n**Error:** {error_msg}",
+                fields=[
+                    {"name": "Bot", "value": bot_name, "inline": True},
+                    {"name": "Post Content", "value": post[0][:200] + "..." if len(post[0]) > 200 else post[0], "inline": False}
+                ],
+                color=0xe74c3c,
+                username=me_data.get("username"),
+                avatar_url=me_data.get("threads_profile_picture_url")
+            )
 
 
 
