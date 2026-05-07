@@ -231,9 +231,10 @@ async def handle_auto_replies(role_desc=None, bot_name: str = "mybot"):
         if len(failed_attempts) > 1000:
             failed_attempts = {}
             
-        await save_last_posted_time(bot_name, data_log.get("last_posted_time", 0), {
-            "replied_comments": replied_comments,
-            "failed_attempts": failed_attempts
-        })
+    await save_last_posted_time(bot_name, data_log.get("last_posted_time", 0), {
+        "replied_comments": replied_comments,
+        "failed_attempts": failed_attempts,
+        "last_reply_check": time.time()
+    })
         
     LOG.info(f"Finished auto-reply check for {bot_name}.")
