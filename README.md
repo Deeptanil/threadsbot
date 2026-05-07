@@ -15,6 +15,25 @@ This repository contains a highly advanced AI bot designed to automatically post
 - **3-Strike Error Recovery:** If the AI API goes down due to high traffic, the bot intelligently tracks failed tasks and retries them later. If a task fails 3 times, it is safely skipped without breaking the bot.
 - **Serverless & Stateless:** Runs on a free 15-minute GitHub Actions schedule. State is persisted natively via JSON files committed back to the repository, requiring zero external databases.
 - **Anti-Spam Bypassing:** Uses randomized posting delays (2-3.5 hours) and offset cron triggers to avoid triggering GitHub or Meta rate limits.
+- **Multi-Account Support:** Natively supports running multiple Threads accounts completely in parallel with customized personalities and offset cron schedules.
+
+---
+
+## 🎭 Multi-Account Support
+
+This bot is fully designed to run multiple Threads accounts simultaneously without them interfering with each other. 
+
+By default, the repository contains 3 workflow files:
+- `threads-bot.yml` (Account 1)
+- `threads-bot-2.yml` (Account 2)
+- `threads-bot-3.yml` (Account 3)
+
+**To set up multiple accounts:**
+1. Open the `roles/` folder. You will find `account1.txt`, `account2.txt`, and `account3.txt`. Edit these files to give each bot a completely unique personality and posting topic.
+2. In your GitHub repository settings, add the API keys for the additional accounts using the prefixes:
+   - `ACCOUNT2_ACCESS_TOKEN`, `ACCOUNT2_USER_ID`, etc.
+   - `ACCOUNT3_ACCESS_TOKEN`, `ACCOUNT3_USER_ID`, etc.
+3. The GitHub Action workflows are pre-configured to run 5 minutes apart to avoid Git push collisions, ensuring smooth 24/7 operation for all 3 accounts.
 
 ---
 
@@ -65,7 +84,7 @@ If you prefer to test the bot locally on your machine:
    ```
 3. Run the bot manually:
    ```bash
-   python main.py mybot
+   python main.py account1
    ```
 
 ---

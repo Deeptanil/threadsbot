@@ -71,6 +71,7 @@ async def get_thread_replies(media_id):
     return []
 
 async def reply_to_thread(text: str, reply_to_id: str):
+    LOG.info(f"Attempting to reply to ID: {reply_to_id}")
     create_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
     create_payload = {
         "media_type": "TEXT",
@@ -82,8 +83,8 @@ async def reply_to_thread(text: str, reply_to_id: str):
     data = res.json()
 
     if "id" not in data:
-        LOG.error(f"Error creating reply: {data}")
-        return False
+        LOG.error(f"Error creating reply container for {reply_to_id}: {data}")
+        return False, data
 
     creation_id = data["id"]
     publish_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads_publish"
@@ -94,11 +95,11 @@ async def reply_to_thread(text: str, reply_to_id: str):
     res2 = await asyncio.to_thread(requests.post, publish_url, data=publish_payload)
     res2_json = res2.json()
     if "error" in res2_json:
-        LOG.error(f"Reply publish failed: {res2_json}")
-        return False
+        LOG.error(f"Reply publish failed for {reply_to_id} (Creation ID: {creation_id}): {res2_json}")
+        return False, res2_json
         
-    LOG.info(f"Reply published: {res2_json}")
-    return True
+    LOG.info(f"Reply published successfully: {res2_json}")
+    return True, res2_json
 
 async def process_replies_recursive(media_id, bot_username, replied_comments, newly_replied, role_desc, thread_text, failed_attempts, depth=1):
     if depth > 6:
@@ -111,14 +112,20 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
         username = reply.get("username", "")
         has_replies = reply.get("has_replies", False)
 
-        # 1. Process this specific comment
+        # 1. Skip if already processed or if it's us
         if reply_id in replied_comments or reply_id in newly_replied:
-            pass # Already processed
+            pass
         elif username == bot_username:
-            pass # Don't process our own comments
+            # We don't reply to ourselves, but we ALWAYS recurse into our own replies 
+            # to see if fans replied back to us!
+            if has_replies:
+                new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
+                await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
+            continue
         else:
-            # Check if we manually replied to this specific comment
+            # 2. Check if we already replied (more efficiently)
             already_replied_by_us = False
+            sub_replies = []
             if has_replies:
                 sub_replies = await get_thread_replies(reply_id)
                 for sub in sub_replies:
@@ -129,30 +136,32 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
             if already_replied_by_us:
                 LOG.info(f"Skipping comment from @{username} because we already replied to it.")
                 newly_replied.append(reply_id)
+            elif not text or text.strip() == "":
+                LOG.info(f"Skipping comment from @{username} because it has no text (Sticker/GIF).")
+                newly_replied.append(reply_id)
             else:
+                # 3. Evaluate and Reply
                 LOG.info(f"Evaluating new comment from @{username}: '{text}'")
                 evaluation = await evaluate_comment_for_reply(text, role_desc, parent_post_text=thread_text)
 
                 if evaluation is None:
-                    # Strike system for failures
                     strikes = failed_attempts.get(reply_id, 0) + 1
                     failed_attempts[reply_id] = strikes
                     if strikes >= 3:
-                        LOG.warning(f"Comment {reply_id} failed evaluation 3 times. Adding to ignore pile.")
+                        LOG.warning(f"Comment {reply_id} failed evaluation 3 times. Skipping.")
                         newly_replied.append(reply_id)
                         failed_attempts.pop(reply_id, None)
-                    else:
-                        LOG.warning(f"Comment {reply_id} failed evaluation. Strike {strikes}/3. Will retry next time.")
                 else:
                     if evaluation.get("should_reply") and evaluation.get("reply_text"):
                         reply_text = evaluation["reply_text"]
                         LOG.info(f"Decided to reply with: '{reply_text}'")
-                        success = await reply_to_thread(reply_text, reply_id)
-                        newly_replied.append(reply_id)
+                        success, error_data = await reply_to_thread(reply_text, reply_id)
                         
                         if success:
-                            from discord_notifier import send_discord_embed
+                            newly_replied.append(reply_id)
+                            failed_attempts.pop(reply_id, None)
                             
+                            from discord_notifier import send_discord_embed
                             original_thread = thread_text.split('\n[Reply by')[0]
                             if len(original_thread) > 1000:
                                 original_thread = original_thread[:1000] + "..."
@@ -162,27 +171,35 @@ async def process_replies_recursive(media_id, bot_username, replied_comments, ne
                                 {"name": f"User Comment (@{username})", "value": text, "inline": False},
                                 {"name": "Bot Reply", "value": reply_text, "inline": False}
                             ]
-                            
-                            send_discord_embed(
-                                title="💬 Auto-Reply Triggered",
-                                fields=fields,
-                                color=0x2ecc71
-                            )
+                            send_discord_embed(title="💬 Auto-Reply Triggered", fields=fields, color=0x2ecc71)
+                        else:
+                            # Handle specific errors
+                            error_code = error_data.get("error", {}).get("code")
+                            if error_code == 24: # Media Not Found
+                                LOG.warning(f"Media {reply_id} not found. Adding to ignore pile.")
+                                newly_replied.append(reply_id)
+                                failed_attempts.pop(reply_id, None)
+                            else:
+                                # Other errors (transient)
+                                strikes = failed_attempts.get(reply_id, 0) + 1
+                                failed_attempts[reply_id] = strikes
+                                if strikes >= 3:
+                                    newly_replied.append(reply_id)
+                                    failed_attempts.pop(reply_id, None)
                     else:
                         LOG.info("Decided to ignore this comment.")
                         newly_replied.append(reply_id)
-                    
-                    failed_attempts.pop(reply_id, None)
+                        failed_attempts.pop(reply_id, None)
                 
                 await asyncio.sleep(2)
 
-        # 2. Recursively process its children to catch fans replying back to us!
-        if has_replies:
-            new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
-            await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
+            # 4. Recurse into this comment (if it has replies that aren't from us yet)
+            if has_replies and not already_replied_by_us:
+                new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
+                await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
 
-async def handle_auto_replies(role_desc=None):
-    LOG.info("Checking for new comments to auto-reply...")
+async def handle_auto_replies(role_desc=None, bot_name: str = "mybot"):
+    LOG.info(f"Checking for new comments to auto-reply for {bot_name}...")
     
     me_url = f"https://graph.threads.net/v1.0/me?fields=username&access_token={ACCESS_TOKEN}"
     me_res = await asyncio.to_thread(requests.get, me_url)
@@ -194,7 +211,7 @@ async def handle_auto_replies(role_desc=None):
         LOG.info("No recent threads found.")
         return
 
-    data_log = await load_last_posted_time()
+    data_log = await load_last_posted_time(bot_name)
     replied_comments = data_log.get("replied_comments", [])
     failed_attempts = data_log.get("failed_attempts", {})
     newly_replied = []
@@ -214,9 +231,9 @@ async def handle_auto_replies(role_desc=None):
         if len(failed_attempts) > 1000:
             failed_attempts = {}
             
-        await save_last_posted_time(data_log.get("last_posted_time", 0), {
+        await save_last_posted_time(bot_name, data_log.get("last_posted_time", 0), {
             "replied_comments": replied_comments,
             "failed_attempts": failed_attempts
         })
         
-    LOG.info("Finished auto-reply check.")
+    LOG.info(f"Finished auto-reply check for {bot_name}.")

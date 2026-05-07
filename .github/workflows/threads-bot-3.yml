@@ -1,9 +1,9 @@
-name: Auto Threads Bot - Account 1
+name: Auto Threads Bot - Account 3
 
 on:
   schedule:
-    # Runs at exact offset minutes (7, 22, 37, 52) to guarantee GitHub doesn't drop the job
-    - cron: '7,22,37,52 * * * *'
+    # Runs at exact offset minutes (02, 17, 32, 47) to guarantee GitHub doesn't drop the job and to prevent git push collisions
+    - cron: '2,17,32,47 * * * *'
   workflow_dispatch: # Allows manual trigger from the Actions tab
 
 jobs:
@@ -29,18 +29,18 @@ jobs:
 
       - name: Run Threads Bot
         env:
-          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
-          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
-          THREADS_APP_ID: ${{ secrets.THREADS_APP_ID }}
-          THREADS_API_SECRET: ${{ secrets.THREADS_API_SECRET }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.ACCOUNT3_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.ACCOUNT3_USER_ID }}
+          THREADS_APP_ID: ${{ secrets.ACCOUNT3_APP_ID }}
+          THREADS_API_SECRET: ${{ secrets.ACCOUNT3_API_SECRET }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python main.py account1 --role-txt-path roles/account1.txt
+        run: python main.py account3 --role-txt-path roles/account3.txt
 
       - name: Commit and Push State
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -f posts-account1.json data-account1.json || true
+          git add -f posts-account3.json data-account3.json || true
           git commit -m "chore: update bot state [skip ci]" || echo "No changes to commit"
           git push

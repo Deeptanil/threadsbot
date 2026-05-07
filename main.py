@@ -52,12 +52,12 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     # 1. ALWAYS run the auto-reply engine every time the script wakes up
     from api import handle_auto_replies
     try:
-        await handle_auto_replies(role_desc)
+        await handle_auto_replies(role_desc, bot_name)
     except Exception as e:
         LOG.error(f"Error during auto-reply check: {e}")
         
     current_time = time.time()
-    last_posted_time = await load_last_posted_time()
+    last_posted_time = await load_last_posted_time(bot_name)
     next_post_time = last_posted_time.get("next_post_time", 0)
     
     if current_time < next_post_time:
@@ -88,7 +88,7 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     
     from discord_notifier import send_discord_embed
     
-    await save_last_posted_time(current_time, {
+    await save_last_posted_time(bot_name, current_time, {
         "post_count": posts_made, 
         "next_post_time": new_next_post_time
     })
