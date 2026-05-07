@@ -122,9 +122,13 @@ function renderDashboard(data) {
         
         card.innerHTML = `
             <div class="card-header">
-                <h2>
+                <h2 style="display: flex; align-items: center; gap: 10px;">
                     <div class="status-indicator ${statusClass}"></div>
                     ${info.name || acc}
+                    <div style="display: flex; gap: 8px; margin-left: 8px;">
+                        ${info.threads_url ? `<a href="${info.threads_url}" target="_blank" class="social-link" title="Open Threads Profile"><i class="ph ph-threads-logo"></i></a>` : ''}
+                        ${info.twitter_url ? `<a href="${info.twitter_url}" target="_blank" class="social-link" title="Open X (Twitter) Profile"><i class="ph ph-x-logo"></i></a>` : ''}
+                    </div>
                 </h2>
                 <span style="font-size: 12px; color: var(--text-muted);">
                     <i class="ph ph-clock"></i> Checked ${timeSince(info.last_reply_check)}
@@ -445,6 +449,11 @@ async function dismissReview(account, index) {
     } catch(e) {
         alert('Failed to dismiss review.');
     }
+}
+
+function toggleHelp() {
+    const help = document.getElementById('help-content');
+    help.style.display = help.style.display === 'none' ? 'block' : 'none';
 }
 
 // Initial fetch and polling

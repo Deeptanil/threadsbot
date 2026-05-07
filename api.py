@@ -109,14 +109,29 @@ async def reply_to_thread(text: str, reply_to_id: str, bot_name="account1"):
         "creation_id": creation_id,
         "access_token": ACCESS_TOKEN,
     }
-    res2 = await asyncio.to_thread(requests.post, publish_url, data=publish_payload)
-    res2_json = res2.json()
-    if "error" in res2_json:
-        LOG.error(f"Reply publish failed for {reply_to_id} (Creation ID: {creation_id}): {res2_json}")
-        return False, res2_json
+    
+    # Wait a few seconds for Meta's servers to propagate the container
+    await asyncio.sleep(5)
+    
+    for attempt in range(3):
+        res2 = await asyncio.to_thread(requests.post, publish_url, data=publish_payload)
+        res2_json = res2.json()
         
-    LOG.info(f"Reply published successfully: {res2_json}")
-    return True, res2_json
+        if "id" in res2_json:
+            LOG.info(f"Reply published successfully: {res2_json}")
+            return True, res2_json
+            
+        error_code = res2_json.get("error", {}).get("code")
+        # Code 24 = Media Not Found. This usually means the container isn't ready yet.
+        if error_code == 24:
+            LOG.warning(f"Media {creation_id} not found yet (attempt {attempt+1}/3). Retrying in 10s...")
+            await asyncio.sleep(10)
+        else:
+            LOG.error(f"Reply publish failed for {reply_to_id} (Creation ID: {creation_id}): {res2_json}")
+            return False, res2_json
+            
+    LOG.error(f"Reply publish failed after 3 attempts for {reply_to_id}")
+    return False, res2_json
 
 async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, thread_text, failed_attempts, depth=1):
     if depth > 6:

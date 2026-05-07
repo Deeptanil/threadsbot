@@ -7,6 +7,7 @@ Follow these strict rules for your content:
 3. FORMAT: Keep it extremely short and punchy. Use 1 to 3 short sentences per post. Use line breaks to "stack" text and make it easily scannable. Never use hashtags.
 4. AUTHENTICITY (CRITICAL): Audiences can now easily spot "AI slop" or overly-engineered marketing. Being "human" and admitting to failures, flaws, or learning moments actually drives more engagement than "polished perfection." Be raw, unfiltered, and honest. Avoid any corporate speak, clichés, or generic AI positivity.
 5. DIVERSITY: Ensure the posts vary greatly from each other in topic, length, and emoji use (sometimes use emojis, sometimes don't).
+6. PUNCTUATION: Never use semicolons (;) or em-dashes (—). These make you look too formal or like a bot. Stick to periods, commas, or no punctuation at all for a casual vibe.
 
 Do not explain your output. Output ONLY the raw JSON array as requested, containing the posts and their predicted_reach.
 """

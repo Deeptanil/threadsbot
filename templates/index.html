@@ -60,10 +60,24 @@
     <div id="settings-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Enterprise Settings</h2>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <h2>Enterprise Settings</h2>
+                    <button onclick="toggleHelp()" class="btn-secondary" style="padding: 4px 8px; font-size: 12px;"><i class="ph ph-question"></i> Help</button>
+                </div>
                 <button onclick="closeModal('settings-modal')" class="close-btn"><i class="ph ph-x"></i></button>
             </div>
             <div class="modal-body">
+                <!-- Help Section (Toggled) -->
+                <div id="help-content" style="display: none; background: rgba(16, 185, 129, 0.05); border: 1px solid var(--accent-green); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+                    <h3 style="color: var(--accent-green); font-size: 14px; margin-bottom: 10px;"><i class="ph ph-info"></i> How to Set Up</h3>
+                    <ul style="font-size: 12px; margin-left: 20px; color: var(--text-main); list-style: disc;">
+                        <li style="margin-bottom: 4px;">Configure <strong>.env</strong> with your Threads & X API keys.</li>
+                        <li style="margin-bottom: 4px;">Upload persona files to <code>/roles/[account].txt</code> to define bot behavior.</li>
+                        <li style="margin-bottom: 4px;">Enable <strong>Approval Mode</strong> to manually review drafts before they go live.</li>
+                        <li style="margin-bottom: 4px;">Monitor automation health via <a href="https://github.com/Deeptanil/threadsbot/actions" target="_blank" style="color: var(--accent-green); text-decoration: underline;">GitHub Actions</a>.</li>
+                    </ul>
+                </div>
+
                 <div class="settings-group">
                     <h3><i class="ph ph-prohibit"></i> Global Blocklist</h3>
                     <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Enter usernames to ignore (comma separated, no @)</p>
@@ -72,6 +86,15 @@
                 
                 <div id="account-settings-container">
                     <!-- Dynamic account settings injected here -->
+                </div>
+
+                <!-- Credits -->
+                <div class="settings-credits" style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); font-size: 11px; color: var(--text-muted);">
+                    Developed with <i class="ph-fill ph-heart" style="color: #e74c3c;"></i> for the autonomous community.
+                    <br><br>
+                    <a href="https://github.com/Deeptanil/threadsbot" target="_blank" style="color: var(--text-muted); text-decoration: underline; margin: 0 4px;">GitHub</a> • 
+                    <a href="https://prettiva.co" target="_blank" style="color: var(--text-muted); text-decoration: underline; margin: 0 4px;">Prettiva</a> • 
+                    <a href="https://strayed.in" target="_blank" style="color: var(--text-muted); text-decoration: underline; margin: 0 4px;">STRAYED</a>
                 </div>
             </div>
             <div class="modal-footer">

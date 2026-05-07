@@ -52,8 +52,14 @@ def get_status():
         if i == 0 and not os.getenv(env_name_key):
             bot_name = "Account 1"
 
+        # Usernames for links
+        threads_user = os.getenv(f"ACCOUNT{i+1}_THREADS_USERNAME", "")
+        twitter_user = os.getenv(f"ACCOUNT{i+1}_X_USERNAME", "")
+
         status_data[acc] = {
             "name": bot_name,
+            "threads_url": f"https://www.threads.net/@{threads_user}" if threads_user else None,
+            "twitter_url": f"https://x.com/{twitter_user}" if twitter_user else None,
             "post_count": data_log.get("post_count", 0),
             "replied_count": len(data_log.get("replied_comments", [])),
             "last_reply_check": last_check,
