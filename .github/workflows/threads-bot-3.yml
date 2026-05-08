@@ -41,7 +41,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -f posts-account3.json data-account3.json review-account3.json pending-account3.json || true
+          git add *-account3.json 2>/dev/null || true
           git commit -m "chore: update bot state (account3) [skip ci]" || echo "No changes to commit"
           git pull --rebase origin main
           git push
