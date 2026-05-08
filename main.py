@@ -74,17 +74,25 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
         LOG.info(f"Not time to post yet. Waiting approx {minutes_left:.1f} more minutes. Exiting...")
         sys.exit(0)
 
+    from fetcher import peek_next_post, remove_post
+    
     if not await posts_exist(bot_name):
         LOG.info("Generating a new batch of posts...")
         batch = await generate_posts_batch("Make a batch", role_desc)
         await save_batch(bot_name, batch)
 
-    post = await get_next_post(bot_name)
-    if post is None:
+    post_data = await peek_next_post(bot_name)
+    if post_data is None:
         LOG.info("Generating a new batch of posts...")
         batch = await generate_posts_batch("Make a batch", role_desc)
         await save_batch(bot_name, batch)
-        post = await get_next_post(bot_name)
+        post_data = await peek_next_post(bot_name)
+    
+    if post_data is None:
+        LOG.error(f"Failed to get or generate posts for {bot_name}.")
+        return
+
+    post_text, reach = post_data
     
     settings = get_settings().get(bot_name, {})
     approval_mode = settings.get("approval_mode", False)
@@ -101,15 +109,18 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     from discord_notifier import send_discord_embed
 
     if approval_mode:
-        LOG.info(f"Approval Mode is ON. Saving to pending for {bot_name}.")
+        LOG.info(f"Approval Mode is ON. Moving post to pending for {bot_name}.")
         import json
         pending = []
         if os.path.exists(f"pending-{bot_name}.json"):
             with open(f"pending-{bot_name}.json", "r") as f:
                 pending = json.load(f)
-        pending.append(post[0])
+        pending.append(post_text)
         with open(f"pending-{bot_name}.json", "w") as f:
             json.dump(pending, f)
+        
+        # Remove from candidate list
+        await remove_post(bot_name, post_text)
         
         await save_last_posted_time(bot_name, current_time, {
             "post_count": posts_made, 
@@ -122,19 +133,22 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
 
         send_discord_embed(
             title="⏳ Post Pending Approval",
-            description=f"> {post[0]}\n\nApprove this post from the Command Center Dashboard.",
+            description=f"> {post_text}\n\nApprove this post from the Command Center Dashboard.",
             color=0xf39c12,
             username=bot_username,
             avatar_url=me_data.get("threads_profile_picture_url")
         )
     else:
-        LOG.info(f"Posting to Threads: {post[0]}")
-        success, error_data = await post_to_threads(post[0], bot_name)
+        LOG.info(f"Posting to Threads: {post_text}")
+        success, error_data = await post_to_threads(post_text, bot_name)
         
         if success:
+            # Remove from candidate list ONLY on success
+            await remove_post(bot_name, post_text)
+
             if sync_x:
                 from twitter import post_to_x
-                post_to_x(post[0])
+                post_to_x(post_text)
                 
             posts_made += 1
             
@@ -145,20 +159,15 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
             
             LOG.info(f"Post made successfully. Total posts: {posts_made}.")
             LOG.info(f"Next post will be around {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(new_next_post_time))}. Exiting.")
-        else:
-            LOG.error(f"Post failed for {bot_name}: {error_data}")
-            # Ensure next_post_time is NOT updated so it tries again soon? 
-            # Or keep it updated to avoid spamming the API?
-            # For now, let's just log it. The user wants Discord alert.
-        
-        # Get display name for notification
-        display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
-        bot_username = me_data.get("username") or display_name
-        
-        if success:
+
+            # Send Success to Discord
+            # Get display name for notification
+            display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
+            bot_username = me_data.get("username") or display_name
+
             send_discord_embed(
                 title="🤖 New Thread Posted!",
-                description=f"> {post[0]}",
+                description=f"> {post_text}",
                 fields=[
                     {"name": "Status", "value": "✅ Published Successfully", "inline": True},
                     {"name": "Total Posts", "value": str(posts_made), "inline": True},
@@ -169,15 +178,22 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
                 avatar_url=me_data.get("threads_profile_picture_url")
             )
         else:
+            LOG.error(f"Post failed for {bot_name}: {error_data}")
+            # We do NOT update next_post_time. It stays in the past.
+            # We do NOT remove the post from the candidate list.
+            LOG.info(f"Post failed. Timer remains at its previous value. Will retry in the next run.")
+
             # Send Error to Discord
+            display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
+            bot_username = me_data.get("username") or display_name
             error_msg = error_data.get("error", {}).get("message", "Unknown error")
             send_discord_embed(
                 title="⚠️ Threads Posting Failed",
-                description=f"Bot attempted to post but encountered an error.\n\n**Error:** {error_msg}",
+                description=f"Bot attempted to post but encountered an error.\n\n**Error:** {error_msg}\n\n*Note: The bot will retry this post automatically in the next run.*",
                 fields=[
                     {"name": "Bot Account", "value": display_name, "inline": True},
                     {"name": "Internal ID", "value": bot_name, "inline": True},
-                    {"name": "Post Content", "value": post[0][:200] + "..." if len(post[0]) > 200 else post[0], "inline": False}
+                    {"name": "Post Content", "value": post_text[:200] + "..." if len(post_text) > 200 else post_text, "inline": False}
                 ],
                 color=0xe74c3c,
                 username=bot_username,

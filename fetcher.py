@@ -169,36 +169,57 @@ async def save_batch(name: str, batch: List[Dict]):
         json.dump(complete, f, indent=4)
 
 
-# ✅ Get next post
-async def get_next_post(name: str) -> Tuple[str, datetime, float] | None:
+# ✅ Peek at next post (without removing it)
+async def peek_next_post(name: str) -> Tuple[str, float] | None:
     filename = f"posts-{name}.json"
     filepath = Path(filename)
 
     if not filepath.is_file():
-        raise FileNotFoundError(f"{filename} not found")
-
-    with filepath.open("r") as file:
-        data = json.load(file)
-
-    timestamp = datetime.fromtimestamp(data["t"])
-    posts = data["posts"]
-
-    if not posts:
-        LOG.info("No posts left")
         return None
 
-    selected_post = posts[randint(0, len(posts) - 1)]
+    try:
+        with filepath.open("r", encoding="utf-8") as file:
+            data = json.load(file)
+    except:
+        return None
 
-    posts.remove(selected_post)
+    posts = data.get("posts", [])
+    if not posts:
+        return None
 
-    reach = selected_post.get("predicted_reach", 0)
-    selected_post.pop("predicted_reach", None)
+    # We use index 0 as the "next" post to keep it consistent
+    selected_post = posts[0]
+    return selected_post["post"], selected_post.get("predicted_reach", 0)
 
-    # Save updated list
-    with filepath.open("w") as file:
+# ✅ Remove a post by its text (called after successful posting)
+async def remove_post(name: str, post_text: str):
+    filename = f"posts-{name}.json"
+    filepath = Path(filename)
+
+    if not filepath.is_file():
+        return
+
+    try:
+        with filepath.open("r", encoding="utf-8") as file:
+            data = json.load(file)
+    except:
+        return
+
+    posts = data.get("posts", [])
+    new_posts = [p for p in posts if p.get("post") != post_text]
+    data["posts"] = new_posts
+
+    with filepath.open("w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
 
-    return selected_post["post"], timestamp, reach
+# ✅ Get next post (Legacy - kept for compatibility but will be replaced in main.py)
+async def get_next_post(name: str) -> Tuple[str, datetime, float] | None:
+    res = await peek_next_post(name)
+    if res:
+        post_text, reach = res
+        await remove_post(name, post_text)
+        return post_text, datetime.now(), reach
+    return None
 
 
 # ✅ Check if posts file exists
