@@ -50,6 +50,13 @@ def main_func(bot_name: str, role_txt_path: str, creds_file_path: str = None, po
 async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
                post_frequency=None) -> None:
     
+    # 0. Ensure tokens are fresh
+    from api import ensure_fresh_token
+    try:
+        await ensure_fresh_token(bot_name)
+    except Exception as e:
+        LOG.warning(f"Could not refresh token for {bot_name}: {e}")
+
     # 1. ALWAYS run the auto-reply engine every time the script wakes up
     from api import handle_auto_replies
     try:
@@ -109,11 +116,15 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
             "next_post_time": new_next_post_time
         })
         
+        # Get display name for notification
+        display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
+        bot_username = me_data.get("username") or display_name
+
         send_discord_embed(
             title="⏳ Post Pending Approval",
             description=f"> {post[0]}\n\nApprove this post from the Command Center Dashboard.",
             color=0xf39c12,
-            username=me_data.get("username"),
+            username=bot_username,
             avatar_url=me_data.get("threads_profile_picture_url")
         )
     else:
@@ -140,6 +151,10 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
             # Or keep it updated to avoid spamming the API?
             # For now, let's just log it. The user wants Discord alert.
         
+        # Get display name for notification
+        display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
+        bot_username = me_data.get("username") or display_name
+        
         if success:
             send_discord_embed(
                 title="🤖 New Thread Posted!",
@@ -150,7 +165,7 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
                     {"name": "Synced to X", "value": "✅ Yes" if sync_x else "❌ No", "inline": True}
                 ],
                 color=0x2ecc71,
-                username=me_data.get("username"),
+                username=bot_username,
                 avatar_url=me_data.get("threads_profile_picture_url")
             )
         else:
@@ -160,11 +175,12 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
                 title="⚠️ Threads Posting Failed",
                 description=f"Bot attempted to post but encountered an error.\n\n**Error:** {error_msg}",
                 fields=[
-                    {"name": "Bot", "value": bot_name, "inline": True},
+                    {"name": "Bot Account", "value": display_name, "inline": True},
+                    {"name": "Internal ID", "value": bot_name, "inline": True},
                     {"name": "Post Content", "value": post[0][:200] + "..." if len(post[0]) > 200 else post[0], "inline": False}
                 ],
                 color=0xe74c3c,
-                username=me_data.get("username"),
+                username=bot_username,
                 avatar_url=me_data.get("threads_profile_picture_url")
             )
 

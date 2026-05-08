@@ -5,6 +5,54 @@ import os
 from dotenv import load_dotenv
 
 import json
+import logging
+from dotenv import set_key
+
+LOG = logging.getLogger(__name__)
+
+def update_env_token(bot_name, new_token):
+    env_path = ".env"
+    if bot_name == "account1" or not bot_name:
+        key = "THREADS_ACCESS_TOKEN"
+    else:
+        key = f"{bot_name.upper()}_ACCESS_TOKEN"
+    
+    try:
+        set_key(env_path, key, new_token)
+        os.environ[key] = new_token
+        LOG.info(f"Successfully updated {key} in .env and environment.")
+        return True
+    except Exception as e:
+        LOG.error(f"Failed to update {key} in .env: {e}")
+        return False
+
+async def refresh_threads_token(bot_name="account1"):
+    ACCESS_TOKEN, USER_ID = get_creds(bot_name)
+    if not ACCESS_TOKEN:
+        LOG.error(f"No access token found for {bot_name} to refresh.")
+        return None
+
+    LOG.info(f"Attempting to refresh token for {bot_name}...")
+    refresh_url = "https://graph.threads.net/refresh_access_token"
+    params = {
+        "grant_type": "th_refresh_token",
+        "access_token": ACCESS_TOKEN
+    }
+
+    try:
+        res = await asyncio.to_thread(requests.get, refresh_url, params=params)
+        data = res.json()
+        
+        if "access_token" in data:
+            new_token = data["access_token"]
+            update_env_token(bot_name, new_token)
+            return new_token
+        else:
+            LOG.error(f"Failed to refresh token for {bot_name}: {data}")
+            return None
+    except Exception as e:
+        LOG.error(f"Exception during token refresh for {bot_name}: {e}")
+        return None
 
 def get_settings():
     if not os.path.exists("settings.json"):
@@ -21,20 +69,41 @@ def get_creds(bot_name: str = "account1"):
     prefix = bot_name.upper()
     return os.getenv(f"{prefix}_ACCESS_TOKEN"), os.getenv(f"{prefix}_USER_ID")
 
+async def ensure_fresh_token(bot_name="account1"):
+    # This could be more sophisticated (checking expiry), but for now 
+    # we'll just provide the hook for main.py to call.
+    return await refresh_threads_token(bot_name)
+
 
 async def post_to_threads(text: str, bot_name: str = "account1"):
     ACCESS_TOKEN, USER_ID = get_creds(bot_name)
-    # Step 1: Create container
-    create_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
+    
+    async def attempt_post(token):
+        # Step 1: Create container
+        create_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
+        create_payload = {
+            "media_type": "TEXT",
+            "text": text,
+            "access_token": token,
+        }
+        res = await asyncio.to_thread(requests.post, create_url, data=create_payload)
+        return res.json()
 
-    create_payload = {
-        "media_type": "TEXT",
-        "text": text,
-        "access_token": ACCESS_TOKEN,
-    }
+    data = await attempt_post(ACCESS_TOKEN)
 
-    res = await asyncio.to_thread(requests.post, create_url, data=create_payload)
-    data = res.json()
+    # Check for OAuth error
+    if "error" in data:
+        error_msg = data.get("error", {}).get("message", "")
+        if "OAuth" in error_msg or data.get("error", {}).get("code") == 190:
+            LOG.warning(f"OAuth error detected for {bot_name}. Attempting to refresh token...")
+            new_token = await refresh_threads_token(bot_name)
+            if new_token:
+                LOG.info(f"Token refreshed for {bot_name}, retrying post...")
+                data = await attempt_post(new_token)
+                ACCESS_TOKEN = new_token # Update for step 2
+            else:
+                LOG.error(f"Token refresh failed for {bot_name}. Cannot retry.")
+                return False, data
 
     if "id" not in data:
         LOG.error(f"Error creating post container: {data}")
@@ -44,7 +113,6 @@ async def post_to_threads(text: str, bot_name: str = "account1"):
 
     # Step 2: Publish post
     publish_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads_publish"
-
     publish_payload = {
         "creation_id": creation_id,
         "access_token": ACCESS_TOKEN,
@@ -61,11 +129,7 @@ async def post_to_threads(text: str, bot_name: str = "account1"):
         return False, res2_json
 
 
-import logging
-from fetcher import evaluate_comment_for_reply
-from data_log import load_last_posted_time, save_last_posted_time
 
-LOG = logging.getLogger(__name__)
 
 async def get_recent_threads(bot_name="account1"):
     ACCESS_TOKEN, USER_ID = get_creds(bot_name)
@@ -96,15 +160,33 @@ async def get_thread_replies(media_id, bot_name="account1"):
 async def reply_to_thread(text: str, reply_to_id: str, bot_name="account1"):
     ACCESS_TOKEN, USER_ID = get_creds(bot_name)
     LOG.info(f"Attempting to reply to ID: {reply_to_id}")
-    create_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
-    create_payload = {
-        "media_type": "TEXT",
-        "text": text,
-        "reply_to_id": reply_to_id,
-        "access_token": ACCESS_TOKEN,
-    }
-    res = await asyncio.to_thread(requests.post, create_url, data=create_payload)
-    data = res.json()
+    
+    async def attempt_reply(token):
+        create_url = f"https://graph.threads.net/v1.0/{USER_ID}/threads"
+        create_payload = {
+            "media_type": "TEXT",
+            "text": text,
+            "reply_to_id": reply_to_id,
+            "access_token": token,
+        }
+        res = await asyncio.to_thread(requests.post, create_url, data=create_payload)
+        return res.json()
+
+    data = await attempt_reply(ACCESS_TOKEN)
+
+    # Check for OAuth error
+    if "error" in data:
+        error_msg = data.get("error", {}).get("message", "")
+        if "OAuth" in error_msg or data.get("error", {}).get("code") == 190:
+            LOG.warning(f"OAuth error detected for {bot_name} during reply. Attempting to refresh token...")
+            new_token = await refresh_threads_token(bot_name)
+            if new_token:
+                LOG.info(f"Token refreshed for {bot_name}, retrying reply...")
+                data = await attempt_reply(new_token)
+                ACCESS_TOKEN = new_token # Update for publish step
+            else:
+                LOG.error(f"Token refresh failed for {bot_name}. Cannot retry reply.")
+                return False, data
 
     if "id" not in data:
         LOG.error(f"Error creating reply container for {reply_to_id}: {data}")
@@ -221,6 +303,9 @@ async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar
                         failed_attempts.pop(reply_id, None)
                         
                         from discord_notifier import send_discord_embed
+                        display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
+                        bot_display_username = bot_username or display_name
+                        
                         send_discord_embed(
                             title="🚨 Human Review Needed!",
                             description=f"A comment from @{username} was flagged for your review.",
@@ -229,7 +314,7 @@ async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar
                                 {"name": "Suggested Reply", "value": evaluation.get("suggested_reply", "None"), "inline": False}
                             ],
                             color=0xe74c3c,
-                            username=bot_username,
+                            username=bot_display_username,
                             avatar_url=bot_avatar_url
                         )
                     elif evaluation.get("should_reply") and evaluation.get("reply_text"):
@@ -251,11 +336,14 @@ async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar
                                 {"name": f"User Comment (@{username})", "value": text, "inline": False},
                                 {"name": "Bot Reply", "value": reply_text, "inline": False}
                             ]
+                            display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
+                            bot_display_username = bot_username or display_name
+                            
                             send_discord_embed(
                                 title="💬 Auto-Reply Triggered",
                                 fields=fields,
                                 color=0x2ecc71,
-                                username=bot_username,
+                                username=bot_display_username,
                                 avatar_url=bot_avatar_url
                             )
                         else:
@@ -284,13 +372,32 @@ async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar
                 new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
                 await process_replies_recursive(reply_id, bot_name, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
 
-async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
+async def get_me_data(bot_name="account1"):
     ACCESS_TOKEN, USER_ID = get_creds(bot_name)
+    
+    async def attempt_me(token):
+        url = f"https://graph.threads.net/v1.0/me?fields=username,threads_profile_picture_url&access_token={token}"
+        res = await asyncio.to_thread(requests.get, url)
+        return res.json()
+
+    data = await attempt_me(ACCESS_TOKEN)
+    
+    if "error" in data:
+        error_msg = data.get("error", {}).get("message", "")
+        if "OAuth" in error_msg or data.get("error", {}).get("code") == 190:
+            LOG.warning(f"OAuth error in get_me_data for {bot_name}. Refreshing...")
+            new_token = await refresh_threads_token(bot_name)
+            if new_token:
+                data = await attempt_me(new_token)
+            else:
+                LOG.error(f"Failed to refresh token for {bot_name} in get_me_data.")
+    
+    return data
+
+async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
     LOG.info(f"Checking for new comments to auto-reply for {bot_name}...")
     
-    me_url = f"https://graph.threads.net/v1.0/me?fields=username,threads_profile_picture_url&access_token={ACCESS_TOKEN}"
-    me_res = await asyncio.to_thread(requests.get, me_url)
-    me_data = me_res.json()
+    me_data = await get_me_data(bot_name)
     bot_username = me_data.get("username", "")
 
     data_log = await load_last_posted_time(bot_name)

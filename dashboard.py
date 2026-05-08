@@ -45,12 +45,8 @@ def get_status():
         next_post = data_log.get("next_post_time", 0)
         
         # Read the account name from .env, fallback to "Account X"
-        env_name_key = f"ACCOUNT{i+1}_NAME" if i > 0 else "ACCOUNT1_NAME"
+        env_name_key = f"ACCOUNT{i+1}_NAME"
         bot_name = os.getenv(env_name_key, f"Account {i+1}")
-        
-        # Also handle Account 1 which might be using THREADS_ACCESS_TOKEN logic
-        if i == 0 and not os.getenv(env_name_key):
-            bot_name = "Account 1"
 
         # Usernames for links
         threads_user = os.getenv(f"ACCOUNT{i+1}_THREADS_USERNAME", "")

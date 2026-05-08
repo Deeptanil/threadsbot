@@ -60,8 +60,8 @@ This bot is designed to run automatically via GitHub Actions in the background 2
    - `THREADS_API_SECRET`: Your Meta App Secret.
    - `GOOGLE_API_KEY`: Your Gemini API Key.
    - `DISCORD_WEBHOOK_URL`: (Optional) Your Discord channel webhook.
-5. Go to **Settings > Actions > General > Workflow permissions** and ensure **Read and write permissions** is selected so the bot can save its state.
-6. The bot will now run automatically! You can also trigger it manually from the "Actions" tab.
+5. Go to **Settings > Actions > General > Workflow permissions** and ensure **Read and write permissions** is selected. This is CRITICAL because the bot now automatically refreshes its own tokens and saves them back to the repository.
+6. The bot will now run automatically! It proactively refreshes its tokens every 24 hours to ensure zero downtime.
 
 ---
 
