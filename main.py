@@ -16,7 +16,7 @@ from logging_setup import setup_logging
 
 MINIMUM_TIMESPAN_BETWEEN_POSTS = 60 * 60 * 2
 LOG = logging.getLogger(__name__)
-load_dotenv()
+load_dotenv(override=True)
 
 
 @click.command()

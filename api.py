@@ -2,29 +2,35 @@ import time
 import requests
 import asyncio
 import os
-from dotenv import load_dotenv
-
 import json
 import logging
-from dotenv import set_key
+from dotenv import load_dotenv, set_key
+from fetcher import evaluate_comment_for_reply
+from data_log import load_last_posted_time, save_last_posted_time
+from text_constants import role_desc
 
+load_dotenv(override=True)
 LOG = logging.getLogger(__name__)
 
-def update_env_token(bot_name, new_token):
-    env_path = ".env"
-    if bot_name == "account1" or not bot_name:
-        key = "THREADS_ACCESS_TOKEN"
-    else:
-        key = f"{bot_name.upper()}_ACCESS_TOKEN"
+async def save_refreshed_token(bot_name, new_token):
+    """Saves the refreshed token to the JSON state file for persistence in GitHub Actions."""
+    from data_log import save_last_posted_time, load_last_posted_time
+    data_log = await load_last_posted_time(bot_name)
     
-    try:
-        set_key(env_path, key, new_token)
-        os.environ[key] = new_token
-        LOG.info(f"Successfully updated {key} in .env and environment.")
-        return True
-    except Exception as e:
-        LOG.error(f"Failed to update {key} in .env: {e}")
-        return False
+    await save_last_posted_time(bot_name, data_log.get("last_posted_time", 0), {
+        "refreshed_token": new_token
+    })
+    
+    # Also update environment for current run
+    if bot_name == "account1" or not bot_name:
+        os.environ["THREADS_ACCESS_TOKEN"] = new_token
+    else:
+        os.environ[f"{bot_name.upper()}_ACCESS_TOKEN"] = new_token
+        # Also update the generic one since workflows use it
+        os.environ["THREADS_ACCESS_TOKEN"] = new_token
+        
+    LOG.info(f"Successfully persisted refreshed token for {bot_name} to state file.")
+    return True
 
 async def refresh_threads_token(bot_name="account1"):
     ACCESS_TOKEN, USER_ID = get_creds(bot_name)
@@ -45,7 +51,7 @@ async def refresh_threads_token(bot_name="account1"):
         
         if "access_token" in data:
             new_token = data["access_token"]
-            update_env_token(bot_name, new_token)
+            await save_refreshed_token(bot_name, new_token)
             return new_token
         else:
             LOG.error(f"Failed to refresh token for {bot_name}: {data}")
@@ -64,10 +70,31 @@ def get_settings():
         return {}
 
 def get_creds(bot_name: str = "account1"):
-    if not bot_name or bot_name == "account1":
-        return os.getenv("THREADS_ACCESS_TOKEN"), os.getenv("THREADS_USER_ID")
+    # 1. Check for a refreshed token in the JSON state file (highest priority)
+    # Since this function is sync, we use a small helper to read the file sync
+    data_file = f"data-{bot_name}.json"
+    if os.path.exists(data_file):
+        try:
+            with open(data_file, "r") as f:
+                data = json.load(f)
+                if data.get("refreshed_token"):
+                    LOG.info(f"Using refreshed token from {data_file}")
+                    return data["refreshed_token"], os.getenv("THREADS_USER_ID") or data.get("threads_user_id")
+        except:
+            pass
+
+    # 2. Check for account-specific environment variables
     prefix = bot_name.upper()
-    return os.getenv(f"{prefix}_ACCESS_TOKEN"), os.getenv(f"{prefix}_USER_ID")
+    token = os.getenv(f"{prefix}_ACCESS_TOKEN")
+    user_id = os.getenv(f"{prefix}_USER_ID")
+    
+    # 3. Fallback to generic variables (used in GitHub Action workflows)
+    if not token:
+        token = os.getenv("THREADS_ACCESS_TOKEN")
+    if not user_id:
+        user_id = os.getenv("THREADS_USER_ID")
+        
+    return token, user_id
 
 async def ensure_fresh_token(bot_name="account1"):
     # This could be more sophisticated (checking expiry), but for now 
