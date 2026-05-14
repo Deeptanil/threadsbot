@@ -1,4 +1,21 @@
 {
-    "t": 1778736619.157776,
-    "posts": []
+    "t": 1778770171.3108208,
+    "posts": [
+        {
+            "post": "I have to choose the fabric for our first run this week. I am leaning toward a 400gsm heavyweight cotton for durability, but some of you might find it too stiff. Why am I wrong for picking this over a lighter blend?",
+            "predicted_reach": 92
+        },
+        {
+            "post": "If you are waiting for a mentor to tell you how to start, you are already behind. The only way to learn the game is to lose money and figure out why it happened. What was your biggest mistake this month?",
+            "predicted_reach": 78
+        },
+        {
+            "post": "The obsession with 'hustle' is killing actual productivity. I would rather work for four hours on a product that lasts a decade than spend twelve hours chasing vanity metrics. Prove me wrong.",
+            "predicted_reach": 88
+        },
+        {
+            "post": "If you could only wear one outfit for the rest of your life, what is it and why. Be specific about the fabric and the cut. I am trying to build the perfect uniform.",
+            "predicted_reach": 95
+        }
+    ]
 }
