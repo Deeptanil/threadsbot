@@ -165,18 +165,8 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
             display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
             bot_username = me_data.get("username") or display_name
 
-            send_discord_embed(
-                title="🤖 New Thread Posted!",
-                description=f"> {post_text}",
-                fields=[
-                    {"name": "Status", "value": "✅ Published Successfully", "inline": True},
-                    {"name": "Total Posts", "value": str(posts_made), "inline": True},
-                    {"name": "Synced to X", "value": "✅ Yes" if sync_x else "❌ No", "inline": True}
-                ],
-                color=0x2ecc71,
-                username=bot_username,
-                avatar_url=me_data.get("threads_profile_picture_url")
-            )
+            # Success notification removed to reduce noise as per user request.
+            # Only errors and approval requests will be sent to Discord.
         else:
             LOG.error(f"Post failed for {bot_name}: {error_data}")
             # We do NOT update next_post_time. It stays in the past.

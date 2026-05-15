@@ -353,26 +353,8 @@ async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar
                             newly_replied.append(reply_id)
                             failed_attempts.pop(reply_id, None)
                             
-                            from discord_notifier import send_discord_embed
-                            original_thread = thread_text.split('\n[Reply by')[0]
-                            if len(original_thread) > 1000:
-                                original_thread = original_thread[:1000] + "..."
-                                
-                            fields = [
-                                {"name": "Original Thread", "value": original_thread, "inline": False},
-                                {"name": f"User Comment (@{username})", "value": text, "inline": False},
-                                {"name": "Bot Reply", "value": reply_text, "inline": False}
-                            ]
-                            display_name = os.getenv(f"{bot_name.upper()}_NAME", bot_name)
-                            bot_display_username = bot_username or display_name
-                            
-                            send_discord_embed(
-                                title="💬 Auto-Reply Triggered",
-                                fields=fields,
-                                color=0x2ecc71,
-                                username=bot_display_username,
-                                avatar_url=bot_avatar_url
-                            )
+                            # Success notification removed to reduce noise.
+                            pass
                         else:
                             # Handle specific errors
                             error_code = error_data.get("error", {}).get("code")
