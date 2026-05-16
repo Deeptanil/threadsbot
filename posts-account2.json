@@ -1,4 +1,13 @@
 {
-    "t": 1778944413.4860299,
-    "posts": []
+    "t": 1778952497.6647923,
+    "posts": [
+        {
+            "post": "Friendly reminder that your outfit is a data point. \n\nEvery morning you choose what signal you send to the world. \n\nIf you dress for the algorithm, you look like a JPEG. Flat. Two-dimensional. Disposable. \n\nIf you dress for the room, you look like a human being. \n\nMost people dress to be seen on a screen. Dress to be respected in person.",
+            "predicted_reach": 95
+        },
+        {
+            "post": "How to know if you have a good garment: \n\nLook at the seams. \n\nIf they are fraying, uneven, or pulling, the designer didn't care about the lifespan of the piece. \n\nIf they didn't care about the build, they definitely didn't care about your silhouette. \n\nStop paying for branding. Start paying for engineering.",
+            "predicted_reach": 85
+        }
+    ]
 }
