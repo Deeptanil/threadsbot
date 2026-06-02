@@ -148,7 +148,7 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
 
             if sync_x:
                 from twitter import post_to_x
-                post_to_x(post_text)
+                post_to_x(post_text, bot_name)
                 
             posts_made += 1
             
