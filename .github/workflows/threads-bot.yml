@@ -35,10 +35,6 @@ jobs:
           THREADS_API_SECRET: ${{ secrets.THREADS_API_SECRET }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          ACCOUNT1_X_API_KEY: ${{ secrets.ACCOUNT1_X_API_KEY }}
-          ACCOUNT1_X_API_SECRET: ${{ secrets.ACCOUNT1_X_API_SECRET }}
-          ACCOUNT1_X_ACCESS_TOKEN: ${{ secrets.ACCOUNT1_X_ACCESS_TOKEN }}
-          ACCOUNT1_X_ACCESS_SECRET: ${{ secrets.ACCOUNT1_X_ACCESS_SECRET }}
         run: python main.py account1 --role-txt-path roles/account1.txt
 
       - name: Commit and Push State

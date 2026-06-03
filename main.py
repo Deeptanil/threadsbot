@@ -96,7 +96,6 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
     
     settings = get_settings().get(bot_name, {})
     approval_mode = settings.get("approval_mode", False)
-    sync_x = settings.get("sync_x", False)
     min_gap = float(settings.get("min_gap_hours", 2))
     max_gap = float(settings.get("max_gap_hours", 3.5))
 
@@ -145,11 +144,7 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
         if success:
             # Remove from candidate list ONLY on success
             await remove_post(bot_name, post_text)
-
-            if sync_x:
-                from twitter import post_to_x
-                post_to_x(post_text, bot_name)
-                
+            
             posts_made += 1
             
             await save_last_posted_time(bot_name, current_time, {
