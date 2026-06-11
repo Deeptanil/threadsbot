@@ -1,4 +1,21 @@
 {
-    "t": 1781080777.054933,
-    "posts": []
+    "t": 1781175658.9449093,
+    "posts": [
+        {
+            "post": "style is 90% confidence and 10% not wearing whatever everyone else is buying.",
+            "predicted_reach": 75
+        },
+        {
+            "post": "if you aren't wearing your clothes, you're just hoarding fabric. \n\nwear the fit.",
+            "predicted_reach": 68
+        },
+        {
+            "post": "premium boxy fits that actually last. \n\nshop the collection at strayed.in.",
+            "predicted_reach": 45
+        },
+        {
+            "post": "most brands sell you a personality. \n\nwe just make the clothes. what\u2019s your preference?",
+            "predicted_reach": 91
+        }
+    ]
 }
