@@ -120,6 +120,41 @@ function renderDashboard(data) {
             reviewHTML += `</div>`;
         }
         
+        let performanceHTML = '';
+        if (info.performance && info.performance.length > 0) {
+            performanceHTML = `
+                <div class="recent-performance">
+                    <h3>Recent Post Insights</h3>
+            `;
+            // Show the last 3 posts
+            const recentPosts = info.performance.slice(-3).reverse();
+            recentPosts.forEach(post => {
+                const views = post.views !== null && post.views !== undefined ? post.views : 'N/A';
+                const replies = post.replies !== null && post.replies !== undefined ? post.replies : 'N/A';
+                const likes = post.likes !== null && post.likes !== undefined ? post.likes : 'N/A';
+                
+                let rateHTML = '';
+                if (typeof post.views === 'number' && typeof post.replies === 'number' && post.views > 0) {
+                    const rate = ((post.replies / post.views) * 100).toFixed(1);
+                    const rateClass = parseFloat(rate) >= 2.0 ? 'perf-rate-good' : '';
+                    rateHTML = `<span class="${rateClass}"><i class="ph ph-trend-up"></i> ${rate}% rate</span>`;
+                }
+
+                performanceHTML += `
+                    <div class="perf-row">
+                        <div class="perf-text">"${post.text}"</div>
+                        <div class="perf-stats">
+                            <span><i class="ph ph-eye"></i> ${views}</span>
+                            <span><i class="ph ph-chat-circle"></i> ${replies}</span>
+                            <span><i class="ph ph-thumbs-up"></i> ${likes}</span>
+                            ${rateHTML}
+                        </div>
+                    </div>
+                `;
+            });
+            performanceHTML += `</div>`;
+        }
+        
         card.innerHTML = `
             <div class="card-header">
                 <h2 style="display: flex; align-items: center; gap: 10px;">
@@ -154,6 +189,8 @@ function renderDashboard(data) {
                     </strong>
                 </div>
             </div>
+
+            ${performanceHTML}
 
             <div class="card-actions">
                 <button class="btn-primary" onclick="triggerRun('${acc}')" id="btn-run-${acc}">

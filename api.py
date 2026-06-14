@@ -4,6 +4,7 @@ import asyncio
 import os
 import json
 import logging
+import random
 from dotenv import load_dotenv, set_key
 from fetcher import evaluate_comment_for_reply
 from data_log import load_last_posted_time, save_last_posted_time
@@ -11,6 +12,25 @@ from text_constants import role_desc
 
 load_dotenv(override=True)
 LOG = logging.getLogger(__name__)
+
+# ---------------------------------------------------------------------------
+# Conversation-ender pre-filter — avoids wasting an AI call on dead-end replies
+# ---------------------------------------------------------------------------
+_CONVERSATION_ENDERS = {
+    "lol", "lmao", "haha", "hehe", "ok", "okay", "sure", "nice", "cool", "wow",
+    "thanks", "thank you", "ty", "thx", "noted", "agreed", "true", "facts",
+    "same", "mood", "fr", "fr fr", "ong", "ngl", "ikr", "yep", "yup", "omg",
+    "you too", "u too", "have a great day", "have a good day", "good point",
+    "💯", "🔥", "❤️", "🙌", "👏", "😂", "🤣", "👍", "🙏", "😍",
+    "💕", "✨", "😭", "🥹", "😊", "🫶", "🪶", "👌",
+}
+
+def _is_conversation_ender(text: str) -> bool:
+    """Returns True if this comment is a dead-end reply that needs no response."""
+    cleaned = text.strip().lower().rstrip("!.,~").strip()
+    if len(cleaned) <= 2:
+        return True
+    return cleaned in _CONVERSATION_ENDERS
 
 async def save_refreshed_token(bot_name, new_token):
     """Saves the refreshed token to the JSON state file for persistence in GitHub Actions."""
@@ -70,8 +90,17 @@ def get_settings():
         return {}
 
 def get_creds(bot_name: str = "account1"):
-    # 1. Check for a refreshed token in the JSON state file (highest priority)
-    # Since this function is sync, we use a small helper to read the file sync
+    # 1. Get account-specific and generic environment values
+    prefix = bot_name.upper()
+    env_token = os.getenv(f"{prefix}_ACCESS_TOKEN")
+    env_user_id = os.getenv(f"{prefix}_USER_ID")
+    
+    if not env_token:
+        env_token = os.getenv("THREADS_ACCESS_TOKEN")
+    if not env_user_id:
+        env_user_id = os.getenv("THREADS_USER_ID")
+        
+    # 2. Check for a refreshed token in the JSON state file (highest priority)
     data_file = f"data-{bot_name}.json"
     if os.path.exists(data_file):
         try:
@@ -79,22 +108,14 @@ def get_creds(bot_name: str = "account1"):
                 data = json.load(f)
                 if data.get("refreshed_token"):
                     LOG.info(f"Using refreshed token from {data_file}")
-                    return data["refreshed_token"], os.getenv("THREADS_USER_ID") or data.get("threads_user_id")
+                    # Prefer env account-specific ID, then JSON, then fallback env ID
+                    uid = env_user_id or data.get("threads_user_id") or os.getenv("THREADS_USER_ID")
+                    return data["refreshed_token"], uid
         except:
             pass
+            
+    return env_token, env_user_id
 
-    # 2. Check for account-specific environment variables
-    prefix = bot_name.upper()
-    token = os.getenv(f"{prefix}_ACCESS_TOKEN")
-    user_id = os.getenv(f"{prefix}_USER_ID")
-    
-    # 3. Fallback to generic variables (used in GitHub Action workflows)
-    if not token:
-        token = os.getenv("THREADS_ACCESS_TOKEN")
-    if not user_id:
-        user_id = os.getenv("THREADS_USER_ID")
-        
-    return token, user_id
 
 async def ensure_fresh_token(bot_name="account1"):
     # This could be more sophisticated (checking expiry), but for now 
@@ -276,7 +297,7 @@ async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar
             # to see if fans replied back to us!
             if has_replies:
                 new_thread_text = f"{thread_text}\n[Reply by @{username}]: {text}"
-                await process_replies_recursive(reply_id, bot_username, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
+                await process_replies_recursive(reply_id, bot_name, bot_username, bot_avatar_url, replied_comments, newly_replied, role_desc, new_thread_text, failed_attempts, depth + 1)
             continue
         else:
             # 2. Check if we already replied (more efficiently)
@@ -294,6 +315,10 @@ async def process_replies_recursive(media_id, bot_name, bot_username, bot_avatar
                 newly_replied.append(reply_id)
             elif not text or text.strip() == "":
                 LOG.info(f"Skipping comment from @{username} because it has no text (Sticker/GIF).")
+                newly_replied.append(reply_id)
+            elif _is_conversation_ender(text):
+                # Fast pre-filter: no AI call needed, conversation is done
+                LOG.info(f"Skipping conversation ender from @{username}: '{text}'")
                 newly_replied.append(reply_id)
             else:
                 # 3. Evaluate and Reply
@@ -418,8 +443,8 @@ async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
     failed_attempts = data_log.get("failed_attempts", {})
     newly_replied = []
 
-    # Check the 10 most recent threads
-    for thread in threads[:10]:
+    # Check the 20 most recent threads (increased from 10 to catch delayed viral replies)
+    for thread in threads[:20]:
         thread_id = thread.get("id")
         thread_text = thread.get("text", "")
         await process_replies_recursive(thread_id, bot_name, bot_username, me_data.get("threads_profile_picture_url"), replied_comments, newly_replied, role_desc, thread_text, failed_attempts)
@@ -441,3 +466,162 @@ async def handle_auto_replies(role_desc=None, bot_name: str = "account1"):
         
     LOG.info(f"Finished auto-reply check for {bot_name}.")
     return me_data, data_log.get("last_reply_check", time.time())
+
+
+# ---------------------------------------------------------------------------
+# Performance tracking — per-post metrics via Threads Insights API
+# ---------------------------------------------------------------------------
+
+async def fetch_post_insights(post_id: str, bot_name: str = "account1") -> dict:
+    """Fetch views, likes, replies, reposts for a single post."""
+    ACCESS_TOKEN, USER_ID = get_creds(bot_name)
+    url = f"https://graph.threads.net/v1.0/{post_id}/insights"
+    params = {
+        "metric": "views,likes,replies,reposts,quotes",
+        "access_token": ACCESS_TOKEN
+    }
+    try:
+        res = await asyncio.to_thread(requests.get, url, params=params)
+        data = res.json()
+        metrics = {}
+        for item in data.get("data", []):
+            # Insights returns a list of value objects; grab the first value
+            values = item.get("values", [])
+            metrics[item["name"]] = values[0].get("value", 0) if values else item.get("total_value", {}).get("value", 0)
+        return metrics
+    except Exception as e:
+        LOG.error(f"Failed to fetch insights for post {post_id}: {e}")
+        return {}
+
+
+async def save_performance_entry(bot_name: str, post_id: str, post_text: str):
+    """Record a newly published post in the per-account performance log."""
+    filename = f"performance-{bot_name}.json"
+    try:
+        if os.path.exists(filename):
+            with open(filename, "r") as f:
+                perf = json.load(f)
+        else:
+            perf = {"posts": []}
+
+        perf["posts"].append({
+            "id": post_id,
+            "text": post_text,
+            "posted_at": time.time(),
+            "views": None,
+            "replies": None,
+            "likes": None,
+            "reposts": None,
+            "last_fetched": None
+        })
+
+        # Keep only the last 100 posts to bound file size
+        perf["posts"] = perf["posts"][-100:]
+
+        with open(filename, "w") as f:
+            json.dump(perf, f, indent=2)
+        LOG.info(f"Performance entry saved for post {post_id} ({bot_name})")
+    except Exception as e:
+        LOG.error(f"Failed to save performance entry: {e}")
+
+
+async def refresh_performance_log(bot_name: str):
+    """
+    On each bot run, fetch fresh Threads Insights for any post that:
+    - Is less than 7 days old (insights go stale after that)
+    - Has not been fetched in the last hour
+    """
+    filename = f"performance-{bot_name}.json"
+    if not os.path.exists(filename):
+        return
+
+    try:
+        with open(filename, "r") as f:
+            perf = json.load(f)
+    except Exception:
+        return
+
+    now = time.time()
+    updated = False
+
+    for entry in perf.get("posts", []):
+        last_fetched = entry.get("last_fetched") or 0
+        post_age = now - entry.get("posted_at", 0)
+        # Only refresh if post is <7 days old and data is >1 hour stale
+        if post_age < 7 * 86400 and (now - last_fetched) > 3600:
+            metrics = await fetch_post_insights(entry["id"], bot_name)
+            if metrics:
+                entry["views"]   = metrics.get("views",   entry.get("views"))
+                entry["likes"]   = metrics.get("likes",   entry.get("likes"))
+                entry["replies"] = metrics.get("replies", entry.get("replies"))
+                entry["reposts"] = metrics.get("reposts", entry.get("reposts"))
+                entry["last_fetched"] = now
+                updated = True
+                await asyncio.sleep(0.5)  # gentle rate limiting between insight calls
+
+    if updated:
+        with open(filename, "w") as f:
+            json.dump(perf, f, indent=2)
+        LOG.info(f"Performance log refreshed for {bot_name}")
+
+
+# ---------------------------------------------------------------------------
+# Cross-amplification engine — Solvikz (account1) boosting brand accounts
+# ---------------------------------------------------------------------------
+
+async def handle_cross_amplification(solvikz_role: str):
+    """
+    Occasionally (max once every 3 days) have Solvikz (account1) reply to recent 
+    threads of Prettiva (account2) and Strayed (account3) to drive traffic.
+    """
+    data_log = await load_last_posted_time("account1")
+    last_cross = data_log.get("last_cross_reply_time", 0)
+    now = time.time()
+    
+    # 3-day rate limit (259200 seconds)
+    if (now - last_cross) < 3 * 24 * 3600:
+        LOG.info("Cross-amplification check skipped: rate limit active (last run was recent).")
+        return
+
+    # Try Account 2 and Account 3
+    targets = ["account2", "account3"]
+    # Shuffle targets to avoid prioritizing one over the other
+    random.shuffle(targets)
+    
+    solvikz_username = os.getenv("ACCOUNT1_THREADS_USERNAME", "solvikz")
+
+    for target_acc in targets:
+        try:
+            threads = await get_recent_threads(target_acc)
+            if not threads:
+                continue
+
+            # Check the 3 most recent threads
+            for thread in threads[:3]:
+                thread_id = thread.get("id")
+                thread_text = thread.get("text", "")
+                if not thread_id or not thread_text:
+                    continue
+
+                # Fetch replies to see if we already replied
+                replies = await get_thread_replies(thread_id, target_acc)
+                already_replied = any(r.get("username") == solvikz_username for r in replies)
+                if already_replied:
+                    continue
+
+                # Generate a reply from Solvikz's perspective (override_role)
+                LOG.info(f"Generating cross-amplification reply for {target_acc} thread: '{thread_text}'")
+                eval_res = await evaluate_comment_for_reply(thread_text, override_role=solvikz_role, parent_post_text="")
+                if eval_res and eval_res.get("should_reply") and eval_res.get("reply_text"):
+                    reply_text = eval_res["reply_text"]
+                    LOG.info(f"Posting cross-amplification reply from Solvikz: '{reply_text}'")
+                    success, _ = await reply_to_thread(reply_text, thread_id, bot_name="account1")
+                    if success:
+                        # Save the updated cross reply timestamp
+                        await save_last_posted_time("account1", data_log.get("last_posted_time", 0), {
+                            "last_cross_reply_time": now
+                        })
+                        LOG.info(f"Cross-amplification reply successfully posted. Rate limit updated.")
+                        return # Only reply to one post per execution run
+        except Exception as e:
+            LOG.error(f"Error checking cross-amplification for {target_acc}: {e}")

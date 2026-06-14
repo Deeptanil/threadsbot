@@ -407,3 +407,55 @@ input:checked + .slider:before { transform: translateX(20px); }
     white-space: pre-wrap;
     flex: 1;
 }
+
+/* PERFORMANCE IN CARDS */
+.recent-performance {
+    margin-top: 16px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+}
+
+.recent-performance h3 {
+    font-size: 13px;
+    color: var(--accent-yellow);
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.perf-row {
+    background-color: var(--bg-dark);
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.perf-text {
+    font-size: 12px;
+    color: var(--text-main);
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.perf-stats {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.perf-stats span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.perf-rate-good {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+

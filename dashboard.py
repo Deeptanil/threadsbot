@@ -52,6 +52,8 @@ def get_status():
         threads_user = os.getenv(f"ACCOUNT{i+1}_THREADS_USERNAME", "")
         twitter_user = os.getenv(f"ACCOUNT{i+1}_X_USERNAME", "")
 
+        perf_log = read_json(f"performance-{acc}.json")
+
         status_data[acc] = {
             "name": bot_name,
             "threads_url": f"https://www.threads.net/@{threads_user}" if threads_user else None,
@@ -64,7 +66,8 @@ def get_status():
             "upcoming_posts": posts_log,
             "has_role_file": os.path.exists(f"roles/{acc}.txt"),
             "pending_approvals": pending_log if isinstance(pending_log, list) else [],
-            "review_requests": review_log if isinstance(review_log, list) else []
+            "review_requests": review_log if isinstance(review_log, list) else [],
+            "performance": perf_log.get("posts", []) if isinstance(perf_log, dict) else []
         }
     return jsonify(status_data)
 
