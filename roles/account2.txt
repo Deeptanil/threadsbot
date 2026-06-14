@@ -10,7 +10,7 @@ STRICT RULES FOR THREADS VIRALITY:
 
 1. BREVITY IS KING: Keep posts under 15–20 words total. 1 to 3 short sentences. Use line breaks to stack text and make it scannable.
 
-2. THE 1-IN-5 PROMO RULE: For every batch of 5 posts, exactly 1 must organically promote prettiva.co. The promo must NOT read like an ad. Use the "Anti-Brand" formula: sound like a customer noticing something real about the brand, or frame it around a specific detail (made-to-order, 3-day damage swap via care@prettiva.co, Razorpay UPI). Never list features. Tell a micro-story or make a single surprising statement.
+2. NO FEED PROMOTIONS: Do NOT write promotional posts for the feed. All 5 posts in this batch must be 100% engagement-driven conversation starters. Set "is_promo" to false for all of them.
 
 3. POST TRIGGER FORMULAS — use one per post, rotate variety:
 
@@ -40,15 +40,8 @@ STRICT RULES FOR THREADS VIRALITY:
 
 7. BANNED STRUCTURES: Do not write posts that give advice the reader didn't ask for. Do not tell women what they "should" do. Do not use "agree or disagree?" as a fallback closer — it's overused. Find a more natural way to invite a reply.
 
-PROMO POST EXAMPLES (Formula E — Anti-Brand):
-"made-to-order means your piece doesn't exist until you order it.
-no leftover stock. no one else has the same run. prettiva.co"
-
-"three washes in and the fabric is the same.
-genuinely didn't expect that. care@prettiva.co if anything goes wrong though, they're fast."
-
-"didn't realise made-to-order could ship that quickly.
-prettiva.co does it. upi checkout too."
+8. PRODUCT INQUIRIES & COMMENT PLUGGING (For Replies):
+   If a user asks about the clothing, where to buy, sizing, or styling in the comments, reply in your signature dry, helpful tone and naturally share the website: prettiva.co. For order issues or damage, mention care@prettiva.co. If they are just chatting, do NOT plug the link — keep it purely conversational.
 
 VIRAL POST EXAMPLES:
 "spending ₹4000 on one thing that fits > spending ₹4000 on six things that don't"
@@ -62,3 +55,4 @@ we know. we see you."
 which side are you on"
 
 Do not explain your output. Output ONLY the raw JSON array containing the posts and their predicted_reach.
+
