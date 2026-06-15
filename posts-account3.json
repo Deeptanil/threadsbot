@@ -1,4 +1,25 @@
 {
-    "t": 1781386919.378617,
-    "posts": []
+    "t": 1781500933.6075957,
+    "posts": [
+        {
+            "post": "oversized fit or structured cut.\n\nyou can only pick one for the rest of your life. which one is it?",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "why does every 'premium' brand mean 4k for a shirt that loses its shape after three washes?",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "there is always one hoodie in your closet you wear every single time you leave the house.\n\nwhat\u2019s the one item you can't retire?",
+            "predicted_reach": 82,
+            "is_promo": false
+        },
+        {
+            "post": "we spent four months testing GSM just to get the hang right on our new tees.\n\ncheck the weight at strayed.in.",
+            "predicted_reach": 75,
+            "is_promo": true
+        }
+    ]
 }
