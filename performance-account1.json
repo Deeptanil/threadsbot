@@ -8,7 +8,7 @@
       "replies": 14,
       "likes": 2,
       "reposts": 0,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
     },
     {
       "id": "17886777603573504",
@@ -18,7 +18,7 @@
       "replies": 5,
       "likes": 2,
       "reposts": 1,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
     },
     {
       "id": "18270912349293308",
@@ -28,7 +28,7 @@
       "replies": 33,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
     },
     {
       "id": "18109437838979104",
@@ -38,17 +38,17 @@
       "replies": 3,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
     },
     {
       "id": "18042889847790847",
       "text": "i don\u2019t trust people who don\u2019t have a specific song they listen to when they\u2019re sad. what\u2019s your go-to.",
       "posted_at": 1781501114.202313,
-      "views": 590,
+      "views": 592,
       "replies": 28,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
     },
     {
       "id": "17917928427182780",
@@ -58,7 +58,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
     },
     {
       "id": "17891800893369619",
@@ -68,17 +68,27 @@
       "replies": 2,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
     },
     {
       "id": "18120261631689720",
       "text": "putting ice in cereal is a move and i refuse to hear otherwise.\n\nchange my mind.",
       "posted_at": 1781561997.4752812,
-      "views": 105,
-      "replies": 3,
+      "views": 111,
+      "replies": 6,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568394.0795534
+      "last_fetched": 1781587734.9539871
+    },
+    {
+      "id": "18165374491433760",
+      "text": "people who walk slow in groups of three deserve a special place in timeout.",
+      "posted_at": 1781587760.7457523,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
