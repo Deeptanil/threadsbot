@@ -8,7 +8,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 1,
-      "last_fetched": 1781568396.0528178
+      "last_fetched": 1781587573.98652
     },
     {
       "id": "17894591565494175",
@@ -18,7 +18,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568396.0528178
+      "last_fetched": 1781587573.98652
     },
     {
       "id": "18096276458222265",
@@ -28,7 +28,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568396.0528178
+      "last_fetched": 1781587573.98652
     },
     {
       "id": "17971088934117227",
@@ -38,7 +38,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568396.0528178
+      "last_fetched": 1781587573.98652
     },
     {
       "id": "18097176791225178",
@@ -48,17 +48,27 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1781568396.0528178
+      "last_fetched": 1781587573.98652
     },
     {
       "id": "17921069520368001",
       "text": "why does every 'premium' brand mean 4k for a shirt that loses its shape after three washes?",
       "posted_at": 1781540627.427358,
-      "views": 25,
+      "views": 27,
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1781568396.0528178
+      "last_fetched": 1781587573.98652
+    },
+    {
+      "id": "18339768460221006",
+      "text": "there is always one hoodie in your closet you wear every single time you leave the house.\n\nwhat\u2019s the one item you can't retire?",
+      "posted_at": 1781587591.9955115,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
