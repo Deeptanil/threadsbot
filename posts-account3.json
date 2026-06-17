@@ -1,4 +1,25 @@
 {
-    "t": 1781623916.888328,
-    "posts": []
+    "t": 1781706701.492263,
+    "posts": [
+        {
+            "post": "the most annoying thing about 'premium' clothing is brands charging for the label instead of the fabric weight.\n\nwe all know the feeling of a shirt losing its shape after two washes.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "it\u2019s always the guy in a plain black hoodie at the airport who looks like he has his life together.",
+            "predicted_reach": 90,
+            "is_promo": false
+        },
+        {
+            "post": "everyone has that one piece of clothing they\u2019ve owned for years that still looks better than anything new they buy.\n\nwhat is it?",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "tried to make a logo-heavy piece last month. it felt wrong.\n\nback to keeping things quiet at strayed.in",
+            "predicted_reach": 85,
+            "is_promo": true
+        }
+    ]
 }
