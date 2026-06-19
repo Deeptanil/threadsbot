@@ -1,4 +1,25 @@
 {
-    "t": 1781799574.589753,
-    "posts": []
+    "t": 1781900322.936062,
+    "posts": [
+        {
+            "post": "we finally settled on a 300gsm cotton for the new collection.\n\nif you hate a heavy drape, you\u2019re just wrong.",
+            "predicted_reach": 92,
+            "is_promo": true
+        },
+        {
+            "post": "some guys look put together in a sack, while others try too hard in expensive labels.\n\nit\u2019s never about the brand name.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "everyone has that one heavy hoodie they refuse to throw away, even with the frayed cuffs.\n\nwhat\u2019s keeping it in the rotation?",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "ironing a t-shirt is a chore.\n\neither the fabric holds its own or it isn't worth the closet space.",
+            "predicted_reach": 82,
+            "is_promo": false
+        }
+    ]
 }
