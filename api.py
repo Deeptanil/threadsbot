@@ -166,15 +166,28 @@ async def post_to_threads(text: str, bot_name: str = "account1"):
         "access_token": ACCESS_TOKEN,
     }
 
-    res2 = await asyncio.to_thread(requests.post, publish_url, data=publish_payload)
-    res2_json = res2.json()
-    
-    if "id" in res2_json:
-        LOG.info(f"Post published successfully: {res2_json}")
-        return True, res2_json
-    else:
-        LOG.error(f"Error publishing post: {res2_json}")
-        return False, res2_json
+    # Wait a few seconds for Meta's servers to propagate the container
+    await asyncio.sleep(5)
+
+    for attempt in range(3):
+        res2 = await asyncio.to_thread(requests.post, publish_url, data=publish_payload)
+        res2_json = res2.json()
+
+        if "id" in res2_json:
+            LOG.info(f"Post published successfully: {res2_json}")
+            return True, res2_json
+
+        error_code = res2_json.get("error", {}).get("code")
+        # Code 24 = Media Not Found. This usually means the container isn't ready yet.
+        if error_code == 24:
+            LOG.warning(f"Media {creation_id} not found yet (attempt {attempt+1}/3). Retrying in 10s...")
+            await asyncio.sleep(10)
+        else:
+            LOG.error(f"Error publishing post (Creation ID: {creation_id}): {res2_json}")
+            return False, res2_json
+
+    LOG.error(f"Post publish failed after 3 attempts (Creation ID: {creation_id})")
+    return False, res2_json
 
 
 
