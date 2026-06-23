@@ -1,17 +1,15 @@
 {
-    "t": 1781386919.378617,
+    "t": 1782126619.843195,
     "posts": [
         {
-            "post": "if you can't wear it three years from now, don't buy it. \nstop chasing trends.",
-            "predicted_reach": 78
+            "post": "there is always one hoodie in your closet you wear until it\u2019s falling apart. you know the one.",
+            "predicted_reach": 85,
+            "is_promo": false
         },
         {
-            "post": "boxy fits, heavyweight cotton. \nno logos, just clean lines at strayed.in.",
-            "predicted_reach": 65
-        },
-        {
-            "post": "true confidence doesn't need a billboard on your chest. \nprove me wrong.",
-            "predicted_reach": 95
+            "post": "we spent six weeks testing pocket weights alone. most people won't notice. some definitely will.",
+            "predicted_reach": 78,
+            "is_promo": false
         }
     ]
 }
