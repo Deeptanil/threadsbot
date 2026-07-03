@@ -1,4 +1,25 @@
 {
-    "t": 1782978776.642517,
-    "posts": []
+    "t": 1783066873.5336254,
+    "posts": [
+        {
+            "post": "spending 5k on a shirt that falls apart in three washes isn't premium. \n\nit\u2019s just a bad investment.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "the most stylish guy in the room is usually wearing the least amount of branding. \n\nthat's a fact.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "there is a specific kind of confidence in wearing the exact same outfit two days in a row.",
+            "predicted_reach": 82,
+            "is_promo": false
+        },
+        {
+            "post": "we spent six weeks testing fabric weights just to make a tee that holds its shape. \n\nmost people probably won't even notice the difference.",
+            "predicted_reach": 78,
+            "is_promo": false
+        }
+    ]
 }
