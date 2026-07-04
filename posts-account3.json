@@ -1,4 +1,25 @@
 {
-    "t": 1783066873.5336254,
-    "posts": []
+    "t": 1783151768.3923624,
+    "posts": [
+        {
+            "post": "why does every 'premium' brand act like charging 5k for thin cotton is a favor to the customer?",
+            "predicted_reach": 94,
+            "is_promo": false
+        },
+        {
+            "post": "a crisp white tee under a blazer or a heavy hoodie under a denim jacket.\n\nonly one belongs in a serious rotation.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "there is a specific silence in a room when a guy walks in wearing clothes that actually fit him.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "we spent four months testing GSM weights just to stop the collar from sagging after three washes.\n\nmost brands stop at two weeks.",
+            "predicted_reach": 85,
+            "is_promo": true
+        }
+    ]
 }
