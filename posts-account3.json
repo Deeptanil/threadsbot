@@ -1,4 +1,25 @@
 {
-    "t": 1783151768.3923624,
-    "posts": []
+    "t": 1783239671.2864952,
+    "posts": [
+        {
+            "post": "the bar for how men dress in this country is so low that a clean white tee makes you a 'fashion guy'.\n\nwe need to do better.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "why is finding a heavy cotton tee that doesn't lose its shape after two washes like hunting for treasure?",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "there's always that one hoodie in the closet.\n\nyou know exactly which one i mean.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "we spent six months just trying to get the collar height perfect.\n\nmost people won't even notice, but we know.",
+            "predicted_reach": 80,
+            "is_promo": false
+        }
+    ]
 }
