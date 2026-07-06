@@ -1,4 +1,25 @@
 {
-    "t": 1783239671.2864952,
-    "posts": []
+    "t": 1783330813.194676,
+    "posts": [
+        {
+            "post": "the best dressed guy in the room is always the one who looks like he didn\u2019t think about it at all.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "a hoodie is either perfectly structured or it\u2019s just a piece of laundry for the house.\n\nthere is no in-between.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "it\u2019s wild that people pay premium prices for fabric that feels like cardboard after three washes.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "we spent six months just testing the weight of the cotton for the current collection.\n\nstrayed.in",
+            "predicted_reach": 75,
+            "is_promo": true
+        }
+    ]
 }
