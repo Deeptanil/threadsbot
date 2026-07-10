@@ -1,4 +1,25 @@
 {
-    "t": 1783606332.803989,
-    "posts": []
+    "t": 1783699199.1668208,
+    "posts": [
+        {
+            "post": "everyone wants a capsule wardrobe until they have to actually let go of the clothes they never wear.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "are you a heavy-weight cotton guy or do you actually prefer blends?",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "the best t-shirt you own is probably the one you bought years ago, not the one you bought last week.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "we spent six months just fixing the collar on our heavy tee. \n\nif it isn't worth the wait, it isn't worth making. \n\ncheck the weight at strayed.in",
+            "predicted_reach": 75,
+            "is_promo": true
+        }
+    ]
 }
