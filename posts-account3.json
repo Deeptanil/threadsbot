@@ -1,4 +1,25 @@
 {
-    "t": 1783699199.1668208,
-    "posts": []
+    "t": 1783778809.0839496,
+    "posts": [
+        {
+            "post": "the bar for men's style is so low in india that wearing a clean, fitted tee makes you the best dressed guy in the room.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "why does every 'premium' brand charge five grand for a tee that fades after two washes?",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "that one beat-up shirt you\u2019ve worn to every single airport run for three years. \n\nyou know the one.",
+            "predicted_reach": 82,
+            "is_promo": false
+        },
+        {
+            "post": "we spent six weeks testing fabric weights just to make a black tee that doesn't lose its shape. \n\nsometimes the smallest details take the longest.",
+            "predicted_reach": 75,
+            "is_promo": false
+        }
+    ]
 }
