@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18097812509231084",
-      "text": "we spent six months just testing the weight of our cotton.\n\nif you want to see what that feels like, check strayed.in.",
-      "posted_at": 1782105885.0390162,
-      "views": 1,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1782698298.5688016
-    },
-    {
       "id": "18116142997861445",
       "text": "why does every 'premium' brand charge four thousand for something that loses its shape after two washes?",
       "posted_at": 1782126625.0162492,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1783855349.0083983
+    },
+    {
+      "id": "18109722365318958",
+      "text": "we spent six weeks testing fabric weights just to make a black tee that doesn't lose its shape. \n\nsometimes the smallest details take the longest.",
+      "posted_at": 1783858200.6950135,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
