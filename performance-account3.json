@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17895660888498756",
-      "text": "denim on denim: an elite look or just trying too hard?",
-      "posted_at": 1782143970.5947335,
-      "views": 1,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1782734741.2769818
-    },
-    {
       "id": "18133499809606622",
       "text": "the bar for how men dress in cities is so low that a clean white tee makes you the best dressed in the room.",
       "posted_at": 1782157134.1635673,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1783877956.5935807
+    },
+    {
+      "id": "18138890827559556",
+      "text": "bought a garment last month for a ridiculous price and it lost its shape after one wash.\n\nwhen did paying more stop guaranteeing quality?",
+      "posted_at": 1783881171.6117024,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
