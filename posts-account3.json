@@ -1,4 +1,25 @@
 {
-    "t": 1783958896.7630467,
-    "posts": []
+    "t": 1784033734.915263,
+    "posts": [
+        {
+            "post": "there is no middle ground.\n\neither you\u2019re a 'one bag for life' person or you lose your charger every three days.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "nothing worse than buying a 'premium' hoodie that loses its shape after three washes.\n\nwho else is tired of this cycle?",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "ironing a tee is a crime.\n\neither the fabric sits right on its own, or it\u2019s not worth wearing.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "we spent six months fighting over the collar thickness on our new drop.\n\nmost people won't notice, but some will.",
+            "predicted_reach": 75,
+            "is_promo": true
+        }
+    ]
 }
