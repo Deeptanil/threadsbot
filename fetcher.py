@@ -22,42 +22,57 @@ LOG = logging.getLogger(__name__)
 # Initialize Gemini client
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
-async def evaluate_post_safety(post_text: str, override_role=None) -> bool:
+async def evaluate_batch_safety(posts: List[str]) -> List[bool]:
+    if not posts:
+        return []
     try:
+        posts_formatted = "\n".join(f"[{i}]: {p}" for i, p in enumerate(posts))
         prompt = f"""
         You are a content safety filter for a brand's Threads account.
-        Evaluate the following proposed post:
-        "{post_text}"
+        Evaluate the following proposed posts:
         
-        BLOCK the post ONLY if it meets ANY of these criteria:
+        {posts_formatted}
+        
+        BLOCK a post ONLY if it meets ANY of these criteria:
         1. It is factually incoherent or complete nonsense.
-        2. It contains hate speech, slurs, or directly attacks a specific real person or group with hostility.
+        2. It contains hate speech, slurs, or directly attacks a specific real person or group.
         3. It promotes violence, self-harm, or illegal activity.
         
-        IMPORTANT — Do NOT block posts that are:
-        - Opinionated, provocative, or slightly controversial (this is intentional for engagement)
-        - Critical of fashion trends, consumer habits, or industry norms
-        - Edgy, bold, or designed to spark debate
-        - Mildly sarcastic or dry in tone
-        Engagement-driven content is the entire goal. Only block genuinely harmful content.
+        Do NOT block posts that are opinionated, controversial, critical of fashion, or sarcastic.
         
-        Return ONLY valid JSON:
-        {{"is_safe": true or false, "reason": "one sentence if false, else empty string"}}
+        Return ONLY valid JSON in this format:
+        [
+            {{"id": 0, "is_safe": true or false, "reason": "reason if false, else empty"}}
+        ]
         """
         response = client.models.generate_content(
             model="gemini-3.1-flash-lite-preview",
             contents=prompt,
         )
         raw = response.text.strip()
-        if raw.startswith("```"): raw = raw.split("```")[1]
-        if raw.startswith("json\n"): raw = raw[5:]
+        if raw.startswith("```"):
+            lines = raw.split("\n")
+            if lines[0].startswith("```"):
+                lines = lines[1:]
+            if lines[-1].startswith("```"):
+                lines = lines[:-1]
+            raw = "\n".join(lines)
+        if raw.startswith("json\n"):
+            raw = raw[5:]
+        
         data = json.loads(raw)
-        if not data.get("is_safe", False):
-            LOG.info(f"Safety filter blocked post. Reason: {data.get('reason', 'unspecified')}")
-        return data.get("is_safe", False)
+        safety_map = {item.get("id"): item.get("is_safe", False) for item in data}
+        
+        results = []
+        for i in range(len(posts)):
+            is_safe = safety_map.get(i, False)
+            results.append(is_safe)
+            if not is_safe:
+                LOG.warning(f"Batch safety filter blocked post index {i}. Text: '{posts[i][:60]}'")
+        return results
     except Exception as e:
-        LOG.error(f"Safety check failed: {e}")
-        return False
+        LOG.error(f"Batch safety check failed: {e}. Falling back to assuming all are safe.")
+        return [True] * len(posts)
 
 def _load_recent_posts(bot_name: str, limit: int = 20) -> List[str]:
     """Load the most recent posted texts from the performance log for a given bot."""
@@ -74,6 +89,42 @@ def _load_recent_posts(bot_name: str, limit: int = 20) -> List[str]:
         return [p["text"].strip() for p in posts_sorted[:limit] if p.get("text")]
     except Exception as e:
         LOG.warning(f"Could not load recent posts for {bot_name}: {e}")
+        return []
+
+def _load_top_posts(bot_name: str, limit: int = 3) -> List[str]:
+    """Load the best performing posted texts from the performance log for style emulation."""
+    import json as _json
+    perf_file = f"performance-{bot_name}.json"
+    if not os.path.exists(perf_file):
+        return []
+    try:
+        with open(perf_file, "r", encoding="utf-8") as f:
+            perf = _json.load(f)
+        posts = perf.get("posts", [])
+        if not posts:
+            return []
+        
+        # Calculate an engagement score: views + replies * 10 + likes * 5
+        def score(p):
+            views = p.get("views") or 0
+            replies = p.get("replies") or 0
+            likes = p.get("likes") or 0
+            return views + (replies * 10) + (likes * 5)
+            
+        posts_scored = sorted(posts, key=score, reverse=True)
+        # Select the top N distinct posts
+        seen = set()
+        top_posts = []
+        for p in posts_scored:
+            text = p.get("text", "").strip()
+            if text and text not in seen and score(p) > 0:
+                seen.add(text)
+                top_posts.append(text)
+                if len(top_posts) >= limit:
+                    break
+        return top_posts
+    except Exception as e:
+        LOG.warning(f"Could not load top posts for {bot_name}: {e}")
         return []
 
 
@@ -95,12 +146,27 @@ async def generate_posts_batch(text, override_role=None, last_had_promo: bool = 
             else:
                 history_section = ""
 
+            # --- Build the closed-loop "top performing" emulation block ---
+            top_posts = _load_top_posts(bot_name) if bot_name else []
+            if top_posts:
+                top_block = "\n".join(f'  - "{p}"' for p in top_posts)
+                top_performing_section = f"""
+            TOP PERFORMING POSTS ON THIS ACCOUNT (EMULATE THIS STYLE & TOPIC DEPTH):
+            These posts performed exceptionally well on this account. Emulate the engagement-trigger
+            angles, formatting, and tone:
+{top_block}
+"""
+            else:
+                top_performing_section = ""
+
             active_role = role_desc if override_role is None else override_role
 
             prompt = f"""
             {active_role}
 
             {history_section}
+
+            {top_performing_section}
 
             Write exactly 5 Threads posts for this batch.
 
@@ -148,13 +214,17 @@ async def generate_posts_batch(text, override_role=None, last_had_promo: bool = 
             data = json.loads(raw)
             
             # --- URL / domain filter — hard block, no exceptions ---
+            # NOTE: Patterns are intentionally specific to avoid false positives on common words
+            # (e.g. "coffee" contains ".co", "morning" contains ".in" — avoid substring-only matching)
             _URL_PATTERNS = [
-                "http://", "https://", ".co", ".in", ".com", ".net", ".org",
-                "link in bio", "link is in the bio", "prettiva", "strayed.in",
-                "strayed.club", "check the site", "check the link",
+                "http://", "https://", "www.",
+                "prettiva.co", "strayed.in", "strayed.club",
+                "link in bio", "link is in the bio", "link in my bio",
+                "check the site", "check the link", "shop now",
+                "shop at ", ".com/", ".in/", ".co/",
             ]
 
-            safe_posts = []
+            candidates = []
             for item in data:
                 post_text = item.get("post", "")
                 post_lower = post_text.lower()
@@ -167,12 +237,18 @@ async def generate_posts_batch(text, override_role=None, last_had_promo: bool = 
 
                 # Force is_promo to False regardless of what Gemini returned
                 item["is_promo"] = False
+                candidates.append(item)
 
-                is_safe = await evaluate_post_safety(post_text, override_role)
-                if is_safe:
-                    safe_posts.append(item)
-                else:
-                    LOG.warning(f"Post failed safety filter: {post_text[:80]}")
+            # --- Batch safety evaluation (Only 1 API call instead of 5) ---
+            safe_posts = []
+            if candidates:
+                candidate_texts = [item.get("post", "") for item in candidates]
+                safety_results = await evaluate_batch_safety(candidate_texts)
+                for item, is_safe in zip(candidates, safety_results):
+                    if is_safe:
+                        safe_posts.append(item)
+                    else:
+                        LOG.warning(f"Post failed safety filter: {item.get('post', '')[:80]}")
 
             # Sort by predicted_reach descending so the highest-confidence post always fires first
             safe_posts.sort(key=lambda x: x.get("predicted_reach", 0), reverse=True)

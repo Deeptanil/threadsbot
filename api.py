@@ -591,8 +591,8 @@ async def handle_cross_amplification(solvikz_role: str):
     last_cross = data_log.get("last_cross_reply_time", 0)
     now = time.time()
     
-    # 3-day rate limit (259200 seconds)
-    if (now - last_cross) < 3 * 24 * 3600:
+    # 1-day rate limit (86400 seconds)
+    if (now - last_cross) < 1 * 24 * 3600:
         LOG.info("Cross-amplification check skipped: rate limit active (last run was recent).")
         return
 
