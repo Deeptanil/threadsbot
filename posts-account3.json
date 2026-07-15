@@ -1,20 +1,4 @@
 {
-    "t": 1784118133.7326827,
-    "posts": [
-        {
-            "post": "most brands charge a premium for a logo. \n\nwe charge for the fabric weight. \n\nbig difference.",
-            "predicted_reach": 88,
-            "is_promo": false
-        },
-        {
-            "post": "why does every 'premium' tee start pilling after three washes? \n\nit\u2019s frustrating.",
-            "predicted_reach": 85,
-            "is_promo": false
-        },
-        {
-            "post": "the 6 AM flight fit is where you find out if your clothes actually work.",
-            "predicted_reach": 78,
-            "is_promo": false
-        }
-    ]
+    "t": 0,
+    "posts": []
 }

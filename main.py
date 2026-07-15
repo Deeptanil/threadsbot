@@ -119,7 +119,7 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
         LOG.info("Generating a new batch of posts...")
         data_log = await load_last_posted_time(bot_name)
         last_had_promo = data_log.get("last_posted_was_promo", False)
-        batch = await generate_posts_batch("Make a batch", role_desc, last_had_promo=last_had_promo)
+        batch = await generate_posts_batch("Make a batch", role_desc, last_had_promo=last_had_promo, bot_name=bot_name)
         await save_batch(bot_name, batch)
 
     post_data = await peek_next_post(bot_name)
@@ -127,7 +127,7 @@ async def main(bot_name: str, role_desc: str = None, creds_file: str = None,
         LOG.info("Generating a new batch of posts...")
         data_log = await load_last_posted_time(bot_name)
         last_had_promo = data_log.get("last_posted_was_promo", False)
-        batch = await generate_posts_batch("Make a batch", role_desc, last_had_promo=last_had_promo)
+        batch = await generate_posts_batch("Make a batch", role_desc, last_had_promo=last_had_promo, bot_name=bot_name)
         await save_batch(bot_name, batch)
         post_data = await peek_next_post(bot_name)
     

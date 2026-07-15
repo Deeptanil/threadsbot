@@ -59,17 +59,48 @@ async def evaluate_post_safety(post_text: str, override_role=None) -> bool:
         LOG.error(f"Safety check failed: {e}")
         return False
 
+def _load_recent_posts(bot_name: str, limit: int = 20) -> List[str]:
+    """Load the most recent posted texts from the performance log for a given bot."""
+    import json as _json
+    perf_file = f"performance-{bot_name}.json"
+    if not os.path.exists(perf_file):
+        return []
+    try:
+        with open(perf_file, "r", encoding="utf-8") as f:
+            perf = _json.load(f)
+        posts = perf.get("posts", [])
+        # Sort by posted_at descending, take most recent N
+        posts_sorted = sorted(posts, key=lambda x: x.get("posted_at", 0), reverse=True)
+        return [p["text"].strip() for p in posts_sorted[:limit] if p.get("text")]
+    except Exception as e:
+        LOG.warning(f"Could not load recent posts for {bot_name}: {e}")
+        return []
+
+
 # ✅ Generate posts using Gemini
-async def generate_posts_batch(text, override_role=None, last_had_promo: bool = False) -> List[Dict]:
+async def generate_posts_batch(text, override_role=None, last_had_promo: bool = False, bot_name: str = "") -> List[Dict]:
     for attempt in range(3):  # retry up to 3 times
         try:
-            promo_instruction = (
-                "The previous batch already included a promo post. Do NOT include a promo post in this batch."
-                if last_had_promo else
-                "If your role specifies a 1-in-5 promo rule, include exactly one promo post in this batch."
-            )
+            # --- Build the "recently posted" anti-repetition block ---
+            recent_posts = _load_recent_posts(bot_name) if bot_name else []
+            if recent_posts:
+                recent_block = "\n".join(f'  - "{p}"' for p in recent_posts)
+                history_section = f"""
+            RECENTLY POSTED CONTENT — DO NOT REPEAT OR CLOSELY REWRITE ANY OF THESE:
+            The following posts have already been published on this account in the last few weeks.
+            You MUST NOT write about the same topics, use the same angles, or produce similar phrasing.
+            Treat this list as a hard blacklist:
+{recent_block}
+"""
+            else:
+                history_section = ""
+
+            active_role = role_desc if override_role is None else override_role
+
             prompt = f"""
-            {role_desc if override_role is None else override_role}
+            {active_role}
+
+            {history_section}
 
             Write exactly 5 Threads posts for this batch.
 
@@ -77,19 +108,23 @@ async def generate_posts_batch(text, override_role=None, last_had_promo: bool = 
             - Each post MUST use a DIFFERENT trigger formula or approach from your role.
             - No two posts in this batch should use the same structure, format, or emotional angle.
             - Rotate across all available formulas: tribal splits, hot takes, shared frustrations, 
-              lifestyle moments, soft callouts, niche identity posts, and (if applicable) one promo post.
+              lifestyle moments, soft callouts, niche identity posts, and founder voice posts.
             - Vary sentence length, line break usage, and whether or not you use a question.
-            - {promo_instruction}
+            - ALL 5 posts MUST have "is_promo": false. There are no promotional posts in the feed — ever.
+
+            ABSOLUTE URL BAN (CRITICAL — ZERO EXCEPTIONS):
+            - Do NOT include any URL, domain name, website address, "link in bio", or any variation.
+            - This includes: prettiva.co, strayed.in, strayed.club, or ANY other domain.
+            - Posts containing links will receive ZERO views due to the Threads algorithm. Do not do this.
 
             Return ONLY valid JSON in this format:
             [
-                {{"post": "text here", "predicted_reach": 0-100, "is_promo": true or false}}
+                {{"post": "text here", "predicted_reach": 0-100, "is_promo": false}}
             ]
 
             predicted_reach should honestly reflect how likely this specific post is to generate 
             replies and reach new users — score 90-100 only for posts with strong tribal or 
             controversial angles, 70-89 for solid relatable content, below 70 for safer posts.
-            Set is_promo to true only for the post that mentions the brand website or product.
             """
 
             response = client.models.generate_content(
@@ -112,13 +147,32 @@ async def generate_posts_batch(text, override_role=None, last_had_promo: bool = 
 
             data = json.loads(raw)
             
+            # --- URL / domain filter — hard block, no exceptions ---
+            _URL_PATTERNS = [
+                "http://", "https://", ".co", ".in", ".com", ".net", ".org",
+                "link in bio", "link is in the bio", "prettiva", "strayed.in",
+                "strayed.club", "check the site", "check the link",
+            ]
+
             safe_posts = []
             for item in data:
-                is_safe = await evaluate_post_safety(item.get("post", ""), override_role)
+                post_text = item.get("post", "")
+                post_lower = post_text.lower()
+
+                # Block posts that sneak in a URL or domain despite instructions
+                url_found = any(pattern in post_lower for pattern in _URL_PATTERNS)
+                if url_found:
+                    LOG.warning(f"URL ban stripped post from batch: '{post_text[:80]}'")
+                    continue
+
+                # Force is_promo to False regardless of what Gemini returned
+                item["is_promo"] = False
+
+                is_safe = await evaluate_post_safety(post_text, override_role)
                 if is_safe:
                     safe_posts.append(item)
                 else:
-                    LOG.warning(f"Post failed safety filter: {item.get('post')}")
+                    LOG.warning(f"Post failed safety filter: {post_text[:80]}")
 
             # Sort by predicted_reach descending so the highest-confidence post always fires first
             safe_posts.sort(key=lambda x: x.get("predicted_reach", 0), reverse=True)
