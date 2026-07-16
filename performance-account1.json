@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17980251501014926",
-      "text": "nothing humbles you faster than hitting a glass door when you thought you were walking outside.",
-      "posted_at": 1782400292.4993546,
-      "views": 236,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1783003010.4668372
-    },
-    {
       "id": "18088646117126064",
       "text": "i honestly think 2am is the only time of day when my brain actually decides to work.",
       "posted_at": 1782415337.8919432,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1784182655.808934
+    },
+    {
+      "id": "18109138181287322",
+      "text": "why do we pretend that 'i'm almost there' doesn't mean i'm still in my bed?",
+      "posted_at": 1784185667.2656162,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
