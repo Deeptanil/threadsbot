@@ -7,3 +7,10 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
+
+# Bot state files (tracked on state branch)
+data-*.json
+posts-*.json
+performance-*.json
+pending-*.json
+review-*.json
