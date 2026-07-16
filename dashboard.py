@@ -2,11 +2,17 @@ import os
 import json
 import subprocess
 import time
+import threading
 from flask import Flask, render_template, jsonify, request
+from sync_state import pull_state, push_state
 
 app = Flask(__name__)
 
 ACCOUNTS = ["account1", "account2", "account3"]
+
+def push_state_background(message="chore: update bot state via dashboard"):
+    threading.Thread(target=push_state, args=(message,), daemon=True).start()
+
 
 def read_json(filename):
     if not os.path.exists(filename):
@@ -100,6 +106,7 @@ def update_posts(account):
     if new_posts is not None:
         with open(f"posts-{account}.json", "w") as f:
             json.dump(new_posts, f)
+        push_state_background(f"chore: update posts list for {account} via dashboard")
         return jsonify({"success": True})
     return jsonify({"error": "Missing posts"}), 400
 
@@ -108,9 +115,18 @@ def trigger_run(account):
     if account not in ACCOUNTS:
         return jsonify({"error": "Invalid account"}), 400
     
-    # Run the bot in a subprocess
+    # Run the bot in a subprocess and sync state to branch when complete
     cmd = ["python", "main.py", account, "--role-txt-path", f"roles/{account}.txt"]
-    subprocess.Popen(cmd) # Run asynchronously
+    
+    def run_and_push():
+        try:
+            p = subprocess.Popen(cmd)
+            p.wait()
+            push_state(f"chore: update bot state after local trigger for {account}")
+        except Exception as e:
+            print(f"Error in background run/push: {e}")
+            
+    threading.Thread(target=run_and_push, daemon=True).start()
     return jsonify({"success": True, "message": f"Triggered run for {account}"})
 
 @app.route("/api/settings", methods=["GET"])
@@ -160,6 +176,7 @@ if sync_x:
     with open(f"pending-{account}.json", "w") as f:
         json.dump(pending, f)
         
+    push_state_background(f"chore: approve/reject post for {account} via dashboard")
     return jsonify({"success": True})
 
 @app.route("/api/reply_review/<account>", methods=["POST"])
@@ -189,6 +206,7 @@ asyncio.run(reply_to_thread({repr(reply_text)}, '{review_item["reply_id"]}', '{a
     with open(f"review-{account}.json", "w") as f:
         json.dump(reviews, f)
         
+    push_state_background(f"chore: review reply for {account} via dashboard")
     return jsonify({"success": True})
 
 if __name__ == "__main__":
@@ -197,6 +215,12 @@ if __name__ == "__main__":
 
     def open_browser():
         webbrowser.open_new("http://127.0.0.1:5000/")
+
+    # Pull the latest state before starting the dashboard
+    try:
+        pull_state()
+    except Exception as e:
+        print(f"Error pulling state: {e}")
 
     Timer(1, open_browser).start()
     app.run(host="127.0.0.1", port=5000, debug=False)

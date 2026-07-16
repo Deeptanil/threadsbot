@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Pull State
+        run: python sync_state.py pull
+
       - name: Run Threads Bot
         env:
           THREADS_ACCESS_TOKEN: ${{ secrets.ACCOUNT3_ACCESS_TOKEN }}
@@ -41,7 +44,4 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add .
-          git commit -m "chore: update bot state (account3) [skip ci]" || echo "No changes to commit"
-          git pull --rebase origin main
-          git push
+          python sync_state.py push "chore: update bot state (account3) [skip ci]"
