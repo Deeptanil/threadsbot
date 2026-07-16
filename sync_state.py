@@ -30,7 +30,7 @@ def get_state_files():
 def pull_state():
     print("Syncing: Pulling latest bot state from remote 'state' branch...")
     # 1. Fetch the remote state branch
-    res = run_git(["fetch", "origin", "state"])
+    res = run_git(["fetch", "origin", "state:refs/remotes/origin/state"])
     if isinstance(res, subprocess.CalledProcessError):
         print("Warning: Failed to fetch state branch from origin. Working offline?")
         return False
@@ -70,7 +70,7 @@ def pull_state():
 def push_state(message="chore: update bot state"):
     print("Syncing: Pushing latest bot state to remote 'state' branch...")
     # 1. Ensure the remote exists and fetch it
-    run_git(["fetch", "origin", "state"])
+    run_git(["fetch", "origin", "state:refs/remotes/origin/state"])
 
     # 2. Ensure local 'state' branch exists.
     res_local = run_git(["rev-parse", "--verify", "state"], capture=True)
