@@ -1,4 +1,25 @@
 {
-    "t": 1784455878.4356823,
-    "posts": []
+    "t": 1784607839.3857532,
+    "posts": [
+        {
+            "post": "buying shoes based on how they look in a photo vs. how they feel after four hours of walking.\n\nwe all make the wrong choice.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "that feeling when you put on a piece of clothing and realize you don't have to adjust it for the rest of the day.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "the weight of the fabric is the only thing that actually tells you if a piece was made with care.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "i spent all morning trying to simplify a pocket design. sometimes the best move is just taking things away.",
+            "predicted_reach": 78,
+            "is_promo": false
+        }
+    ]
 }
