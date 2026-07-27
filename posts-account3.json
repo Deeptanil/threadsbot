@@ -1,4 +1,25 @@
 {
-    "t": 1785040696.5250487,
-    "posts": []
+    "t": 1785177760.0452652,
+    "posts": [
+        {
+            "post": "the guys who wear a structured blazer to a casual dinner versus the ones who stay in a hoodie. \n\none is trying, the other gave up.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "why is the hardware on a premium garment always the first thing to fail? \n\nit makes no sense.",
+            "predicted_reach": 82,
+            "is_promo": false
+        },
+        {
+            "post": "we removed the neck labels on the new prototypes because they never stop itching. \n\nfeels like a small win, but it makes all the difference.",
+            "predicted_reach": 78,
+            "is_promo": false
+        },
+        {
+            "post": "there is a specific confidence that comes from wearing a piece of clothing that fits perfectly on your first date. \n\nno tugging, no adjusting. just showing up.",
+            "predicted_reach": 75,
+            "is_promo": false
+        }
+    ]
 }
