@@ -1,4 +1,25 @@
 {
-    "t": 1785318412.142338,
-    "posts": []
+    "t": 1785473227.0576866,
+    "posts": [
+        {
+            "post": "most people are terrified of wearing clothes that actually fit their body.\n\nwe\u2019ve all been conditioned to prefer the baggy safety blanket.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "why do so many brands think a garment needs twelve buttons to be 'premium'?\n\nit\u2019s just more things to break.",
+            "predicted_reach": 82,
+            "is_promo": false
+        },
+        {
+            "post": "the specific peace of mind that comes from knowing your outfit is fully wrinkle-resistant before a long flight.\n\ni never travel in anything else.",
+            "predicted_reach": 78,
+            "is_promo": false
+        },
+        {
+            "post": "spent three days debating the sleeve length on our next knit.\n\na half-inch difference changes the entire silhouette of the arm.",
+            "predicted_reach": 75,
+            "is_promo": false
+        }
+    ]
 }
