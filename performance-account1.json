@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18112712689731380",
-      "text": "just dropped the new hoodies on the site. link in bio if you want to look better than your friends.",
-      "posted_at": 1783845379.4090426,
-      "views": 49,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784442093.1193533
-    },
-    {
       "id": "18472227838111303",
       "text": "putting ice in cereal is a move and i will die on this hill.\n\ndon't act like you haven't thought about it.",
       "posted_at": 1783855851.1597083,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1785585276.968447
+    },
+    {
+      "id": "17995827989806631",
+      "text": "using an umbrella for sun protection is the ultimate sign of adulting. fight me.",
+      "posted_at": 1785588850.2972052,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
