@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18411068932144194",
-      "text": "most guys stop looking good once they hit 25.\n\nwhat\u2019s the one item that actually lasts?",
-      "posted_at": 1783330823.4308643,
-      "views": 220,
-      "replies": 0,
-      "likes": 1,
-      "reposts": 0,
-      "last_fetched": 1783929433.7990308
-    },
-    {
       "id": "18171564151437025",
       "text": "the best dressed guy in the room is always the one who looks like he didn\u2019t think about it at all.",
       "posted_at": 1783343313.61873,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1785684676.7413917
+    },
+    {
+      "id": "18126735238588818",
+      "text": "we just scrapped an entire production run because the shade of charcoal was slightly too blue under direct sunlight. \n\nthe factory owner thinks i\u2019m insane.",
+      "posted_at": 1785688240.3814397,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
