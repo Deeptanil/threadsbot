@@ -1,4 +1,25 @@
 {
-    "t": 1785606479.8800864,
-    "posts": []
+    "t": 1785757766.2286096,
+    "posts": [
+        {
+            "post": "it\u2019s bizarre how many brands prioritize a loud graphic over the actual drape of the fabric.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "there is no greater fashion heartbreak than a piece you love losing its structure after the first dry clean.",
+            "predicted_reach": 82,
+            "is_promo": false
+        },
+        {
+            "post": "the most honest version of your style is what you reach for when you're late and don't have time to think.",
+            "predicted_reach": 78,
+            "is_promo": false
+        },
+        {
+            "post": "we spent two weeks sourcing a specific cotton just because the weight felt slightly off in the hand.\n\nmost people won't notice, but i would.",
+            "predicted_reach": 75,
+            "is_promo": false
+        }
+    ]
 }
