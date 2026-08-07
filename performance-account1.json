@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18097043153257070",
-      "text": "why do we feel the need to say 'you too' when the waiter says 'enjoy your meal'?",
-      "posted_at": 1784383592.3890479,
-      "views": 238,
-      "replies": 9,
-      "likes": 5,
-      "reposts": 0,
-      "last_fetched": 1784983294.3902576
-    },
-    {
       "id": "17909362932441331",
       "text": "maggie is better when it's slightly soupy.\n\ndry maggie is just sad, salty cardboard.",
       "posted_at": 1784394717.3530056,
@@ -994,11 +984,21 @@
       "id": "18112066018770908",
       "text": "why does every adult conversation eventually end up being about how tired we are?",
       "posted_at": 1786120320.4598389,
-      "views": 288,
+      "views": 310,
       "replies": 0,
       "likes": 5,
       "reposts": 0,
-      "last_fetched": 1786123835.7406523
+      "last_fetched": 1786130827.7071028
+    },
+    {
+      "id": "18028398608842387",
+      "text": "unpopular opinion: voice notes are only for emergencies. text me like a normal human.",
+      "posted_at": 1786130846.9243531,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
