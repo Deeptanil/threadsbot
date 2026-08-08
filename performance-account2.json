@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18324550630258202",
-      "text": "most people who say they don't care about their outfit are the ones thinking about it the most.",
-      "posted_at": 1783595797.592649,
-      "views": 53,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784193955.9205139
-    },
-    {
       "id": "18328546432283889",
       "text": "why do brands make beautiful things and then plaster their logo all over the front?",
       "posted_at": 1783614896.9403386,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786174327.3979921
+    },
+    {
+      "id": "18405289237086403",
+      "text": "people who iron their clothes versus those who use a steamer.\n\nwhich side of history are you on?",
+      "posted_at": 1786177109.6758564,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
