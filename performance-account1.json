@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17897631102484546",
-      "text": "people who keep their unread notification count in the thousands are absolute sociopaths.",
-      "posted_at": 1784482799.284841,
-      "views": 55,
-      "replies": 0,
-      "likes": 3,
-      "reposts": 1,
-      "last_fetched": 1785084304.8427243
-    },
-    {
       "id": "18097940720168293",
       "text": "i\u2019m convinced the \u2018seen\u2019 receipt was created purely to ruin human relationships.",
       "posted_at": 1784523043.9179544,
@@ -994,11 +984,21 @@
       "id": "17902066932542848",
       "text": "my villain arc started the day i realized i could just leave seen on messages forever.",
       "posted_at": 1786204435.713146,
-      "views": 163,
+      "views": 164,
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1786210119.0239127
+      "last_fetched": 1786216039.568128
+    },
+    {
+      "id": "18106898281878037",
+      "text": "people who use the default alarm sound on their phone are genuinely built different. i'm scared.",
+      "posted_at": 1786216063.9592226,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
