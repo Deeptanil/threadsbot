@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17988583257008283",
-      "text": "the best part of any wedding is the snacks.\n\nthe rest is just background noise.",
-      "posted_at": 1784442134.4080982,
-      "views": 57,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785040771.9459522
-    },
-    {
       "id": "18357276979208939",
       "text": "unpopular opinion: ceiling fans are the only thing holding this country together.",
       "posted_at": 1784456003.7353883,
@@ -999,6 +989,16 @@
       "likes": 2,
       "reposts": 0,
       "last_fetched": 1786180018.7197812
+    },
+    {
+      "id": "17952165840214117",
+      "text": "i don't trust people who don't have a specific 'lazy' chair in their room.",
+      "posted_at": 1786182692.9136434,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
