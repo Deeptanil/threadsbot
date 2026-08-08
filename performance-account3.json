@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18110333089756614",
-      "text": "we tested six different weights for our latest drop.\n\nended up going with the heaviest one. some things don't need to be lightweight.",
-      "posted_at": 1783682942.255161,
-      "views": 28,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784285948.979599
-    },
-    {
       "id": "18107495012087370",
       "text": "why is it impossible to find a black hoodie that doesn't lose its shape after one laundry cycle?",
       "posted_at": 1783699209.5796516,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786212085.6577878
+    },
+    {
+      "id": "18163594747465600",
+      "text": "the quiet agony of a collar that loses its shape and starts to curl after one hour of wearing it.",
+      "posted_at": 1786215165.060448,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
