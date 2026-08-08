@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17934364971313082",
-      "text": "the most expensive piece of clothing in your wardrobe is probably the one you never wear.",
-      "posted_at": 1783672352.3629034,
-      "views": 63,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784250916.184004
-    },
-    {
       "id": "18110333089756614",
       "text": "we tested six different weights for our latest drop.\n\nended up going with the heaviest one. some things don't need to be lightweight.",
       "posted_at": 1783682942.255161,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786191400.8022654
+    },
+    {
+      "id": "18011155721937621",
+      "text": "the most overrated item in menswear is a luxury leather belt. \n\nit never actually adds anything to the outfit.",
+      "posted_at": 1786195005.7132845,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
