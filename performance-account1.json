@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17926478676367381",
-      "text": "water should not have a temperature. \n\nit\u2019s either room temp or it\u2019s wrong.",
-      "posted_at": 1784533882.1245456,
-      "views": 191,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785128479.105592
-    },
-    {
       "id": "18096341354458150",
       "text": "the best part of the day is when you finally take off your watch and sit down.",
       "posted_at": 1784543985.1195524,
@@ -999,6 +989,16 @@
       "likes": 2,
       "reposts": 0,
       "last_fetched": 1786252628.712744
+    },
+    {
+      "id": "18109997687122269",
+      "text": "people who cut their sandwiches into rectangles instead of triangles are not to be trusted.",
+      "posted_at": 1786255520.7493417,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
