@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18185619883402018",
-      "text": "writing in your own handwriting vs using a font. \n\none of these is a red flag.",
-      "posted_at": 1784607222.0919504,
-      "views": 4,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785200489.7952814
-    },
-    {
       "id": "17920426317404854",
       "text": "why is it physically impossible to walk past a mirror without checking yourself out?",
       "posted_at": 1784616082.9516966,
@@ -994,11 +984,21 @@
       "id": "18129506746655724",
       "text": "people who stand up the second the flight lands are the main characters of delusion.",
       "posted_at": 1786287062.9906752,
-      "views": 232,
+      "views": 242,
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1786292446.3943071
+      "last_fetched": 1786297497.6796746
+    },
+    {
+      "id": "18081315116489271",
+      "text": "waking up before your alarm goes off is a personal attack from the universe.",
+      "posted_at": 1786297512.2125158,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
