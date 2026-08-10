@@ -1,4 +1,25 @@
 {
-    "t": 1786278420.8331215,
-    "posts": []
+    "t": 1786358875.9729257,
+    "posts": [
+        {
+            "post": "ceiling fan on full blast vs. AC at 24 degrees.\n\nthere is a right answer and it\u2019s non-negotiable.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "my productivity dies the moment i put on headphones that aren't playing anything.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "people who use a screen protector with cracks are living on the edge of insanity.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "why does checking your email feel like opening a digital debt collection notice?",
+            "predicted_reach": 82,
+            "is_promo": false
+        }
+    ]
 }
