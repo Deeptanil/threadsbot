@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17944999059246351",
-      "text": "gold jewelry or silver jewelry. \n\npick one and stick to it, or you\u2019re lying to yourself.",
-      "posted_at": 1783778316.404853,
-      "views": 2,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784382817.3988256
-    },
-    {
       "id": "18135794077585999",
       "text": "why do luxury brands keep putting their logo on everything? \n\nlet the fabric speak for itself.",
       "posted_at": 1783790792.5638003,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786357996.583034
+    },
+    {
+      "id": "17895826023593777",
+      "text": "nothing ruins a good outfit faster than realizing you have to carry a bag that doesn't match the energy.",
+      "posted_at": 1786361539.0641744,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
