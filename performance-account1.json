@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18144178633545023",
-      "text": "apologizing to inanimate objects when i bump into them is my only personality trait.",
-      "posted_at": 1784694688.6312969,
-      "views": 74,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785299232.9540966
-    },
-    {
       "id": "18099197471213303",
       "text": "the urge to start a new life and move to a hill station \n\ngets stronger every tuesday.",
       "posted_at": 1784704757.1661646,
@@ -994,11 +984,21 @@
       "id": "18613962529011670",
       "text": "ceiling fan on full blast vs. AC at 24 degrees.\n\nthere is a right answer and it\u2019s non-negotiable.",
       "posted_at": 1786370209.491602,
-      "views": 9,
+      "views": 19,
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1786373397.9363446
+      "last_fetched": 1786380084.7710993
+    },
+    {
+      "id": "17958299244187047",
+      "text": "my productivity dies the moment i put on headphones that aren't playing anything.",
+      "posted_at": 1786380103.3971212,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
