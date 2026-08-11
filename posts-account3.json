@@ -1,4 +1,25 @@
 {
-    "t": 1786286743.6957507,
-    "posts": []
+    "t": 1786416565.884163,
+    "posts": [
+        {
+            "post": "we finally stopped doing pre-orders. \n\nwaiting six weeks for a t-shirt is a flex for nobody. just ship the thing.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "denim on denim. \n\nthe ultimate uniform or trying way too hard?",
+            "predicted_reach": 90,
+            "is_promo": false
+        },
+        {
+            "post": "most menswear trends are just people trying to make a personality out of a garment. \n\nit rarely works.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "that feeling when you find a piece of clothing that fits so well, you start wondering if you should have bought three backups.",
+            "predicted_reach": 82,
+            "is_promo": false
+        }
+    ]
 }
