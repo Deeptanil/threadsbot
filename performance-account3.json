@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18135128158582948",
-      "text": "the bar for men\u2019s style in india is so low that wearing a plain white tee makes you the best dressed guy in the room.",
-      "posted_at": 1784033745.5653932,
-      "views": 13,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784638016.4922683
-    },
-    {
       "id": "17897412303539362",
       "text": "there is no middle ground.\n\neither you\u2019re a 'one bag for life' person or you lose your charger every three days.",
       "posted_at": 1784045112.854697,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786718009.0956705
+    },
+    {
+      "id": "18138340297595935",
+      "text": "i\u2019ve spent all week obsessing over the weight of our thread. nobody will ever notice it, but i\u2019ll know if it\u2019s off by a gram.",
+      "posted_at": 1786721079.354205,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
