@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18112225897821690",
-      "text": "we spent six months fighting over the collar thickness on our new drop.\n\nmost people won't notice, but some will.",
-      "posted_at": 1784105854.8928616,
-      "views": 4,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784704567.8805006
-    },
-    {
       "id": "18094165655198573",
       "text": "hoodies: pockets or no pockets. \n\nthere is no middle ground.",
       "posted_at": 1784118142.9280677,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786806323.0212631
+    },
+    {
+      "id": "18084393866654404",
+      "text": "why is the collar always the first place a shirt loses its fight? \n\nthere is nothing more annoying than a limp neckline.",
+      "posted_at": 1786809670.2659426,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
