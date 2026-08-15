@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18081552110302874",
-      "text": "the person who decided that 9 to 5 is a standard workday is my personal villain.",
-      "posted_at": 1785153509.3144639,
-      "views": 193,
-      "replies": 0,
-      "likes": 6,
-      "reposts": 0,
-      "last_fetched": 1785757942.5647438
-    },
-    {
       "id": "18090690869535167",
       "text": "people who use the default alarm ringtone are living in a psychological horror movie.",
       "posted_at": 1785170273.6894996,
@@ -984,21 +974,31 @@
       "id": "18158353540491948",
       "text": "voice notes longer than 30 seconds are just aggressive phone calls you can't escape.",
       "posted_at": 1786769642.8840275,
-      "views": 146,
+      "views": 147,
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1786783994.9895327
+      "last_fetched": 1786787810.534795
     },
     {
       "id": "18089722415643957",
       "text": "people who start a movie at 11pm knowing they have work tomorrow are fearless.",
       "posted_at": 1786778106.9218702,
-      "views": 424,
+      "views": 434,
       "replies": 0,
       "likes": 3,
       "reposts": 0,
-      "last_fetched": 1786783994.9895327
+      "last_fetched": 1786787810.534795
+    },
+    {
+      "id": "18002939513968442",
+      "text": "using the stairs instead of the elevator because you're scared of small talk.",
+      "posted_at": 1786787826.480107,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
