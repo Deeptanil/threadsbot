@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17949122184081374",
-      "text": "people who send 'k' as a reply are just begging to be blocked immediately.",
-      "posted_at": 1785299275.1228974,
-      "views": 2,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785901935.721248
-    },
-    {
       "id": "18171548038428754",
       "text": "my life is 30% surviving, 70% wondering what i should watch while i eat.",
       "posted_at": 1785309356.3066092,
@@ -994,11 +984,21 @@
       "id": "18161512888477559",
       "text": "chai should be drinkable immediately.\n\nif i have to blow on it for ten minutes, it's a chore.",
       "posted_at": 1786891532.364705,
-      "views": 443,
+      "views": 456,
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1786896938.3575017
+      "last_fetched": 1786901489.9611871
+    },
+    {
+      "id": "18010324652952238",
+      "text": "sending 'ok' vs 'okay'.\n\npeople who add the extra letters are definitely planning something.",
+      "posted_at": 1786901505.4744906,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
