@@ -1,4 +1,25 @@
 {
-    "t": 1786777314.2731578,
-    "posts": []
+    "t": 1786887547.7609696,
+    "posts": [
+        {
+            "post": "the guy who washes his jeans after three wears vs the guy who goes six months. \n\nthere is no middle ground.",
+            "predicted_reach": 95,
+            "is_promo": false
+        },
+        {
+            "post": "standing in front of the closet, staring at ten shirts, and feeling like you have absolutely nothing to wear.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "we just cut the buttons off a sample because they felt too loud. \n\nif you can hear your clothes, they're doing too much.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "pockets should never bulge. \n\nif you have to carry that much stuff, get a bag.",
+            "predicted_reach": 85,
+            "is_promo": false
+        }
+    ]
 }
