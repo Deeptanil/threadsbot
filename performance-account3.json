@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17956071249189879",
-      "text": "some guys look better in a plain tee than a suit. \n\nit\u2019s never about the brand.",
-      "posted_at": 1784130914.6854155,
-      "views": 7,
-      "replies": 0,
-      "likes": 1,
-      "reposts": 0,
-      "last_fetched": 1784733045.9455152
-    },
-    {
       "id": "17899923114329789",
       "text": "you\u2019re either a 'wear the same outfit until it\u2019s perfect' person\n\nor you\u2019re constantly buying new things to feel something.",
       "posted_at": 1784144448.2416842,
@@ -999,6 +989,16 @@
       "likes": 1,
       "reposts": 1,
       "last_fetched": 1786865936.3037324
+    },
+    {
+      "id": "18121509925876078",
+      "text": "the hotel room chair. \n\nthe most honest place to see if your gear actually travels well or if it just wrinkles the second you sit down.",
+      "posted_at": 1786867047.4266274,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
