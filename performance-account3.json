@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18066949085487335",
-      "text": "the guy at the coffee shop wearing a ten-year-old sweater that fits perfectly.\n\nthat's the only aesthetic that matters.",
-      "posted_at": 1784175503.1768692,
-      "views": 21,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784769425.938992
-    },
-    {
       "id": "18057484616771431",
       "text": "the most expensive piece of clothing I own\n\nis the one I haven't worn in two years.\n\nwhy do we do that?",
       "posted_at": 1784200071.7382658,
@@ -998,7 +988,17 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1786902622.933402
+      "last_fetched": 1786907330.2733142
+    },
+    {
+      "id": "17966435559136314",
+      "text": "the guy who washes his jeans after three wears vs the guy who goes six months. \n\nthere is no middle ground.",
+      "posted_at": 1786907347.4381177,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
