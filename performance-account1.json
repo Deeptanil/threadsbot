@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18110094637802259",
-      "text": "the person who decided that we should eat breakfast at 8am has caused us all irreparable damage.",
-      "posted_at": 1785385030.9420831,
-      "views": 185,
-      "replies": 0,
-      "likes": 3,
-      "reposts": 0,
-      "last_fetched": 1785978124.2493038
-    },
-    {
       "id": "18022160630897495",
       "text": "i can track my mental stability by how many tabs i have open on my browser.\n\ncurrently at 47.",
       "posted_at": 1785395285.5868964,
@@ -994,11 +984,21 @@
       "id": "18185278780405732",
       "text": "people who iron their bedsheets are just showing off their lack of problems.",
       "posted_at": 1786964016.4288456,
-      "views": 295,
+      "views": 298,
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1786970201.9684165
+      "last_fetched": 1786975095.2565768
+    },
+    {
+      "id": "17925265863407352",
+      "text": "i don\u2019t trust people who don\u2019t have a \u2018go-to\u2019 order at a cafe. just pick something.",
+      "posted_at": 1786975112.5351624,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
