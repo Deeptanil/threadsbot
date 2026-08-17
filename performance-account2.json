@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17899674933535682",
-      "text": "everyone claims they dress for comfort until they find a piece that makes them feel powerful.\n\nthen comfort suddenly doesn't matter.",
-      "posted_at": 1784347872.787384,
-      "views": 132,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784942536.339554
-    },
-    {
       "id": "17900448291499297",
       "text": "the \u2018closet audit\u2019 trend is just a fancy way of admitting we have no idea how to style the things we already own.",
       "posted_at": 1784368970.8301191,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786971668.3123255
+    },
+    {
+      "id": "17888538744433354",
+      "text": "the secret to looking expensive is knowing exactly when to stop adding accessories.",
+      "posted_at": 1786974540.6335988,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
