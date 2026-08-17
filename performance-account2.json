@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17900448291499297",
-      "text": "the \u2018closet audit\u2019 trend is just a fancy way of admitting we have no idea how to style the things we already own.",
-      "posted_at": 1784368970.8301191,
-      "views": 162,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784970867.161526
-    },
-    {
       "id": "17936799423292949",
       "text": "owning exactly five perfect shirts is better than owning thirty mediocre ones. \n\nstop cluttering your own life.",
       "posted_at": 1784391282.14902,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1786990660.2565556
+    },
+    {
+      "id": "18129512248710052",
+      "text": "nothing humbles you faster than realizing your \u2018signature style\u2019 is just the same three silhouettes on repeat.",
+      "posted_at": 1786993406.9441488,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
