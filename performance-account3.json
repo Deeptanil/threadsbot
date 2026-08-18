@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18110788343318389",
-      "text": "we removed the internal tags from the new run. \n\nit felt like an unnecessary friction point. my neck is much happier.",
-      "posted_at": 1784432583.404929,
-      "views": 17,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785028200.4144154
-    },
-    {
       "id": "18364115395242583",
       "text": "black or navy.\n\nthere is only room for one in a serious rotation.",
       "posted_at": 1784455888.452445,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787079673.7235403
+    },
+    {
+      "id": "17973775952914800",
+      "text": "we removed the care labels from the latest batch because they were scratching against the skin. sometimes the most important design choice is knowing what to delete.",
+      "posted_at": 1787081691.5770571,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
