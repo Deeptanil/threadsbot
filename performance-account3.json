@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18072443630706827",
-      "text": "why does every brand insist on adding a weird aesthetic tag to the bottom hem of a perfectly good shirt?",
-      "posted_at": 1784368195.7478054,
-      "views": 125,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1784970441.4860852
-    },
-    {
       "id": "18110921347749353",
       "text": "the best jacket is the one that has seen more cities than your actual passport. \n\nwhat\u2019s yours?",
       "posted_at": 1784387215.2091403,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787041016.6395528
+    },
+    {
+      "id": "18005819057960506",
+      "text": "you land at the airport after a six-hour flight. the first thing you do is take off your shoes. are you the guy who wears house slippers on the plane?",
+      "posted_at": 1787043410.984836,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
