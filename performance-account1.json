@@ -968,7 +968,7 @@
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1787045683.8875892
+      "last_fetched": 1787049850.2834172
     },
     {
       "id": "18181725694412722",
@@ -978,27 +978,27 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1787045683.8875892
+      "last_fetched": 1787049850.2834172
     },
     {
       "id": "18104232953179758",
       "text": "the person who decided that meetings should be an hour long was a sadist.",
       "posted_at": 1787039573.9566126,
-      "views": 360,
+      "views": 374,
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1787045683.8875892
+      "last_fetched": 1787049850.2834172
     },
     {
       "id": "18111836797999451",
       "text": "apologizing for taking long to reply is just giving people too much power.",
       "posted_at": 1787047386.2710483,
-      "views": null,
-      "replies": null,
-      "likes": null,
-      "reposts": null,
-      "last_fetched": null
+      "views": 130,
+      "replies": 0,
+      "likes": 0,
+      "reposts": 0,
+      "last_fetched": 1787049850.2834172
     }
   ]
 }
