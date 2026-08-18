@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18148546501508455",
-      "text": "if you never repeat an outfit in public, you aren't stylish. you're just stressed.",
-      "posted_at": 1784468923.9435527,
-      "views": 46,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785069189.0222154
-    },
-    {
       "id": "17875826592523251",
       "text": "the \u2018i\u2019m just running errands\u2019 outfit that actually took forty minutes to assemble.",
       "posted_at": 1784520640.309139,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787076959.873374
+    },
+    {
+      "id": "17998032906001492",
+      "text": "dressing for the weather vs. dressing for the outfit you wish you were wearing.\n\nwhich one are you winning?",
+      "posted_at": 1787079735.566338,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
