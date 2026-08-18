@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18070182353414897",
-      "text": "wearing socks with sandals: a bold fashion statement or a cry for help? pick one.",
-      "posted_at": 1784436010.5786238,
-      "views": 8,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785028637.9628625
-    },
-    {
       "id": "18169619077451253",
       "text": "everyone has that one piece of clothing they\u2019d wear to their own funeral if they could.",
       "posted_at": 1784452965.4106472,
@@ -999,6 +989,16 @@
       "likes": 1,
       "reposts": 0,
       "last_fetched": 1787033838.9623618
+    },
+    {
+      "id": "17982899919022140",
+      "text": "people who claim they don\u2019t care about brands are usually wearing the most expensive basic t-shirt in the room.",
+      "posted_at": 1787037032.0672705,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
