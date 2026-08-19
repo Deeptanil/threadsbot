@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18085904600181393",
-      "text": "laundry day. \n\ndo you re-wear your jeans until they can stand on their own or do you wash them after one use? \n\nlet\u2019s be honest.",
-      "posted_at": 1784565694.014052,
-      "views": 2,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785169835.377663
-    },
-    {
       "id": "17856080592696296",
       "text": "the \u2018capsule wardrobe\u2019 is just a fancy term for people who are scared of bold choices.",
       "posted_at": 1784608614.705387,
@@ -998,7 +988,17 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1787139859.3195095
+      "last_fetched": 1787145260.6045985
+    },
+    {
+      "id": "18126389153501098",
+      "text": "you either love the chaos of mixing patterns or you\u2019re a coward. \n\nthere is no middle ground.",
+      "posted_at": 1787145276.4777992,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
