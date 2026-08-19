@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18177767461420072",
-      "text": "waking up naturally before your alarm is a power move or a threat.",
-      "posted_at": 1785609425.2954829,
-      "views": 184,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1786213695.7289667
-    },
-    {
       "id": "18000651218992461",
       "text": "the audacity of people who start a phone call without texting first.",
       "posted_at": 1785645402.614079,
@@ -999,6 +989,16 @@
       "likes": 1,
       "reposts": 0,
       "last_fetched": 1787165973.8639536
+    },
+    {
+      "id": "18085152908240424",
+      "text": "wet hair to bed vs dry hair. \n\none of these means you actually value your health.",
+      "posted_at": 1787168808.1996748,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
