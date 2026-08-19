@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17944327146267347",
-      "text": "the most overrated item in any man\u2019s closet is the 'going out' shirt.",
-      "posted_at": 1784477220.1283047,
-      "views": 29,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785078861.9298866
-    },
-    {
       "id": "18039228824811627",
       "text": "we finally stopped adding wash labels to our stuff.\n\nif you have to read the instructions to wear it, we failed.",
       "posted_at": 1784522975.7583773,
@@ -998,7 +988,17 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1787123364.762249
+      "last_fetched": 1787127451.239604
+    },
+    {
+      "id": "18011383856949538",
+      "text": "why is finding a basic sweatshirt that doesn't box out at the waist like searching for a miracle?",
+      "posted_at": 1787127464.7483923,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
