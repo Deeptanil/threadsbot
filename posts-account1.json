@@ -1,4 +1,25 @@
 {
-    "t": 1787072165.5440254,
-    "posts": []
+    "t": 1787151047.8040988,
+    "posts": [
+        {
+            "post": "does anyone actually use the ceiling fan speed 1 or 2, or is it just for decoration?",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "wet hair to bed vs dry hair. \n\none of these means you actually value your health.",
+            "predicted_reach": 90,
+            "is_promo": false
+        },
+        {
+            "post": "the 3am realization that you\u2019ve been pronouncing a common word wrong your entire life.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "there is no greater betrayal than your phone dying at 2% after it said 10% a minute ago.",
+            "predicted_reach": 85,
+            "is_promo": false
+        }
+    ]
 }
