@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18115642370490787",
-      "text": "the feeling of finally breaking in a pair of heavy boots is better than buying anything new.",
-      "posted_at": 1784564221.475231,
-      "views": 40,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785164818.2628837
-    },
-    {
       "id": "18122391841718813",
       "text": "raw denim or pre-washed.\n\nyou have to pick one side.",
       "posted_at": 1784607850.8213453,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787209228.343988
+    },
+    {
+      "id": "18141940999602121",
+      "text": "that one beat-up pair of boots that finally started looking good right before the sole gave out.",
+      "posted_at": 1787212223.599941,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
