@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18183866233407377",
-      "text": "my social battery is at 1% the moment i step outside my room.",
-      "posted_at": 1785817718.3383636,
-      "views": 160,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1786421865.237229
-    },
-    {
       "id": "18107008915860000",
       "text": "people who fold their clothes immediately after drying them are suspicious. what are you hiding?",
       "posted_at": 1785836947.898299,
@@ -999,6 +989,16 @@
       "likes": 2,
       "reposts": 0,
       "last_fetched": 1787306243.5214646
+    },
+    {
+      "id": "18619083910059099",
+      "text": "sleeping with the fan on full speed during winter is a flex, not an accident.",
+      "posted_at": 1787309705.221932,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
