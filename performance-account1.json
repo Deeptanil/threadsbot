@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18072853823406832",
-      "text": "maggi is only valid if it's soupy. dry maggi is just spicy glue. stay mad.",
-      "posted_at": 1785775242.7251785,
-      "views": 166,
-      "replies": 2,
-      "likes": 5,
-      "reposts": 0,
-      "last_fetched": 1786376926.7810035
-    },
-    {
       "id": "18183866233407377",
       "text": "my social battery is at 1% the moment i step outside my room.",
       "posted_at": 1785817718.3383636,
@@ -994,11 +984,21 @@
       "id": "17915184951244629",
       "text": "calling people on the phone without texting first should be a jail-able offense.",
       "posted_at": 1787287915.7171314,
-      "views": 300,
+      "views": 308,
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1787293537.2485569
+      "last_fetched": 1787299032.4376602
+    },
+    {
+      "id": "17880158541512405",
+      "text": "folding your clothes right after laundry is suspicious behavior. what are you hiding?",
+      "posted_at": 1787299050.0521255,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
