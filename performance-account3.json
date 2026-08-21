@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17905760580284073",
-      "text": "i spent all morning trying to simplify a pocket design. sometimes the best move is just taking things away.",
-      "posted_at": 1784719985.0420058,
-      "views": 51,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785318389.0707812
-    },
-    {
       "id": "18109053320046290",
       "text": "the person who owns one coat that works for everything.\n\nvs.\n\nthe person who needs a different jacket for every weather forecast.\n\nwho has it figured out?",
       "posted_at": 1784739145.1927547,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787323605.7623394
+    },
+    {
+      "id": "18148488670523215",
+      "text": "that feeling when you put on a jacket you haven't worn in months and realize it actually fits better now.",
+      "posted_at": 1787325436.5129812,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
