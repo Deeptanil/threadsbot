@@ -1,4 +1,25 @@
 {
-    "t": 1787219305.139682,
-    "posts": []
+    "t": 1787287905.5326707,
+    "posts": [
+        {
+            "post": "folding your clothes right after laundry is suspicious behavior. what are you hiding?",
+            "predicted_reach": 95,
+            "is_promo": false
+        },
+        {
+            "post": "sleeping with the fan on full speed during winter is a flex, not an accident.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "the best part of being an adult is buying snacks you wanted as a kid and not sharing.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "does anyone actually read the terms and conditions or are we just lying to ourselves?",
+            "predicted_reach": 85,
+            "is_promo": false
+        }
+    ]
 }
