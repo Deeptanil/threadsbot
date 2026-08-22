@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18216954529327981",
-      "text": "the weird rush of adrenaline when you find a piece of clothing that feels like a secret weapon.",
-      "posted_at": 1784954941.656987,
-      "views": 144,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785559444.348184
-    },
-    {
       "id": "18072976517375225",
       "text": "some people wake up and choose chaos. \n\nothers wake up and choose to wear white after labor day.",
       "posted_at": 1784976485.7297924,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787416515.518257
+    },
+    {
+      "id": "17898006168592867",
+      "text": "the thrift store find that you lie about the price of is the only thing that matters in your closet.",
+      "posted_at": 1787419847.5562756,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
