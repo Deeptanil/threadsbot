@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18122012356823438",
-      "text": "there is no middle ground. \n\nyou are either a 'shower at night' person or a 'morning shower' psychopath.",
-      "posted_at": 1785910812.197818,
-      "views": 191,
-      "replies": 3,
-      "likes": 1,
-      "reposts": 0,
-      "last_fetched": 1786515039.89852
-    },
-    {
       "id": "18123651100783639",
       "text": "why do we pretend like we aren't all just talking to ourselves in the mirror for 20 minutes?",
       "posted_at": 1785921432.2737916,
@@ -988,7 +978,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1787377779.7067995
+      "last_fetched": 1787382401.7106261
     },
     {
       "id": "18082919114317331",
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787379599.0035682
+    },
+    {
+      "id": "18554592871076864",
+      "text": "waking up before your alarm goes off feels like a personal attack from reality.",
+      "posted_at": 1787382421.5735931,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
