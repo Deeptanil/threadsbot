@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18123651100783639",
-      "text": "why do we pretend like we aren't all just talking to ourselves in the mirror for 20 minutes?",
-      "posted_at": 1785921432.2737916,
-      "views": 240,
-      "replies": 0,
-      "likes": 2,
-      "reposts": 0,
-      "last_fetched": 1786525181.3250556
-    },
-    {
       "id": "17880521919492665",
       "text": "the urge to start a completely new life every time i have a minor hairstyle change is concerning.",
       "posted_at": 1785936031.702591,
@@ -978,7 +968,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1787387358.4352894
+      "last_fetched": 1787392081.688349
     },
     {
       "id": "18082919114317331",
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787389014.6517887
+    },
+    {
+      "id": "18025582010895519",
+      "text": "the bathroom is the only place where i make every single life decision.",
+      "posted_at": 1787392097.9965115,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
