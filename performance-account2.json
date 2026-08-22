@@ -1,6 +1,16 @@
 {
   "posts": [
     {
+      "id": "18006632669951080",
+      "text": "buying things online based on how the model looks in them is a form of self-sabotage.",
+      "posted_at": 1784893899.6571887,
+      "views": 40,
+      "replies": 0,
+      "likes": 0,
+      "reposts": 0,
+      "last_fetched": 1785491433.0602367
+    },
+    {
       "id": "18057749477552225",
       "text": "matching sets: a life hack for people who can't be bothered to think, or just lazy styling?",
       "posted_at": 1784913317.0456517,
@@ -989,16 +999,6 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787379234.052711
-    },
-    {
-      "id": "17933264388362928",
-      "text": "you don\u2019t actually like the trend.\n\nyou just like the lifestyle the person wearing it is selling you.",
-      "posted_at": 1787382269.9150167,
-      "views": null,
-      "replies": null,
-      "likes": null,
-      "reposts": null,
-      "last_fetched": null
     }
   ]
 }
