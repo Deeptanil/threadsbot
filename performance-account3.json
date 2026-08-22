@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18079763363669232",
-      "text": "we just scrapped an entire production run because the collar sat a millimeter too high.\n\nmost people wouldn't notice, but i would have.",
-      "posted_at": 1784826167.6745608,
-      "views": 10,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785430349.7913346
-    },
-    {
       "id": "17921781294402533",
       "text": "having a wardrobe full of clothes but absolutely nothing you want to put on.\n\nwe all know that feeling.",
       "posted_at": 1784877296.7585707,
@@ -988,17 +978,27 @@
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1787413860.2477348
+      "last_fetched": 1787417650.410691
     },
     {
       "id": "18126975112666710",
       "text": "most people buy clothing that fits the version of themselves they want to be, not the one they actually are.",
       "posted_at": 1787400105.9061403,
-      "views": 72,
+      "views": 73,
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1787413860.2477348
+      "last_fetched": 1787417650.410691
+    },
+    {
+      "id": "18083585174657919",
+      "text": "there is nothing more annoying than a shirt collar that loses its shape before you even finish lunch.",
+      "posted_at": 1787417665.6454406,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
