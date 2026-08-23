@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18606106378051034",
-      "text": "ironing a t-shirt before leaving the house.\n\nessential ritual or total waste of time?",
-      "posted_at": 1784897372.5850081,
-      "views": 3,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785500464.6873627
-    },
-    {
       "id": "18242937187308382",
       "text": "the nightmare of finding a perfect pant waist only to realize the inseam is built for a giant.",
       "posted_at": 1784919938.6442149,
@@ -998,7 +988,17 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1787465756.6074865
+      "last_fetched": 1787470908.7189896
+    },
+    {
+      "id": "18153277882519568",
+      "text": "black sneakers or white sneakers. \n\nyou can only keep one for the rest of the year.",
+      "posted_at": 1787470923.1131709,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
