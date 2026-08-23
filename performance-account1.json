@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18101601095125502",
-      "text": "using an umbrella in the sun is a top tier move. stop judging me.",
-      "posted_at": 1786062976.2224228,
-      "views": 284,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1786665880.1387138
-    },
-    {
       "id": "18012019535932445",
       "text": "if you film yourself at the gym, you\u2019re not training, you\u2019re just a background actor in your own movie.",
       "posted_at": 1786073935.3184354,
@@ -994,11 +984,21 @@
       "id": "18077319812709061",
       "text": "the audacity of an airplane mode icon to look like a plane when it\u2019s just my inability to deal with humans.",
       "posted_at": 1787473297.6018727,
-      "views": 473,
+      "views": 477,
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1787479936.5199594
+      "last_fetched": 1787483700.066854
+    },
+    {
+      "id": "17897492574373696",
+      "text": "i have 40 tabs open and i\u2019m pretty sure my brain is slowing down.",
+      "posted_at": 1787483719.5757737,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
