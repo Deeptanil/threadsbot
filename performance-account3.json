@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17874072831624485",
-      "text": "that one hoodie you wore on a flight three years ago that still feels better than anything brand new.",
-      "posted_at": 1784953996.9858499,
-      "views": 59,
-      "replies": 0,
-      "likes": 1,
-      "reposts": 0,
-      "last_fetched": 1785541579.9879363
-    },
-    {
       "id": "18082538333663887",
       "text": "most people buy accessories to stand out.\n\nthe reality is, they usually just create noise.",
       "posted_at": 1784976085.8360252,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787507483.285378
+    },
+    {
+      "id": "18135288832621533",
+      "text": "we spent three hours trying to convince ourselves to add an interior chest pocket. \n\nremoved it. nobody actually keeps anything in there.",
+      "posted_at": 1787508073.4334998,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
