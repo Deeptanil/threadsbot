@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18117205519860020",
-      "text": "if you spend ten minutes staring at your closet only to wear the exact same thing as yesterday, we\u2019re the same person.",
-      "posted_at": 1785169866.4616628,
-      "views": 8,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785773461.1230264
-    },
-    {
       "id": "18129226777728087",
       "text": "everyone claims to love thrifting but most of us just hate paying retail. let\u2019s be real.",
       "posted_at": 1785213084.9909408,
@@ -999,6 +989,16 @@
       "likes": 1,
       "reposts": 0,
       "last_fetched": 1787594450.5855525
+    },
+    {
+      "id": "17872029876633773",
+      "text": "you\u2019re either a \u2018one signature scent\u2019 person or someone who changes their perfume based on the outfit.\n\nwhich side are you on?",
+      "posted_at": 1787597644.9974124,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
