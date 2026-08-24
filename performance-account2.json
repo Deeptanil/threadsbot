@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17899133883472914",
-      "text": "you\u2019re either a 'wear it once' person or a 'wear the same hoodie for five years' person. there is no in-between.",
-      "posted_at": 1785152796.8807948,
-      "views": 54,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785754788.2108307
-    },
-    {
       "id": "18117205519860020",
       "text": "if you spend ten minutes staring at your closet only to wear the exact same thing as yesterday, we\u2019re the same person.",
       "posted_at": 1785169866.4616628,
@@ -999,6 +989,16 @@
       "likes": 2,
       "reposts": 0,
       "last_fetched": 1787577954.2236414
+    },
+    {
+      "id": "18122347561853023",
+      "text": "staring at a closet full of clothes and feeling like you have nothing to wear is a form of psychological warfare.",
+      "posted_at": 1787581275.258432,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
