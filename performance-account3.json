@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18115895131937715",
-      "text": "spent two hours today just matching thread colors to fabric swatches. \n\nno one else is going to notice the difference, but I can't let it slide.",
-      "posted_at": 1785153641.2513888,
-      "views": 53,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785757741.572725
-    },
-    {
       "id": "18098528516216530",
       "text": "black or white base layers. \n\nyou can only choose one for your entire wardrobe.",
       "posted_at": 1785177770.133563,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787673198.1718621
+    },
+    {
+      "id": "18173475826382473",
+      "text": "spent four hours testing three different thread gauges for a basic cuff.\n\nstill not sure the difference is visible to anyone but me.",
+      "posted_at": 1787674855.828969,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
