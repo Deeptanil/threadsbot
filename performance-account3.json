@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18111874382481297",
-      "text": "the guy at the coffee shop wearing an outfit that looks completely effortless but clearly cost more than his car. \n\nthat's the peak.",
-      "posted_at": 1785128173.4096706,
-      "views": 27,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785732217.9284823
-    },
-    {
       "id": "18115895131937715",
       "text": "spent two hours today just matching thread colors to fabric swatches. \n\nno one else is going to notice the difference, but I can't let it slide.",
       "posted_at": 1785153641.2513888,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787655242.3902452
+    },
+    {
+      "id": "18177384712425054",
+      "text": "that moment you realize your favorite piece has started to pill.\n\ndo you retire it or embrace the texture?",
+      "posted_at": 1787658510.5799847,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
