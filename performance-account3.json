@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "17930546970127981",
-      "text": "the guys who wear a structured blazer to a casual dinner versus the ones who stay in a hoodie. \n\none is trying, the other gave up.",
-      "posted_at": 1785212387.7991278,
-      "views": 13,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1785796151.5035746
-    },
-    {
       "id": "17954973540193644",
       "text": "why is the hardware on a premium garment always the first thing to fail? \n\nit makes no sense.",
       "posted_at": 1785230909.2378366,
@@ -999,6 +989,16 @@
       "likes": 0,
       "reposts": 0,
       "last_fetched": 1787731403.435377
+    },
+    {
+      "id": "18376601884236111",
+      "text": "most guys buy gear for the activity they plan on doing. \n\nstop buying for the hobby and start buying for the reality of your day.",
+      "posted_at": 1787734557.816555,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
