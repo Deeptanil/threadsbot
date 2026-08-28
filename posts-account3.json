@@ -1,4 +1,25 @@
 {
-    "t": 1787714909.7217522,
-    "posts": []
+    "t": 1787920892.6116543,
+    "posts": [
+        {
+            "post": "we finally decided against labels.\n\nevery time we mock up a logo, it just feels like shouting for no reason.",
+            "predicted_reach": 90,
+            "is_promo": false
+        },
+        {
+            "post": "nothing worse than buying a high-end shirt and the tag makes you itch for eight hours straight.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "most guys act like the zipper is the most important part of a jacket.\n\nit\u2019s never the zipper.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "waking up, putting on the same pants you wore yesterday, and not thinking twice about it.\n\nthat\u2019s the sweet spot.",
+            "predicted_reach": 80,
+            "is_promo": false
+        }
+    ]
 }
