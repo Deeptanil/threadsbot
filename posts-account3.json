@@ -1,4 +1,25 @@
 {
-    "t": 1787920892.6116543,
-    "posts": []
+    "t": 1788092333.1520226,
+    "posts": [
+        {
+            "post": "do you tuck in your tee, or are you strictly an untucked person? \n\nit changes the entire silhouette.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "nothing worse than a collar that loses its structure after two washes. \n\nit\u2019s the first thing people notice, even if they don't realize it.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "the best piece of clothing you own is the one you don't notice you're wearing.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "we considered adding a hidden drawstring to the waist of our new trousers. \n\nit felt like over-engineering, so we scrapped it.",
+            "predicted_reach": 78,
+            "is_promo": false
+        }
+    ]
 }
