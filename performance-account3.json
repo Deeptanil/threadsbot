@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18192945223350230",
-      "text": "walking into a room and being the only person who didn't feel the need to broadcast a brand name across their chest.",
-      "posted_at": 1786102059.237282,
-      "views": 275,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1786703247.5979736
-    },
-    {
       "id": "18135197518613240",
       "text": "most guys replace a piece the second it shows a little wear.\n\nthe best clothing hasn't even hit its stride until the third year.",
       "posted_at": 1786127220.1379907,
@@ -818,7 +808,7 @@
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17882752197653400",
@@ -828,7 +818,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18622073353056159",
@@ -838,7 +828,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17886206325615602",
@@ -848,7 +838,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17899130526594989",
@@ -858,7 +848,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17927334087162855",
@@ -868,7 +858,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18126490207763370",
@@ -878,7 +868,7 @@
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17992832289040791",
@@ -888,7 +878,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17932216269387950",
@@ -898,7 +888,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17921712624200525",
@@ -908,7 +898,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18072711401460803",
@@ -918,7 +908,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17981694566891776",
@@ -928,7 +918,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18098417846575451",
@@ -938,7 +928,7 @@
       "replies": 3,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "17905133496486288",
@@ -948,7 +938,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18368559553244023",
@@ -958,7 +948,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18123094774845187",
@@ -968,7 +958,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18089163836195342",
@@ -978,7 +968,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18121797286850848",
@@ -988,12 +978,22 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1788760692.577569
+      "last_fetched": 1788783546.2347255
     },
     {
       "id": "18103310606614824",
       "text": "the guy at the dinner party who refuses to take his sunglasses off, even inside.\n\nit\u2019s never as cool as you think it is.",
       "posted_at": 1788760720.24318,
+      "views": 43,
+      "replies": 0,
+      "likes": 0,
+      "reposts": 0,
+      "last_fetched": 1788783546.2347255
+    },
+    {
+      "id": "18225804502330203",
+      "text": "does a clean fit matter if you\u2019re still checking your reflection in every window you pass?",
+      "posted_at": 1788783575.5659614,
       "views": null,
       "replies": null,
       "likes": null,
