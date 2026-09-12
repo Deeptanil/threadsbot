@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18195776494378600",
-      "text": "the guy who wears boots in 35-degree heat because they look right. \n\nis he committed or just uncomfortable?",
-      "posted_at": 1786416577.3160853,
-      "views": 64,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1787020989.1517944
-    },
-    {
       "id": "18384576127167866",
       "text": "we finally stopped doing pre-orders. \n\nwaiting six weeks for a t-shirt is a flex for nobody. just ship the thing.",
       "posted_at": 1786440885.887888,
@@ -848,7 +838,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18121797286850848",
@@ -858,7 +848,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18103310606614824",
@@ -868,7 +858,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18225804502330203",
@@ -878,7 +868,7 @@
       "replies": 0,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18123972226636625",
@@ -888,7 +878,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18077746670345655",
@@ -898,7 +888,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18215294239350221",
@@ -908,7 +898,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18035978625462940",
@@ -918,7 +908,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18047406728606515",
@@ -928,7 +918,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18630704158025630",
@@ -938,7 +928,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18175858594450026",
@@ -948,7 +938,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "17984348727114191",
@@ -958,7 +948,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18134223703632339",
@@ -968,7 +958,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18086799917244952",
@@ -978,7 +968,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "17883645267622365",
@@ -988,7 +978,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
     },
     {
       "id": "18092667119397942",
@@ -998,7 +988,17 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1789228487.8389442
+      "last_fetched": 1789235743.0172124
+    },
+    {
+      "id": "17955092997246316",
+      "text": "the guy who insists on matching his belt to his shoes. \n\nis this still a rule we care about?",
+      "posted_at": 1789235778.7545698,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
