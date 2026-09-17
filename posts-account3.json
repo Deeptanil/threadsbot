@@ -1,4 +1,25 @@
 {
-    "t": 1789523177.6260114,
-    "posts": []
+    "t": 1789657546.8247077,
+    "posts": [
+        {
+            "post": "the guy who dry cleans his raw denim vs the guy who hasn't washed his in a year.\n\nwho is actually getting it right?",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "getting out of bed on a Sunday, throwing on a worn-in sweatshirt, and not seeing a single person all day.\n\nthat's peak clothing performance.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "there is no greater fashion disaster than a dress shirt collar that loses its shape under a light sweater.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "we finally got the dye batch perfect on the charcoal shade.\n\nthree factories told us it wasn't possible. they were wrong.",
+            "predicted_reach": 78,
+            "is_promo": false
+        }
+    ]
 }
