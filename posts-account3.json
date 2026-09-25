@@ -1,4 +1,25 @@
 {
-    "t": 1790200228.4088142,
-    "posts": []
+    "t": 1790362675.0104187,
+    "posts": [
+        {
+            "post": "the best-dressed person in the room is usually the one who hasn't looked at a trend report in years.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "buying a garment because it looks good in a photo vs. how it actually moves during a commute.\n\nmost people only dress for the camera.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "we chose a slightly denser cotton for the new restock. \n\nit makes the piece feel like it\u2019s actually made of something. \n\npeople either love the weight or they hate it.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "that one hoodie you\u2019ve had for six years that\u2019s finally starting to thin out at the elbows.\n\nthrow it away or keep it forever?",
+            "predicted_reach": 82,
+            "is_promo": false
+        }
+    ]
 }
