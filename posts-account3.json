@@ -1,4 +1,25 @@
 {
-    "t": 1790780471.9063556,
-    "posts": []
+    "t": 1790945379.8372567,
+    "posts": [
+        {
+            "post": "the guy who gets a haircut and immediately hates it for a week vs the guy who walks out ready for anything.\n\nthere is no in-between.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "most people buy shoes for the aesthetic.\n\nif you can\u2019t walk five miles in them comfortably, they\u2019re just expensive paperweights for your closet.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "we experimented with a raw hem on a prototype today.\n\nit looks unfinished. i think that might be exactly why i like it.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "that feeling when you find a piece you love, buy it in every available color, and never shop for that item again.\n\nthat's peak efficiency.",
+            "predicted_reach": 82,
+            "is_promo": false
+        }
+    ]
 }
