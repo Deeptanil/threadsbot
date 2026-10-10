@@ -1,4 +1,25 @@
 {
-    "t": 1791451963.5571432,
-    "posts": []
+    "t": 1791622726.127514,
+    "posts": [
+        {
+            "post": "the most overrated item in menswear is the tailored blazer.\n\nmost guys look like they\u2019re wearing a costume, not an outfit.",
+            "predicted_reach": 92,
+            "is_promo": false
+        },
+        {
+            "post": "the guy who buys sneakers solely for the gym vs the guy who wears them until the soles dissolve.\n\nwhich one are you.",
+            "predicted_reach": 88,
+            "is_promo": false
+        },
+        {
+            "post": "spending half an hour staring at a closet full of clothes and choosing the same grey tee you wore on tuesday.\n\nwe aren't as creative as we pretend to be.",
+            "predicted_reach": 85,
+            "is_promo": false
+        },
+        {
+            "post": "we removed the neck label on the new collection. it took longer to source a heat-press machine than to design the shirt.\n\nitchy necks are a design failure.",
+            "predicted_reach": 82,
+            "is_promo": false
+        }
+    ]
 }
