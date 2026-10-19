@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18149702581530675",
-      "text": "the guy who insists on buttoning the bottom button of his blazer.\n\nwe need to talk.",
-      "posted_at": 1789369242.3659387,
-      "views": 172,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1789968181.772664
-    },
-    {
       "id": "18179782483425265",
       "text": "you\u2019re going on a weekend trip.\n\none bag only.\n\ndo you pack for comfort or to look the part?",
       "posted_at": 1789394079.2110772,
@@ -828,7 +818,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18069234662759285",
@@ -838,7 +828,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18133774171579830",
@@ -848,7 +838,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18105306557111357",
@@ -858,7 +848,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "17912466120545158",
@@ -868,7 +858,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "17973209151147792",
@@ -878,7 +868,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18179517244433736",
@@ -888,7 +878,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "17978724263921178",
@@ -898,7 +888,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18073443518773009",
@@ -908,7 +898,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18106984610259088",
@@ -918,7 +908,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18092661050679225",
@@ -928,7 +918,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18099398435372528",
@@ -938,7 +928,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18178438354433540",
@@ -948,7 +938,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18014214080985776",
@@ -958,7 +948,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18067291007784788",
@@ -968,7 +958,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18075223673567983",
@@ -978,7 +968,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "18096150947438226",
@@ -988,12 +978,22 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792389778.7184725
+      "last_fetched": 1792414607.1627045
     },
     {
       "id": "17991024456058802",
       "text": "tried to simplify our production process this month. \n\nended up adding three extra steps just to make the hem sit perfectly flat. i don't think i'll ever learn.",
       "posted_at": 1792389806.5243392,
+      "views": 271,
+      "replies": 0,
+      "likes": 0,
+      "reposts": 0,
+      "last_fetched": 1792414607.1627045
+    },
+    {
+      "id": "18139852585550899",
+      "text": "zippers vs. buttons on a jacket. \n\nyou can only choose one for the rest of your life.",
+      "posted_at": 1792414642.1024067,
       "views": null,
       "replies": null,
       "likes": null,
