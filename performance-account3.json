@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18353328931221795",
-      "text": "there is no greater fashion disaster than a dress shirt collar that loses its shape under a light sweater.",
-      "posted_at": 1789751435.6118422,
-      "views": 32,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1790347564.4277933
-    },
-    {
       "id": "18088386035222334",
       "text": "we finally got the dye batch perfect on the charcoal shade.\n\nthree factories told us it wasn't possible. they were wrong.",
       "posted_at": 1789781603.47308,
@@ -818,7 +808,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18014214080985776",
@@ -828,7 +818,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18067291007784788",
@@ -838,7 +828,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18075223673567983",
@@ -848,7 +838,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18096150947438226",
@@ -858,7 +848,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "17991024456058802",
@@ -868,7 +858,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18139852585550899",
@@ -878,7 +868,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "17990252061074489",
@@ -888,7 +878,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "17927606757424249",
@@ -898,7 +888,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18132899806775857",
@@ -908,7 +898,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18479316244117428",
@@ -918,7 +908,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18211343098363924",
@@ -928,7 +918,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "17882761152628277",
@@ -938,7 +928,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18117044324518479",
@@ -948,7 +938,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "17872796205642177",
@@ -958,7 +948,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "17904528591667973",
@@ -968,7 +958,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18090840995235810",
@@ -978,7 +968,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "17896791714420843",
@@ -988,17 +978,27 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
     },
     {
       "id": "18132665011689748",
       "text": "why does every laundry detergent smell like a synthetic forest or a chemical ocean?\n\ni just want my clothes to smell like nothing.",
       "posted_at": 1792750335.171478,
-      "views": 430,
-      "replies": 1,
+      "views": 440,
+      "replies": 2,
       "likes": 1,
       "reposts": 0,
-      "last_fetched": 1792768286.2390928
+      "last_fetched": 1792783214.3820522
+    },
+    {
+      "id": "17883629865529689",
+      "text": "the most expensive piece in your closet is usually the one you wear the least.\n\nwe all have that one mistake hanging there.",
+      "posted_at": 1792783250.890246,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
