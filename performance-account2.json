@@ -1,16 +1,6 @@
 {
   "posts": [
     {
-      "id": "18434912491180618",
-      "text": "if you actually wear everything in your closet, you\u2019re either lying or you\u2019re a minimalist who needs more chaos.",
-      "posted_at": 1790560644.0980587,
-      "views": 59,
-      "replies": 0,
-      "likes": 0,
-      "reposts": 0,
-      "last_fetched": 1791161270.6044414
-    },
-    {
       "id": "18628697548018753",
       "text": "taking your shoes off at someone\u2019s house and realizing your socks don\u2019t match your vibe is a specific kind of internal panic.",
       "posted_at": 1790584653.8286777,
@@ -828,7 +818,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18194404537396852",
@@ -838,7 +828,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18080239568402866",
@@ -848,7 +838,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18105930701258012",
@@ -858,7 +848,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18177225175451407",
@@ -868,7 +858,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18076740035478336",
@@ -878,7 +868,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18356918245222601",
@@ -888,7 +878,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "17914442553288000",
@@ -898,7 +888,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18125439376930350",
@@ -908,7 +898,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "17962987845228818",
@@ -918,7 +908,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18031646040089214",
@@ -928,7 +918,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "17952212160056228",
@@ -938,7 +928,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18126430018910043",
@@ -948,7 +938,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "17910624885574024",
@@ -958,7 +948,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18108828263198877",
@@ -968,7 +958,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18107912621211202",
@@ -978,7 +968,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "18124832873305089",
@@ -988,7 +978,7 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
     },
     {
       "id": "17914765884506963",
@@ -998,7 +988,17 @@
       "replies": 0,
       "likes": 0,
       "reposts": 0,
-      "last_fetched": 1793496429.1824775
+      "last_fetched": 1793520205.967003
+    },
+    {
+      "id": "18202351336385344",
+      "text": "if you can\u2019t get ready in under ten minutes, your closet is the problem, not your time management.",
+      "posted_at": 1793520235.4828544,
+      "views": null,
+      "replies": null,
+      "likes": null,
+      "reposts": null,
+      "last_fetched": null
     }
   ]
 }
